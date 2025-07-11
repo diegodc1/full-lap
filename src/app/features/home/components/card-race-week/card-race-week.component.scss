@@ -1,0 +1,121 @@
+@use 'colors' as *;
+@use 'variables' as *;
+
+.container-card {
+    display: grid;
+    grid-template-columns: 1fr 0.35fr;
+    max-height: 18rem;
+    text-decoration: none;
+
+    background-color: $secondary-color;
+    border-radius: $default_border_radius;
+    
+    transition: linear all 0.2s;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.02);
+    }
+
+    .card-box-left  {
+        padding: 2rem 2rem 3rem 2rem;
+
+        .card-box-date {
+            max-height: 7rem;
+
+            .mini-card__box {
+                background: #00D1FC;
+                background: linear-gradient(90deg,rgba(0, 209, 252, 1) 19%, rgba(0, 183, 220, 1) 56%, rgba(0, 150, 181, 1) 94%);
+                border-radius: $default_border_radius;
+                padding: 0.6rem 1.4rem 0.5rem 1.4rem;
+                gap: 0 !important;
+
+                .mini-card__day {
+                    font-size: 2rem;
+                    font-weight: 900;
+                    line-height: 2rem;
+                }
+
+                .mini-card__month {
+                    font-size: 1.2rem;
+                    font-weight: 900;
+                    line-height: 1.5rem;
+                }
+
+                .mini-card__week-day {
+                    font-size: 1rem;
+                    font-weight: 300;
+                    line-height: 1.4rem;
+                }
+            }
+            
+        }
+
+       
+
+
+        .card-box-main {
+            gap: 0.3rem;
+            .card-main__race {
+                font-size: 1.1rem;
+                font-weight: 700;
+            }
+
+            .card-main__circuit {
+                font-size: 1rem;
+                font-weight: 300;
+            }
+
+            .card-main__time {
+                font-size: 1rem;
+                font-weight: 300; 
+            }
+        }
+    }
+
+
+    .card-box-right {
+        position: relative;
+        height: 100%;
+       max-height: 18rem;
+    
+
+        .cover-image {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+background: #1E2837;
+background: linear-gradient(90deg, rgba(30, 40, 55, 1) 6%, rgba(32, 42, 56, 0.8) 45%, rgba(46, 54, 66, 0.4) 100%, rgba(48, 56, 67, 0.36) 100%);
+        }
+
+        #card-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 0 $default_border_radius $default_border_radius 0;
+            object-fit: cover;
+        }
+    }
+
+    .card-footer {
+        position: absolute;
+        bottom: 0;
+        padding: 0.7rem 0;
+
+        .line {
+            // border: 2px solid $text-secondary-color;
+            width: 5%;
+            height: 1px;
+            background-color: $text-secondary-color;
+            border-radius: 20px;
+        }
+
+
+        a {
+            color: $text-secondary-color;
+            font-weight: 200;
+            font-size: 0.8rem;
+            text-decoration: none;
+            margin: 0;
+        }
+    }
+}
+

@@ -1,0 +1,50 @@
+@use 'colors' as *;
+@use 'variables' as *;
+
+.box-input-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $secondary-color;
+    border-radius: $default_border_radius;  
+    padding: 0.5rem 1rem;
+    color: $text-primary-color;
+    font-weight: lighter !important;
+    gap: 0.5rem;
+    width: 100%;
+
+
+    #input-search {
+        background-color: $secondary-color;
+        outline: none;
+        font-weight: 300;
+        font-size: 0.9rem;
+    }
+}
+
+.divider-box {
+    padding: 0.7rem 0;
+    border-radius: $default_border_radius;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $secondary-color;
+    }
+
+    .line {
+        // border: 2px solid $text-secondary-color;
+        width: 15%;
+        height: 1px;
+        background-color: $text-secondary-color;
+        border-radius: 20px;
+    }
+
+
+    a {
+        color: $text-secondary-color;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        margin: 0;
+    }
+}

@@ -1,0 +1,33 @@
+<a class="container-card w-100 justify-content-between position-relative" href="/">
+    <div class="card-box-left d-flex flex-column w-100 h-100 gap-3">
+        <div class="card-header">
+            <h3 id="card-title">{{cardTitle}}</h3>
+        </div>
+        <div class="card-body d-flex gap-md-5">
+            <div class="card-box-date d-flex align-items-top justify-content-center">
+                <div class="mini-card__box d-flex flex-column align-items-center justify-content-center">
+                    <span class="mini-card__day">{{cardRaceDay}}</span>
+                    <span class="mini-card__month">{{cardRaceMonth}}</span>
+                    <span class="mini-card__week-day">{{cardRaceWeekDay}}</span>
+                </div>
+            </div>
+
+            <div class="card-box-main d-flex flex-column g-5">
+                <span class="card-main__race">{{cardRaceName}}</span>
+                <span class="card-main__circuit">{{cardCircuit}}</span>
+                <span class="card-main__time">{{cardTime}} (Horário de Brasília)</span>
+            </div>
+        </div>
+    </div>
+
+     <div class="card-box-right w-100 h-100">
+        <div class="cover-image"></div>
+        <img id="card-image"  [src]="'assets/categories/' + cardImagePath" alt="">
+    </div>
+
+    <div class="card-footer d-flex align-items-center w-100 justify-content-center gap-2">
+        <span class="line"></span>
+        <a class="card-footer__details">Ver Detalhes</a>
+        <span class="line"></span>
+    </div>
+</a>

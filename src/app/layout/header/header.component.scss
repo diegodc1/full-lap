@@ -1,0 +1,32 @@
+@use 'colors.scss' as *;
+@use 'variables' as *;
+
+#container-header {
+    background-color: $secondary-color;
+    padding: 0.7rem 2rem;
+    margin-bottom: 4rem;
+
+    span {
+        font-size: 1.5rem;
+        font-weight: 900;
+    }
+
+    img {
+        width: 10rem;
+        height: 2rem;
+    }   
+}
+
+.box-menu-items {
+    a {
+        color: $text-primary-color;
+        padding: 1rem 1.5rem;
+        border-radius: $default_border_radius;
+        text-decoration: none;
+    }
+
+
+    a:hover {
+        background-color: $base-color;
+    }
+}
