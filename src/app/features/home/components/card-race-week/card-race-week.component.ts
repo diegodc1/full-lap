@@ -1,13 +1,15 @@
 import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-card-race-week',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './card-race-week.component.html',
   styleUrl: './card-race-week.component.scss'
 })
 export class CardRaceWeekComponent {
+  @Input({alias: 'cardRaceId',      required: true}) cardRaceId = "0";
   @Input({alias: 'cardTitle',       required: true}) cardTitle = ''
   @Input({alias: 'cardRaceName',    required: true}) cardRaceName = ''
   @Input({alias: 'cardCircuit',     required: true}) cardCircuit = ''
