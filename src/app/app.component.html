@@ -17,41 +17,44 @@
         </div>
       </div>
 
-      <app-card-race-week
-        cardTitle="Formula 1"
-        cardTime="18:30"
-        cardRaceDay="30"
-        cardRaceMonth="JUL"
-        cardRaceWeekDay="Sábado"
-        cardImagePath="formula1/ferrari.jpg"
-        cardRaceName="GP da Grã-Bretanha"
-        cardCircuit="Autódromo de Silverstone - Inglaterra">
-      </app-card-race-week>
+      <div class="main-week-races d-flex flex-column gap-4">
+        <app-card-race-week
+          cardTitle="Formula 1"
+          cardTime="18:30"
+          cardRaceDay="30"
+          cardRaceMonth="JUL"
+          cardRaceWeekDay="Sábado"
+          cardImagePath="formula1/ferrari.jpg"
+          cardRaceName="GP da Grã-Bretanha"
+          cardCircuit="Autódromo de Silverstone - Inglaterra">
+        </app-card-race-week>
 
-      <app-card-race-week
-        cardTitle="Formula 1"
-        cardTime="18:30"
-        cardRaceDay="30"
-        cardRaceMonth="JUL"
-        cardRaceWeekDay="Sábado"
-        cardImagePath="formula1/ferrari.jpg"
-        cardRaceName="GP da Grã-Bretanha"
-        cardCircuit="Autódromo de Silverstone - Inglaterra">
-      </app-card-race-week>
+        <app-card-race-week
+          cardTitle="Formula 1"
+          cardTime="18:30"
+          cardRaceDay="30"
+          cardRaceMonth="JUL"
+          cardRaceWeekDay="Sábado"
+          cardImagePath="formula1/ferrari.jpg"
+          cardRaceName="GP da Grã-Bretanha"
+          cardCircuit="Autódromo de Silverstone - Inglaterra">
+        </app-card-race-week>
 
-      <app-card-race-week
-        cardTitle="Stock Car"
-        cardTime="13:30"
-        cardRaceDay="31"
-        cardRaceMonth="JUL"
-        cardRaceWeekDay="Domingo"
-        cardImagePath="stock-car/stock-car-1.jpg"
-        cardRaceName="Etapa de Cascavel"
-        cardCircuit="Autódromo Internacional de Cascavel - Brasil">
-      </app-card-race-week>
+        <app-card-race-week
+          cardTitle="Stock Car"
+          cardTime="13:30"
+          cardRaceDay="31"
+          cardRaceMonth="JUL"
+          cardRaceWeekDay="Domingo"
+          cardImagePath="stock-car/stock-car-1.jpg"
+          cardRaceName="Etapa de Cascavel"
+          cardCircuit="Autódromo Internacional de Cascavel - Brasil">
+        </app-card-race-week>
+      </div>
     </div>
 
-    <div class="divider-box d-flex align-items-center w-100 justify-content-center gap-2 mt-4">
+
+    <div class="divider-box w-75 d-flex align-items-center w-100 justify-content-center gap-2 mt-4">
       <span class="line"></span>
       <a class="card-footer__details">Ver todas as corridas</a>
       <span class="line"></span>
@@ -63,6 +66,17 @@
         <div class="box-title d-flex flex-column">
           <h1 class="m-0">Categorias</h1>
           <span class="fw-lighter">Acompanhe as principais categorias do mundo</span>
+        </div>
+      </div>
+      <div class="main-categories">
+        <app-card-category cardCategoryName="Fórmula 1" cardCategoryImagePath="formula1/ferrari-2.jpg" cardHref="/"></app-card-category>
+        <app-card-category cardCategoryName="Stock Car" cardCategoryImagePath="stock-car/stock-car-1.jpg"></app-card-category>
+        <app-card-category cardCategoryName="Fórmula Indy" cardCategoryImagePath="formula-indy/formula-indy-1.jpg"></app-card-category>
+        <app-card-category cardCategoryName="Porsche Cup" cardCategoryImagePath="porsche-cup/porsche-cup-nao-usar.jpg"></app-card-category>
+        <app-card-category cardCategoryName="Fórmula 1" cardCategoryImagePath="formula1/ferrari.jpg"></app-card-category>
+        <div class="card-more-category-container d-flex flex-column gap-1 align-items-center justify-content-center">
+            <span class="material-symbols-rounded card-icon">arrow_circle_right</span>
+            <span class="card-more-category-title">Ver todas as categorias</span>
         </div>
       </div>
     </div>
