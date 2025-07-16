@@ -1,31 +1,113 @@
-<div class="d-flex w-100">
-    <div class="race-infos-container">
-        <div class="race-details-box">
-            <span>Fórmula 1</span>
-            <h1>Grande Prêmio de São Paulo</h1>
+<div class="d-flex w-100 flex-column gap-5">
+    <div class="race-container">
 
-            <div class="local-date-box">
-                <div class="d-flex gap-1">
-                    <span class="material-symbols-rounded">calendar_month</span>      
-                    <div class="d-flex flex-column gap-2">
-                        <span>Data</span>
+        <div class="race-wrapper d-flex flex-column">
+            <div class="race-wrapper__header d-flex flex-column gap-1">
+                <span class="race-wrapper__category">Fórmula 1</span>
+                <h1 class="race-wrapper__title">Grande Prêmio de São Paulo</h1>
+            </div>
+
+            <div class="race-date-wrapper d-flex gap-5">
+                <div class="race-date-wrapper__box">
+                    <span class="race-date-wrapper__icon material-symbols-rounded">calendar_month</span>      
+                    <div class="race-date-wrapper__details d-flex flex-column">
+                        <span class="race-date-wrapper__title">Data</span>
                         <span>14 a 16 de Novembro, 2025</span>
                     </div>
                 </div>
-                <div class="d-flex gap-1">
-                    <span class="material-symbols-rounded">location_on</span>      
-                    <div class="d-flex flex-column gap-2">
-                        <span>Local</span>
+                <div class="race-date-wrapper__box">
+                    <span class="race-date-wrapper__icon material-symbols-rounded">location_on</span>      
+                    <div class="race-date-wrapper__details d-flex flex-column">
+                        <span class="race-date-wrapper__title">Local</span>
                         <span>São Paulo, Brasil</span>
                     </div>
                 </div>
             </div>
 
-            <div class="watch-box d-flex gap-2">
-                <app-card-watch watchTitle="BandSports" watchIcon="live_tv" watchColor="#EE6F17"></app-card-watch>
-                <app-card-watch watchTitle="Grande Prêmio" watchIcon="live_tv" watchColor="#b93530"></app-card-watch>
+            <div class="race-watch-wrapper d-flex flex-column gap-1">
+                <h4 class="race-watch-wrapper__title">Onde Assistir</h4>
+                <div class="race-watch-wrapper__content d-flex gap-2">
+                    <app-card-watch watchTitle="BandSports" watchIcon="live_tv" watchColor="#EE6F17"></app-card-watch>
+                    <app-card-watch watchTitle="Grande Prêmio" watchIcon="live_tv" watchColor="#b93530"></app-card-watch>
+                </div>
             </div>
         </div>
-        <div class="race-circuit-box"></div>
+
+
+        <div class="circuit">
+            <div class="circuit-wrapper">
+                <span class="circuit-wrapper__title">Autódromo Internacional de Interlagos</span>
+                <img class="circuit-wrapper__image" src="assets/circuits/brasil/interlagos.png"/>
+            </div>
+            <div class="circuit-details d-flex flex-column gap-3">
+                <span class="circuit-details__title">Informações do Circuito</span>
+                <div class="circuit-details__wrapper d-flex w-100 justify-content-between">
+                    <div class="circuit-content">
+                        <div class="circuit-content__info">71</div>
+                        <div class="circuit-content__title">Voltas</div>
+                    </div>
+                    <div class="circuit-content">
+                        <div class="circuit-content__info">4.309km</div>
+                        <div class="circuit-content__title">Comprimento</div>
+                    </div>
+                    <div class="circuit-content">
+                        <div class="circuit-content__info">1940</div>
+                        <div class="circuit-content__title">Ano Inauguração</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="schedule">
+        <div class="schedule__header">
+            <h2 class="schedule__title">Programação Completa <span class="schedule__subtitle">(Horário de Brasília)</span></h2>
+            <div class="schedule__divider"></div>
+        </div>
+
+        <div class="schedule__content">
+            <div class="schedule-wrapper">
+                <h4 class="schedule-wrapper__day-title">Sexta Feira, 14 de Novembro</h4>
+
+                <div class="schedule-content">
+                    <div class="schedule-content__card">
+                        <span class="schedule-content__title">Treino Livre 1</span>
+                        <span class="schedule-content__time">12:30</span>
+                    </div>
+
+                    <div class="schedule-content__card">
+                        <span class="schedule-content__title">Treino Livre 2</span>
+                        <span class="schedule-content__time">16:30</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="schedule-wrapper">
+                <h4 class="schedule-wrapper__day-title">Sexta Feira, 15 de Novembro</h4>
+
+                <div class="schedule-content">
+                    <div class="schedule-content__card">
+                        <span class="schedule-content__title">Treino Livre 3</span>
+                        <span class="schedule-content__time">12:30</span>
+                    </div>
+
+                    <div class="schedule-content__card">
+                        <span class="schedule-content__title">Classificação</span>
+                        <span class="schedule-content__time">10:30</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="schedule-wrapper">
+                <h4 class="schedule-wrapper__day-title">Sexta Feira, 16 de Novembro</h4>
+
+                <div class="schedule-content">
+                    <div class="schedule-content__card">
+                        <span class="schedule-content__title">Corrida</span>
+                        <span class="schedule-content__time">12:30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div> 
