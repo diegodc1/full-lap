@@ -11,5 +11,10 @@ export const routes: Routes = [
     path: 'race/:id',
     loadComponent: () =>
       import('./features/race/race.component').then(m => m.RaceComponent)
+  },
+  {
+    path: 'calendar',
+    loadComponent: () =>
+      import('./features/calendar/calendar.component').then(m => m.CalendarComponent)
   }
 ];

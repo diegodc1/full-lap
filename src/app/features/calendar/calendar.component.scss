@@ -1,0 +1,99 @@
+@use 'variables' as *;
+@use 'colors' as *;
+
+:host ::ng-deep .fc {
+  background-color: #1E2837;
+  color: #FFFFFF;
+  padding: 2rem;
+  border-radius: $default_border_radius;
+}
+
+:host ::ng-deep .fc-toolbar-title {
+  color: #FFFFFF;
+}
+
+:host ::ng-deep .fc-daygrid-day-number {
+  color: #FFFFFF; 
+}
+
+:host ::ng-deep .fc-scrollgrid {
+  border-color: #2E3B4F; 
+}
+
+:host ::ng-deep .fc-scrollgrid td, 
+:host ::ng-deep .fc-scrollgrid th {
+  border-color: #2E3B4F; 
+}
+
+::ng-deep .fc-button {
+    background: none !important;
+}
+
+::ng-deep .fc-day {
+    border: 2px solid #343a46 !important;
+}
+
+::ng-deep .fc-event {
+    width: 15px;
+    border-radius: 99px;
+    height: 15px;
+}
+
+::ng-deep .fc-col-header-cell  {
+    border-bottom: 1px solid #2E3B4F; 
+
+    &.fc-day {
+        border: none !important 
+    }
+
+    .fc-col-header-cell-cushion {
+        text-transform: uppercase !important;
+        text-decoration: none !important;
+        color: $aux-color-secondary;
+    }
+}
+
+::ng-deep .fc-daygrid-day-frame {
+    padding: 0.5rem;
+
+    .fc-daygrid-day-events {
+        display: flex;
+        gap: 0.2rem;
+    }
+
+    .fc-daygrid-day-top {
+        flex-direction: row;
+    }
+
+    .fc-daygrid-day-number {
+        text-decoration: none !important;
+        font-size: 1.1rem;
+        font-weight: $fw_bold;
+    }
+}
+
+
+.calendar {
+    &__title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: $fw_bold;
+    }
+}
+
+.legend {
+    background-color: $secondary-color;
+    padding-top: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: $default_border_radius $default_border_radius 0 0;
+
+    .legend__dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+}
+
+
