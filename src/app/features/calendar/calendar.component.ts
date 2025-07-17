@@ -8,8 +8,10 @@ import 'tippy.js/dist/tippy.css';
 import { TimelineModule } from 'primeng/timeline';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface Evento {
+  id: number;
   titulo: string;
   categoria: string;
   local: string;
@@ -29,7 +31,7 @@ interface Circuit {
 
 @Component({
   selector: 'app-calendar',
-  imports: [FullCalendarModule, TimelineModule, CardModule, CommonModule],
+  imports: [FullCalendarModule, TimelineModule, CardModule, CommonModule, RouterModule],
   standalone: true,
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss'
@@ -42,6 +44,7 @@ eventosPorPeriodo: Periodo[] = [
     intervalo: '04-06 de Julho',
     eventos: [
       {
+        id: 0,
         titulo: 'GP da Grã-Bretanha',
         categoria: 'F1',
         local: 'Silverstone',
@@ -52,6 +55,7 @@ eventosPorPeriodo: Periodo[] = [
         }
       },
       {
+        id: 0,
         titulo: '6 Horas de Monza',
         categoria: 'WEC',
         local: 'Monza',
@@ -62,6 +66,7 @@ eventosPorPeriodo: Periodo[] = [
         }
       },
       {
+        id: 0,
         titulo: 'Etapa de Cascavel',
         categoria: 'Nascar Brasil',
         local: 'Cascavel',
@@ -77,6 +82,7 @@ eventosPorPeriodo: Periodo[] = [
     intervalo: '25-27 de Julho',
     eventos: [
       {
+        id: 0,
         titulo: 'Etapa do Veloccita',
         categoria: 'Porsche Cup',
         local: 'Velocitta',
@@ -92,6 +98,7 @@ eventosPorPeriodo: Periodo[] = [
     intervalo: '14-15 de Julho',
     eventos: [
       {
+        id: 0,
         titulo: 'Etapa Interlagos',
         categoria: 'Nascar Brasil',
         local: 'Interlagos',
