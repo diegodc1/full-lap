@@ -5,7 +5,7 @@
   background-color: #1E2837;
   color: #FFFFFF;
   padding: 2rem;
-  border-radius: $default_border_radius;
+  border-radius: 0 0  $default_border_radius $default_border_radius;
 }
 
 :host ::ng-deep .fc-toolbar-title {
@@ -96,4 +96,108 @@
     }
 }
 
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+     &__title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: $fw_bold;
+    }
+
+    &__card {
+        background-color: $secondary-color !important;
+    }
+
+    &__events-group {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        width: 100%;
+        padding-top: 2.3rem;
+    }
+}
+
+.timeline-card {
+    display: grid;
+    grid-template-columns: 1fr 5fr 0.4fr;
+    background-color: $secondary-color;
+    border-radius: $default_border_radius;
+    cursor: pointer;
+    text-decoration: none;
+
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        border-radius: $default_border_radius 0 0 $default_border_radius
+    }
+
+    &__text-box {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    &__title {
+        font-size: 1.1rem;
+        font-weight: $fw_bold;
+    }
+
+    &__subtitle {
+        font-size: 0.9rem;
+        font-weight: $fw_light;
+
+        &-bold {
+            font-weight: $fw_extra_bold;
+            color: $aux-color-primary;
+        }
+    }
+
+    &__icon {
+        span {
+            color: #2E3B4F;
+        }
+    }
+}
+
+:host ::ng-deep {
+    .custom-marker {
+        width: 10rem;
+        text-align: center;
+        margin-bottom: 5px;
+        font-size: 1.3rem;
+        color: $aux-color-secondary;
+        font-weight: $fw_bold;
+    }
+
+    .p-timeline-left .p-timeline-event {
+        grid-template-columns: auto 1fr; 
+        column-gap: 2rem; 
+    }
+
+    .p-timeline-event-opposite {
+        display: none;
+    }
+}
+
+:host ::ng-deep {
+    .p-timeline-event-connector {
+        background-color: #2E3B4F; 
+        width: 2px !important; 
+    }
+
+    .p-timeline-left .p-timeline-event {
+        grid-template-columns: auto 1fr; 
+        column-gap: 2rem;
+    }
+
+    .p-timeline-event-opposite {
+        display: none;
+    }
+}
 
