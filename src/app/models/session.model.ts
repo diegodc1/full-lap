@@ -19,3 +19,14 @@ export interface SessionRequest {
   sessionType: string;
   eventId: string;
 }
+
+export interface SessionRes {
+  id: string;
+  name: string;
+  description: string;
+  datetime: string;
+  transmission: Transmission;
+  sessionType: string;
+  eventId: string
+}
+

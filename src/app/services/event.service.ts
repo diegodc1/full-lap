@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RaceEvent, RaceEventRequest } from '../models/event.model';
+import { RaceEvent, RaceEventRequest, RaceWeekEventRes } from '../models/event.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,10 @@ export class EventService {
 
   getEventById(id: string): Observable<RaceEvent> {
     return this.http.get<RaceEvent>(`${this.apiUrl}/${id}`);
+  }
+
+  getEventOfWeekByDate(dateInitial: string, dateFinal: string): Observable<RaceWeekEventRes[]> {
+    return this.http.get<RaceWeekEventRes[]>(`${this.apiUrl}/week/${dateInitial}/${dateFinal}?details=false`);
   }
 
   createEvent(event: RaceEventRequest): Observable<RaceEvent> {

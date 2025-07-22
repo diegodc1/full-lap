@@ -6,7 +6,7 @@
       <div class="header-week-races d-flex justify-content-between">
         <div class="box-title d-flex flex-column">
           <h1 class="m-0">Corridas desta Semana</h1>
-          <span class="fw-lighter">As principais corridas que acontecem de 03 a 09 de Julho de 2025</span>
+          <span class="fw-lighter">As principais corridas que acontecem de {{weekDateInit}} a {{weekDateFinal}} de {{weekDateMonth}} de 2025</span>
         </div>
         <div class="box-search d-flex align-items-end">
           <div class="box-input-search">
@@ -16,42 +16,18 @@
         </div>
       </div>
 
-      <div class="main-week-races d-flex flex-column gap-4">
-        <app-card-race-week
-          cardTitle="Formula 1"
-          cardTime="18:30"
-          cardRaceDay="30"
-          cardRaceMonth="JUL"
-          cardRaceWeekDay="Sábado"
-          cardImagePath="formula1/ferrari.jpg"
-          cardRaceName="GP da Grã-Bretanha"
-          cardCircuit="Autódromo de Silverstone - Inglaterra"
-          cardRaceId=0>
-        </app-card-race-week>
-
-        <app-card-race-week
-          cardTitle="Formula 1"
-          cardTime="18:30"
-          cardRaceDay="30"
-          cardRaceMonth="JUL"
-          cardRaceWeekDay="Sábado"
-          cardImagePath="formula1/ferrari.jpg"
-          cardRaceName="GP da Grã-Bretanha"
-          cardCircuit="Autódromo de Silverstone - Inglaterra"
-          cardRaceId=0>
-        </app-card-race-week>
-
-        <app-card-race-week
-          cardTitle="Stock Car"
-          cardTime="13:30"
-          cardRaceDay="31"
-          cardRaceMonth="JUL"
-          cardRaceWeekDay="Domingo"
-          cardImagePath="stock-car/stock-car-1.jpg"
-          cardRaceName="Etapa de Cascavel"
-          cardCircuit="Autódromo Internacional de Cascavel - Brasil"
-          cardRaceId=0>
-        </app-card-race-week>
+      <div class="main-week-races d-flex flex-column gap-4" >
+        <app-card-race-week *ngFor="let event of listEventsOfWeek"
+          [cardTitle]="event.category.name"
+          [cardTime]="formatTime(getRaceSessionTime(event))"
+          [cardRaceDay]="formatDateInfo(getRaceSessionTime(event), 'day')"
+          [cardRaceMonth]="formatDateInfo(getRaceSessionTime(event), 'month')"
+          [cardRaceWeekDay]="formatDateInfo(getRaceSessionTime(event), 'weekday')"
+          [cardImagePath]="event.category.categoryShort"
+          [cardRaceName]="event.name"
+          [cardCircuit]="event.circuitName + ' - ' + event.country"
+          cardRaceId="0"
+        ></app-card-race-week>
       </div>
     </div>
 

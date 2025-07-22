@@ -1,6 +1,7 @@
 import { Category } from "./category.model";
 import { Circuit } from "./circuit.model";
 import { Season } from "./season.model";
+import { Session } from "./session.model";
 import { Transmission } from "./transmission.model";
 
 export interface RaceEvent {
@@ -28,4 +29,19 @@ export interface RaceEventRequest {
   categoryId: string;
   circuitId: string;
   transmissionId: string
+}
+
+export interface RaceWeekEventRes {
+  id: string;
+  name: string;
+  description: string;
+  dateInitial: Date;
+  dateFinal: Date;
+  city: string;
+  country: string;
+  seasonName: string;
+  category: Category;
+  circuitName: string;
+  circuitDescription: string;
+  session: Session[]
 }

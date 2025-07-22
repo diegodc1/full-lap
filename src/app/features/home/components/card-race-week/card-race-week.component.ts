@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -17,5 +17,31 @@ export class CardRaceWeekComponent {
   @Input({alias: 'cardRaceDay',     required: true}) cardRaceDay = ''
   @Input({alias: 'cardRaceMonth',   required: true}) cardRaceMonth = ''
   @Input({alias: 'cardRaceWeekDay', required: true}) cardRaceWeekDay = ''
-  @Input({alias: 'cardImagePath',   required: true}) cardImagePath = ''
+  @Input({alias: 'cardImagePath',   required: true}) cardImageCategory = ''
+
+  imagePath: string = '';
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['cardImageCategory']) {
+      this.setImagePath();
+    }
+  }
+
+  private setImagePath() {
+    console.log(this.cardImageCategory)
+    switch (this.cardImageCategory) {
+      case 'FORMULA1':
+        this.imagePath = 'formula1/ferrari.jpg';
+        break;
+      case 'STOCK_CAR':
+        this.imagePath = 'stock-car/stock-car-1.jpg';
+        break;
+      case 'FORMULA_INDY':
+        this.imagePath = 'formula-indy/formula-indy-1.jpg';
+        break;
+      default:
+        this.imagePath = 'default.jpg';
+        break;
+    }
+  }
 }
