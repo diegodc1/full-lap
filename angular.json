@@ -34,10 +34,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/styles/colors.scss",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeicons/primeicons.css"
+              "src/styles/colors.scss"
             ],
             "scripts": [],
             "stylePreprocessorOptions": {
