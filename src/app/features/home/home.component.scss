@@ -22,6 +22,9 @@
     }
 }
 
+::ng-deep .p-progressspinner-circle {
+  stroke: $aux-color-primary !important;
+}
 
 .main-week-races {
     max-height: 80vh;

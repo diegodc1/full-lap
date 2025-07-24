@@ -12,6 +12,10 @@
     }
 }
 
+::ng-deep .p-progressspinner-circle {
+  stroke: $aux-color-primary !important;
+}
+
 .race-container {
     display: grid;
     grid-template-columns: 3fr 1.5fr;

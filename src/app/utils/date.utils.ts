@@ -1,6 +1,6 @@
 export function formatDateInfo(
   date: string,
-  type: 'day' | 'month' | 'monthLong' | 'weekday'
+  type: 'day' | 'month' | 'monthLong' | 'weekday' | 'year'
 ): string {
   const d = new Date(date);
 
@@ -8,6 +8,7 @@ export function formatDateInfo(
   const monthShort = d.toLocaleString('pt-BR', { month: 'short' }).toUpperCase();
   const monthLong = d.toLocaleString('pt-BR', { month: 'long' }).toUpperCase();
   const weekday = d.toLocaleString('pt-BR', { weekday: 'long' });
+  const year = d.getFullYear().toString();
 
   switch (type) {
     case 'day':
@@ -18,6 +19,8 @@ export function formatDateInfo(
       return monthLong;
     case 'weekday':
       return weekday.charAt(0).toUpperCase() + weekday.slice(1);
+    case 'year':
+      return year;
     default:
       return '';
   }

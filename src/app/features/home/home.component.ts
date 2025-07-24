@@ -6,11 +6,12 @@ import { EventService } from '../../services/event.service';
 import { CommonModule } from '@angular/common';
 import { Session, SessionRes } from '../../models/session.model';
 import { formatDateInfo, formatTime } from '../../utils/date.utils';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardCategoryComponent, CardRaceWeekComponent, CommonModule],
+  imports: [CardCategoryComponent, CardRaceWeekComponent, CommonModule, ProgressSpinnerModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
