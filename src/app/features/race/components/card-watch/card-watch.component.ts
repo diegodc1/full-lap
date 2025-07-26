@@ -11,4 +11,5 @@ export class CardWatchComponent {
   @Input('watchIcon') watchIcon = "live_tv";
   @Input({alias: 'watchTitle', required: true}) watchTitle = "";
   @Input({alias: 'watchColor', required: true}) watchColor = "";
+  @Input({alias: 'url', required: true}) url = "";
 }

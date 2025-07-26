@@ -8,6 +8,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { formatDateInfo, formatTime } from '../../utils/date.utils';
 import { SessionRes } from '../../models/session.model';
 import { SessionService } from '../../services/session.service';
+import { Transmission } from '../../models/transmission.model';
 
 @Component({
   selector: 'app-race',
@@ -22,6 +23,8 @@ export class RaceComponent implements OnInit {
   listSessions: SessionRes[] | undefined;
   mapSession: Map<string, SessionRes[]> = new Map();
   mapSessionArray: { date: string, sessions: SessionRes[] }[] = [];
+  mapTransmission: Map<string, Transmission> = new Map();
+  mapTransmissionArray: { name: string, transmission: Transmission }[] = [];
 
   eventDayInitial: string = '';
   eventDayFinal: string = '';
@@ -66,6 +69,7 @@ export class RaceComponent implements OnInit {
         next: (value) => {
           this.listSessions = value;
           this.createMapDateSession(this.listSessions)
+          this.createMapTransmissions(this.listSessions);
         },
         error: (err) => {
           console.error("Erro ao busca lista de sessões  a corrida", err)
@@ -98,6 +102,24 @@ export class RaceComponent implements OnInit {
         sessions
       }))
       .sort((a, b) => new Date(a.iso).getTime() - new Date(b.iso).getTime());
+  }
+
+  createMapTransmissions(sessions: SessionRes[]) {
+    const transmissionMap = new Map<string, Transmission>();
+
+    sessions.forEach(session => {
+      session.transmissions.forEach(transmission => {
+        if (!transmissionMap.has(transmission.name)) {
+          transmissionMap.set(transmission.name, transmission);
+        }
+      });
+    });
+
+    this.mapTransmission = transmissionMap;
+    this.mapTransmissionArray = Array.from(transmissionMap.entries()).map(([name, transmission]) => ({
+      name,
+      transmission
+    }));
   }
 
 

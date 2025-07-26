@@ -30,8 +30,7 @@
                 <div class="race-watch-wrapper d-flex flex-column gap-1">
                     <h4 class="race-watch-wrapper__title">Onde Assistir</h4>
                     <div class="race-watch-wrapper__content d-flex gap-2">
-                        <app-card-watch watchTitle="BandSports" watchIcon="live_tv" watchColor="#EE6F17"></app-card-watch>
-                        <app-card-watch watchTitle="Grande Prêmio" watchIcon="live_tv" watchColor="#b93530"></app-card-watch>
+                        <app-card-watch *ngFor="let trans of mapTransmissionArray" [watchTitle]="trans.name" watchIcon="live_tv" [url]="trans.transmission.url" [watchColor]="trans.transmission.color"></app-card-watch>
                     </div>
                 </div>
             </div>
@@ -40,7 +39,7 @@
             <div class="circuit">
                 <div class="circuit-wrapper">
                     <span class="circuit-wrapper__title">{{race?.circuit?.description}}</span>
-                    <img class="circuit-wrapper__image" src="assets/circuits/brasil/interlagos.png"/>
+                    <img class="circuit-wrapper__image" [src]="'assets' + race?.circuit?.pathImage"/>
                 </div>
                 <div class="circuit-details d-flex flex-column gap-3">
                     <span class="circuit-details__title">Informações do Circuito</span>
@@ -68,34 +67,43 @@
                 <div class="schedule__divider"></div>
             </div>
 
-            <div class="schedule__content">
-                <div class="schedule-wrapper" *ngFor="let group of mapSessionArray">
-                    <h4 class="schedule-wrapper__day-title">
-                        {{ formatDateInfo(group.sessions[0].datetime, 'weekday') }}, {{ group.date }}
-                    </h4>
+            <div *ngIf="mapSessionArray.length != 0; then sessionsContent else sessionLoading"></div>
+            <ng-template #sessionsContent>
+                <div class="schedule__content">
+                    <div class="schedule-wrapper" *ngFor="let group of mapSessionArray">
+                        <h4 class="schedule-wrapper__day-title">
+                            {{ formatDateInfo(group.sessions[0].datetime, 'weekday') }}, {{ group.date }}
+                        </h4>
 
-                    <div class="schedule-content">
-                        <div class="schedule-content__card" *ngFor="let ses of group.sessions">
-                            <div class="schedule-content__card-infos">
-                                <span class="schedule-content__title">{{ ses.name }}</span>
-                               
-                            </div>
-                            <div class="schedule-session d-flex w-100 justify-content-end">
-                                 <span class="schedule-session__time">
-                                    <span class="material-symbols-rounded">schedule</span>
-                                    {{ formatTime(ses.datetime) }}
-                                </span>
+                        <div class="schedule-content">
+                            <div class="schedule-content__card" *ngFor="let ses of group.sessions">
+                                <div class="schedule-content__card-infos">
+                                    <span class="schedule-content__title">{{ ses.name }}</span>
+                                
+                                </div>
+                                <div class="schedule-session d-flex w-100 justify-content-end">
+                                    <span class="schedule-session__time">
+                                        <span class="material-symbols-rounded">schedule</span>
+                                        {{ formatTime(ses.datetime) }}
+                                    </span>
 
-                                <div class="vertical-divider"></div>
-                                <div class="schedule-session__transmission">
-                                    <a *ngFor="let trans of ses.transmissions" [href]="trans.url" target="_blank" class="schedule-session__transmission-item">{{trans.name}}</a>
+                                    <div class="vertical-divider"></div>
+                                    <div class="schedule-session__transmission">
+                                        <a *ngFor="let trans of ses.transmissions" [href]="trans.url" target="_blank" class="schedule-session__transmission-item">{{trans.name}}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </ng-template>
+            <ng-template #sessionLoading>
+                <div class="w-100 d-flex align-items-center justify-content-center">
+                    <p-progress-spinner strokeWidth="8" styleClass="custom-spinner" color="#00B7DC" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px', color: '#00B7DC'}" />
+                </div>
+            </ng-template>
         </div>
+        
     </ng-template>
     <ng-template #msgBlock>
         <div class="w-100 d-flex align-items-center justify-content-center">
