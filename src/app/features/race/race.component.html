@@ -69,46 +69,28 @@
             </div>
 
             <div class="schedule__content">
-                
-                <div class="schedule-wrapper">
-                    <h4 class="schedule-wrapper__day-title">Sexta Feira, 14 de Novembro</h4>
+                <div class="schedule-wrapper" *ngFor="let group of mapSessionArray">
+                    <h4 class="schedule-wrapper__day-title">
+                        {{ formatDateInfo(group.sessions[0].datetime, 'weekday') }}, {{ group.date }}
+                    </h4>
 
                     <div class="schedule-content">
-                        <div class="schedule-content__card">
-                            <span class="schedule-content__title">Treino Livre 1</span>
-                            <span class="schedule-content__time">12:30</span>
-                        </div>
+                        <div class="schedule-content__card" *ngFor="let ses of group.sessions">
+                            <div class="schedule-content__card-infos">
+                                <span class="schedule-content__title">{{ ses.name }}</span>
+                               
+                            </div>
+                            <div class="schedule-session d-flex w-100 justify-content-end">
+                                 <span class="schedule-session__time">
+                                    <span class="material-symbols-rounded">schedule</span>
+                                    {{ formatTime(ses.datetime) }}
+                                </span>
 
-                        <div class="schedule-content__card">
-                            <span class="schedule-content__title">Treino Livre 2</span>
-                            <span class="schedule-content__time">16:30</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="schedule-wrapper">
-                    <h4 class="schedule-wrapper__day-title">Sexta Feira, 15 de Novembro</h4>
-
-                    <div class="schedule-content">
-                        <div class="schedule-content__card">
-                            <span class="schedule-content__title">Treino Livre 3</span>
-                            <span class="schedule-content__time">12:30</span>
-                        </div>
-
-                        <div class="schedule-content__card">
-                            <span class="schedule-content__title">Classificação</span>
-                            <span class="schedule-content__time">10:30</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="schedule-wrapper">
-                    <h4 class="schedule-wrapper__day-title">Sexta Feira, 16 de Novembro</h4>
-
-                    <div class="schedule-content">
-                        <div class="schedule-content__card">
-                            <span class="schedule-content__title">Corrida</span>
-                            <span class="schedule-content__time">12:30</span>
+                                <div class="vertical-divider"></div>
+                                <div class="schedule-session__transmission">
+                                    <a *ngFor="let trans of ses.transmissions" [href]="trans.url" target="_blank" class="schedule-session__transmission-item">{{trans.name}}</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

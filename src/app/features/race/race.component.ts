@@ -6,6 +6,8 @@ import { RaceEvent } from '../../models/event.model';
 import { EventService } from '../../services/event.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { formatDateInfo, formatTime } from '../../utils/date.utils';
+import { SessionRes } from '../../models/session.model';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-race',
@@ -17,17 +19,22 @@ import { formatDateInfo, formatTime } from '../../utils/date.utils';
 export class RaceComponent implements OnInit {
   id = '';
   race: RaceEvent | undefined;
-  formatDateInfo = formatDateInfo;
-  formatTime = formatTime;
+  listSessions: SessionRes[] | undefined;
+  mapSession: Map<string, SessionRes[]> = new Map();
+  mapSessionArray: { date: string, sessions: SessionRes[] }[] = [];
 
   eventDayInitial: string = '';
   eventDayFinal: string = '';
   eventMonth: string = '';
   eventYear: string = '';
 
+  formatDateInfo = formatDateInfo;
+  formatTime = formatTime;
+
   constructor(
     private route: ActivatedRoute,
-    private eventService: EventService
+    private eventService: EventService,
+    private sessionService: SessionService
   ) {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') ?? '';
@@ -36,6 +43,7 @@ export class RaceComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadRaceData();
+    this.loadSessions();
   }
 
   loadRaceData() {
@@ -51,6 +59,45 @@ export class RaceComponent implements OnInit {
         console.error("Não foi possível buscar os dados da corrida")
       } 
     })
+  }
+
+  loadSessions() {
+    this.sessionService.getAllSessionsByEventId(this.id).subscribe({
+        next: (value) => {
+          this.listSessions = value;
+          this.createMapDateSession(this.listSessions)
+        },
+        error: (err) => {
+          console.error("Erro ao busca lista de sessões  a corrida", err)
+        }
+    })
+  }
+
+  createMapDateSession(sessions: SessionRes[]) {
+    const tempMap = new Map<string, { iso: string, sessions: SessionRes[] }>();
+
+    sessions.forEach(ses => {
+      const key = formatDateInfo(ses.datetime, 'full');
+      const isoDate = ses.datetime.split('T')[0];
+      const entry = tempMap.get(key);
+
+      if (entry) {
+        entry.sessions.push(ses);
+      } else {
+        tempMap.set(key, {
+          iso: isoDate,
+          sessions: [ses]
+        });
+      }
+    });
+
+    this.mapSessionArray = Array.from(tempMap.entries())
+      .map(([date, { iso, sessions }]) => ({
+        date,
+        iso,
+        sessions
+      }))
+      .sort((a, b) => new Date(a.iso).getTime() - new Date(b.iso).getTime());
   }
 
 

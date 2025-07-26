@@ -25,8 +25,10 @@ export interface SessionRes {
   name: string;
   description: string;
   datetime: string;
-  transmission: Transmission;
+  transmissions: Transmission[];
   sessionType: string;
+  categoryName: string;
   eventId: string
 }
+
 

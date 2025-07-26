@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Session, SessionRequest } from '../models/session.model';
+import { Session, SessionRequest, SessionRes } from '../models/session.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,10 @@ constructor(private http: HttpClient) { }
 
   getSessionById(id: string): Observable<Session> {
     return this.http.get<Session>(`${this.apiUrl}/${id}`);
+  }
+
+  getAllSessionsByEventId(id: string): Observable<SessionRes[]> {
+    return this.http.get<SessionRes[]>(`${this.apiUrl}/event/${id}`);
   }
 
   createSession(event: SessionRequest): Observable<Session> {

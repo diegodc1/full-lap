@@ -15,7 +15,6 @@ export interface RaceEvent {
   season?: Season;
   category?: Category;
   circuit?: Circuit;
-  transmission?: Transmission
 }
 
 export interface RaceEventRequest {
