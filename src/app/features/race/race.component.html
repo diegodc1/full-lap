@@ -29,8 +29,11 @@
 
                 <div class="race-watch-wrapper d-flex flex-column gap-1">
                     <h4 class="race-watch-wrapper__title">Onde Assistir</h4>
-                    <div class="race-watch-wrapper__content d-flex gap-2">
-                        <app-card-watch *ngFor="let trans of mapTransmissionArray" [watchTitle]="trans.name" watchIcon="live_tv" [url]="trans.transmission.url" [watchColor]="trans.transmission.color"></app-card-watch>
+                    <div class="race-watch-wrapper__content d-flex gap-2" *ngIf="mapTransmissionArray.length > 0">
+                        <app-card-watch *ngFor="let trans of mapTransmissionArray" [watchTitle]="trans.name" [type]="trans.transmission.platformType" [url]="trans.transmission.url" [watchColor]="trans.transmission.color"></app-card-watch>
+                    </div>
+                     <div class="text-start" *ngIf="mapTransmissionArray.length === 0">
+                        Nenhuma transmissão encontrada para esta corrida.
                     </div>
                 </div>
             </div>
@@ -45,7 +48,7 @@
                     <span class="circuit-details__title">Informações do Circuito</span>
                     <div class="circuit-details__wrapper d-flex w-100 justify-content-between">
                         <div class="circuit-content">
-                            <div class="circuit-content__info">???</div>
+                            <div class="circuit-content__info">???</div> <!-- TODO -->
                             <div class="circuit-content__title">Voltas</div>
                         </div>
                         <div class="circuit-content">
@@ -103,7 +106,7 @@
                 </div>
             </ng-template>
         </div>
-        
+
     </ng-template>
     <ng-template #msgBlock>
         <div class="w-100 d-flex align-items-center justify-content-center">

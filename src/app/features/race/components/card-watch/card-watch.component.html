@@ -1,4 +1,11 @@
-<a class="card-watch d-flex gap-2" [style.background-color]="watchColor" [href]="url" target="_blank">
-    <span class="material-symbols-rounded">{{watchIcon}}</span>
+<a class="card-watch d-flex gap-2"
+   [style.background-color]="watchColor"
+   [href]="isDisabled ? 'javascript:void(0)' : url"
+   [attr.aria-disabled]="isDisabled"
+   [class.disabled]="isDisabled"
+   [attr.target]="isDisabled ? null : '_blank'"
+   (click)="handleClick($event)"
+   >
+    <span class="material-symbols-rounded">{{icon}}</span>
     <span>{{watchTitle}}</span>
 </a>

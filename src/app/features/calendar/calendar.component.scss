@@ -79,6 +79,14 @@
         margin-bottom: 1.5rem;
         font-weight: $fw_bold;
     }
+
+    &__table-container {
+        background-color: $secondary-color;
+        width: 100%;
+        // display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .legend {

@@ -31,4 +31,13 @@ export interface SessionRes {
   eventId: string
 }
 
-
+export interface SessionCalendar {
+  id: string;
+  name: string;
+  description: string;
+  datetime: string;
+  sessionType: string;
+  categoryName: string;
+  eventName: string
+  categoryColor: string;
+}

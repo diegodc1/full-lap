@@ -16,7 +16,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  listEventsOfWeek: RaceWeekEventRes[] = []
+  listEventsOfWeek: RaceWeekEventRes[] = [];
   weekDateInit: string = '';
   weekDateFinal: string = '';
   weekDateMonth: string = '';
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   formatDateInfo = formatDateInfo;
   formatTime = formatTime;
 
-  
+  isLoading: boolean = true;
 
   constructor(
     private eventsService: EventService
@@ -52,9 +52,11 @@ export class HomeComponent implements OnInit {
     this.eventsService.getEventOfWeekByDate(dateInitialStr, dateFinalStr).subscribe({
       next: (value) => {
         this.listEventsOfWeek = value;
+        this.isLoading = false;
       },
       error: (err) => {
         console.log("Não foi possível buscar as corridas da semana")
+        this.isLoading = false;
       }
     });
 

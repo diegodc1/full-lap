@@ -44,3 +44,23 @@ export interface RaceWeekEventRes {
   circuitDescription: string;
   session: Session[]
 }
+
+export interface EventsCalendar {
+  dateInic: Date,
+  dateFinal: Date,
+  events: EventCalendarResponse[]
+}
+
+export interface EventCalendarResponse {
+  id: string;
+  name: string;
+  description: string;
+  dateInitial: Date;
+  dateFinal: Date;
+  city: string;
+  country: string;
+  seasonName: string;
+  categoryName: string;
+  circuitName: string;
+  categoryShort: string;
+}

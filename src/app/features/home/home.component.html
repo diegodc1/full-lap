@@ -16,28 +16,29 @@
         </div>
       </div>
 
-      <div *ngIf="listEventsOfWeek.length > 0; then weekBlock else msgBlock"></div>
-      <ng-template #weekBlock>
-        <div class="main-week-races d-flex flex-column gap-4" >
-          <app-card-race-week *ngFor="let event of listEventsOfWeek"
-            [cardTitle]="event.category.name"
-            [cardTime]="formatTime(getRaceSessionTime(event))"
-            [cardRaceDay]="formatDateInfo(getRaceSessionTime(event), 'day')"
-            [cardRaceMonth]="formatDateInfo(getRaceSessionTime(event), 'month')"
-            [cardRaceWeekDay]="formatDateInfo(getRaceSessionTime(event), 'weekday')"
-            [cardImagePath]="event.category.categoryShort"
-            [cardRaceName]="event.name"
-            [cardCircuit]="event.circuitName + ' - ' + event.country"
-            [cardRaceId]="event.id"
-          ></app-card-race-week>
-        </div>
-      </ng-template>
-      <ng-template #msgBlock>
-        <div class="w-100 d-flex align-items-center justify-content-center">
-            <p-progress-spinner strokeWidth="8" styleClass="custom-spinner" color="#00B7DC" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px', color: '#00B7DC'}" />
-        </div>
-      </ng-template>
+      <!-- LOADING -->
+      <div *ngIf="isLoading" class="w-100 d-flex align-items-center justify-content-center">
+        <p-progress-spinner strokeWidth="8" styleClass="custom-spinner" color="#00B7DC" fill="transparent"
+          animationDuration=".5s" [style]="{ width: '90px', height: '50px', color: '#00B7DC'}" />
+      </div>
 
+      <div *ngIf="!isLoading && listEventsOfWeek?.length === 0" class="text-center mt-4">
+        Nenhuma corrida encontrada para esta semana 😢
+      </div>
+
+      <div *ngIf="!isLoading && listEventsOfWeek.length > 0" class="main-week-races d-flex flex-column gap-4">
+        <app-card-race-week *ngFor="let event of listEventsOfWeek"
+          [cardTitle]="event.category.name"
+          [cardTime]="formatTime(getRaceSessionTime(event))"
+          [cardRaceDay]="formatDateInfo(getRaceSessionTime(event), 'day')"
+          [cardRaceMonth]="formatDateInfo(getRaceSessionTime(event), 'month')"
+          [cardRaceWeekDay]="formatDateInfo(getRaceSessionTime(event), 'weekday')"
+          [cardImagePath]="event.category.categoryShort"
+          [cardRaceName]="event.name"
+          [cardCircuit]="event.circuitName + ' - ' + event.country"
+          [cardRaceId]="event.id"
+        ></app-card-race-week>
+      </div>
     </div>
 
 
