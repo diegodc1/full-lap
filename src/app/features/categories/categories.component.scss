@@ -1,0 +1,24 @@
+@use 'colors' as *;
+@use 'variables' as *;
+
+
+::ng-deep .p-menu {
+    background-color: $secondary-color !important; 
+
+    .p-menu-item-content {
+        padding: 0.6rem 0.2rem;
+
+        &:hover {
+            background-color: $aux-color-dark !important;
+        }
+    }
+
+    .p-menu-item.p-focus .p-menu-item-content {
+        background-color: $aux-color-dark !important;
+    }
+}
+
+::ng-deep .badge-menu {
+    background-color: $aux-color-dark !important;
+    color: white !important;
+}
