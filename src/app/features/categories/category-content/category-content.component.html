@@ -1,22 +1,40 @@
-<a class="container-card w-100 justify-content-between position-relative mb-3" *ngFor="let race of raceEvents" [routerLink]="['/race', race.id]">
-    <div class="card-box-left d-flex flex-column w-100 h-100 gap-1">
-        <div class="card-body d-flex gap-md-5">
-            <div class="card-box-date d-flex align-items-top justify-content-center">
-                <div class="mini-card__box d-flex flex-column align-items-center justify-content-center">
-                    <span class="mini-card__day">{{formatDateInfo(race.dateFinal, 'day')}}</span>
-                    <span class="mini-card__month">{{formatDateInfo(race.dateFinal, 'month')}}</span>
-                    <span class="mini-card__week-day">{{formatDateInfo(race.dateFinal, 'weekday')}}</span>
+
+<div *ngIf="isLoading" class="w-100 d-flex align-items-center justify-content-center">
+    <p-progress-spinner strokeWidth="8" styleClass="custom-spinner" color="#00B7DC" fill="transparent"
+        animationDuration=".5s" [style]="{ width: '90px', height: '50px', color: '#00B7DC'}" />
+</div>
+
+
+<div *ngIf="!isLoading && raceEvents.length > 0">
+    <a  *ngFor="let race of raceEvents" class="container-card w-100 justify-content-between position-relative mb-3" [ngClass]="{ 'disabled': isFutureRace(race.dateFinal) }" [routerLink]="['/race', race.id]">
+        <div class="card-box-left d-flex flex-column w-100 h-100 gap-1">
+            <div class="card-body d-flex gap-md-5">
+                <div class="card-box-date d-flex align-items-top justify-content-center">
+                    <div class="mini-card__box d-flex flex-column align-items-center justify-content-center">
+                        <span class="mini-card__day">{{formatDateInfo(race.dateFinal, 'day')}}</span>
+                        <span class="mini-card__month">{{formatDateInfo(race.dateFinal, 'month')}}</span>
+                        <span class="mini-card__week-day">{{formatDateInfo(race.dateFinal, 'weekday')}}</span>
+                    </div>
+                </div>
+
+                <div class="card-box-main d-flex flex-column g-5">
+                    <span class="card-main__race">{{race.description}} <img class="mx-1" [src]="'https://flagcdn.com/w20/' + race.countryFlagCode + '.png'" /></span>
+                    <span class="card-main__circuit">{{race.circuit?.name}}</span>
+                    <span class="card-main__time">{{formatDateInfo(race.dateInitial, 'dayMonthLong')}} à {{formatDateInfo(race.dateFinal, 'dayMonthLong')}}</span>
                 </div>
             </div>
-
-            <div class="card-box-main d-flex flex-column g-5">
-                <span class="card-main__race">{{race.description}} <img class="card-main__img" [src]="'assets/countrys/' + formatTextCountry(race.country) + '.webp'"/></span>
-                <span class="card-main__circuit">{{race.circuit?.name}}</span>
-                <span class="card-main__time">{{formatDateInfo(race.dateInitial, 'dayMonthLong')}} à {{formatDateInfo(race.dateFinal, 'dayMonthLong')}}</span>
-            </div>
         </div>
-    </div>
-    <div class="d-flex w-100 h-100 align-items-center justify-content-center">
-        <span class="card-icon material-symbols-rounded">arrow_forward_ios</span>
-    </div>
-</a>
+        <div class="d-flex w-100 h-100 align-items-center justify-content-center">
+            <span class="card-icon material-symbols-rounded">arrow_forward_ios</span>
+        </div>
+    </a>
+</div>
+
+<div *ngIf="!isLoading && raceEvents.length === 0" class="w-100 d-flex align-items-center justify-content-center">
+    <span class="message-empty">Não há informações de corridas para esta categoria :/</span>
+</div>
+
+
+
+
+

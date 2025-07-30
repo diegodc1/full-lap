@@ -7,7 +7,7 @@
             <div class="race-wrapper d-flex flex-column">
                 <div class="race-wrapper__header d-flex flex-column gap-1">
                     <span class="race-wrapper__category">{{race?.category?.name}}</span>
-                    <h1 class="race-wrapper__title">{{race?.description}}</h1>
+                    <h1 class="race-wrapper__title">{{race?.description}} <img class="mx-2" [src]="'https://flagcdn.com/w40/' + race?.countryFlagCode + '.png'" /></h1>
                 </div>
 
                 <div class="race-date-wrapper d-flex gap-5">

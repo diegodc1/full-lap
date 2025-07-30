@@ -12,6 +12,7 @@ export interface RaceEvent {
   dateFinal: string;
   city: string;
   country: string;
+  countryFlagCode: string;
   season?: Season;
   category?: Category;
   circuit?: Circuit;
@@ -38,6 +39,7 @@ export interface RaceWeekEventRes {
   dateFinal: Date;
   city: string;
   country: string;
+  countryFlagCode: string;
   seasonName: string;
   category: Category;
   circuitName: string;

@@ -97,3 +97,8 @@
     filter: grayscale(1) brightness(0.9);  
 }
 
+.message-empty {
+    font-weight: 700;
+    color: $text-semi-dark-gray;
+    margin-top: 1rem;
+}

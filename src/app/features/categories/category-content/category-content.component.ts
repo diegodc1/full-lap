@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { formatDateInfo, formatTime } from '../../../utils/date.utils';
 import { RouterModule } from '@angular/router';
 import { SelectModule } from 'primeng/select';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-category-content',
-  imports: [CommonModule, RouterModule, SelectModule],
+  imports: [CommonModule, RouterModule, SelectModule, ProgressSpinnerModule],
   templateUrl: './category-content.component.html',
   styleUrl: './category-content.component.scss'
 })
@@ -16,8 +17,11 @@ export class CategoryContentComponent {
   @Input() categoryKey: string = '';
 
   raceEvents: RaceEvent[] = [];
+  today: Date = new Date();
+  isLoading: Boolean = true;
   formatDateInfo = formatDateInfo;
   formatTime = formatTime;
+
 
   constructor(
     private eventsService: EventService
@@ -33,10 +37,11 @@ export class CategoryContentComponent {
     this.eventsService.getAllByCategoryNameAndSeasonYear(this.categoryKey, 2025).subscribe({
       next: (value) => {
         this.raceEvents = value;
-        console.log(this.raceEvents)
+        this.isLoading = false;
       },
       error: (err) => {
         console.log("Não foi possível buscar os dados da categoria")
+        this.isLoading = false;
       }
     })
   }
@@ -44,4 +49,11 @@ export class CategoryContentComponent {
   formatTextCountry(text: string): string {
     return text.toLowerCase();
   }
+
+  isFutureRace(dateFinal: string): boolean {
+    const dateAtual = new Date();
+    let dateFinalF = new Date(dateFinal.includes('T') ? dateFinal : `${dateFinal}T12:00:00`);
+    return dateFinalF < dateAtual;
+  }
+
 }

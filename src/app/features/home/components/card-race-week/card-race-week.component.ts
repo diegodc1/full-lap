@@ -18,6 +18,7 @@ export class CardRaceWeekComponent {
   @Input({alias: 'cardRaceMonth',   required: true}) cardRaceMonth = ''
   @Input({alias: 'cardRaceWeekDay', required: true}) cardRaceWeekDay = ''
   @Input({alias: 'cardImagePath',   required: true}) cardImageCategory = ''
+  @Input({alias: 'cardCountryFlagCode',   required: true}) cardCountryFlagCode = ''
 
   imagePath: string = '';
 
@@ -38,6 +39,9 @@ export class CardRaceWeekComponent {
         break;
       case 'FORMULA_INDY':
         this.imagePath = 'formula-indy/formula-indy-1.jpg';
+        break;
+      case 'NASCAR_BRASIL':
+        this.imagePath = 'stock-car/stock-car-1.jpg';
         break;
       default:
         this.imagePath = 'default.jpg';

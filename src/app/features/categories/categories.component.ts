@@ -14,8 +14,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent {
-  selectedCategory: string = 'ALL';
+  selectedCategory: string = 'FORMULA1';
   searchText: string = '';
+  nameCategorySelected: string = '';
 
   items: string[] = [];
 
@@ -32,22 +33,26 @@ export class CategoriesComponent {
   menuItems: MenuItem[] = [ 
     {
       label: 'Fórmula 1',
+      value: 'FORMULA1',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('FORMULA1')
     },
     {
       label: 'Stock Car',
+      value: 'STOCK_CAR',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('STOCK_CAR')
     },
     {
       label: 'Nascar Brasil',
+      value: 'NASCAR_BRASIL',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('NASCAR_BRASIL'),
       tooltip: 'Em breve'
     },
     {
       label: 'Fórmula Indy',
+      value: 'FORMULA_INDY',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('FORMULA_INDY'),
       disabled: true,
@@ -56,6 +61,7 @@ export class CategoriesComponent {
     },
     {
       label: 'Fórmula Truck',
+      value: 'FORMULA_TRUCK',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('FORMULA_TRUCK'),
       disabled: true,
@@ -64,6 +70,7 @@ export class CategoriesComponent {
     },
     {
       label: 'Copa Truck',
+      value: 'COPA_TRUCK',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('COPA_TRUCK'),
       disabled: true,
@@ -72,6 +79,7 @@ export class CategoriesComponent {
     },
     {
       label: 'Porsche Cup',
+      value: 'PORSCHE_CUP',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('PORSCHE_CUP'),
       disabled: true,
@@ -80,6 +88,7 @@ export class CategoriesComponent {
     },
     {
       label: 'WEC',
+      value: 'WEC',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('WEC'),
       disabled: true,
@@ -88,6 +97,7 @@ export class CategoriesComponent {
     },
     {
       label: 'IMSA',
+      value: 'IMSA',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('IMSA'),
       disabled: true,
@@ -98,7 +108,9 @@ export class CategoriesComponent {
 
   selectCategory(category: string) {
     this.selectedCategory = category;
-    console.log("Mudou:", this.selectedCategory)
+
+    const selectedItem = this.menuItems.find(item => item['value'] === category);
+    this.nameCategorySelected = selectedItem?.label || '';
   }
 
   search(event: any) {
