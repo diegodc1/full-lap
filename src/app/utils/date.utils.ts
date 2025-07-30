@@ -1,6 +1,6 @@
 export function formatDateInfo(
   date: string,
-  type: 'day' | 'month' | 'monthLong' | 'weekday' | 'year' | 'full'
+  type: 'day' | 'month' | 'monthLong' | 'weekday' | 'year' | 'full' | 'dayMonthLong'
 ): string {
   const d = new Date(date);
 
@@ -14,6 +14,8 @@ export function formatDateInfo(
   switch (type) {
     case 'day':
       return day;
+    case 'dayMonthLong':
+      return `${day} de ${d.toLocaleString('pt-BR', { month: 'long' })}`;
     case 'month':
       return monthShort;
     case 'monthLong':

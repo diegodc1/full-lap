@@ -22,3 +22,15 @@
     background-color: $aux-color-dark !important;
     color: white !important;
 }
+
+.category-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 0 2rem;
+}
+
+.message-changes {
+    font-size: 0.8rem;
+    color: $text-semi-dark-gray;
+}

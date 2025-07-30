@@ -1,5 +1,5 @@
 <div class="card-category-container">
-    <a [href]="'{{cardHref}}'">
+    <a [routerLink]="['/categories']" [queryParams]="{ categoria: cardCategoryShortName }">
         <span class="card-category-title">{{cardCategoryName}}</span>
         <img  class="card-category-image" [src]="'assets/categories/' + cardCategoryImagePath">
         <div class="card-category-cover"></div>

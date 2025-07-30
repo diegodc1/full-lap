@@ -79,13 +79,6 @@ export class CalendarComponent implements OnInit{
     })
   }
 
-  // loadListEventsPerWeek() {
-  //   dateInic: 
-  //   dateFinal: 
-
-  //   this.eventsService.getAllEventsPerWeekByDate()
-  // }
-
   createCalendarEvents(listSessions: SessionCalendar[]) {
   
     const eventosFormatados = listSessions.map(session => ({

@@ -1,41 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule, NgModel } from '@angular/forms';
+import { CategoryContentComponent } from "./category-content/category-content.component";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
-  imports: [MenuModule],
+  standalone: true,
+  imports: [MenuModule, AutoCompleteModule, FormsModule, CategoryContentComponent, CategoryContentComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent {
+  selectedCategory: string = 'ALL';
+  searchText: string = '';
 
-  menuItems: MenuItem[] = [
-    {
-      label: 'Todas as Categorias',
-      icon: 'pi pi-circle-off',
-      url: '/'
-    },
+  items: string[] = [];
+
+  constructor(private route: ActivatedRoute) {
+    this.route.queryParamMap.subscribe(params => {
+      const categoria = params.get('categoria');
+      if (categoria) {
+        this.selectCategory(categoria);
+      }
+    });
+  }
+
+  
+  menuItems: MenuItem[] = [ 
     {
       label: 'Fórmula 1',
       icon: 'pi pi-circle-off',
-      url: '/calendar'
+      command: () => this.selectCategory('FORMULA1')
     },
     {
       label: 'Stock Car',
       icon: 'pi pi-circle-off',
-      url: '/calendar'
+      command: () => this.selectCategory('STOCK_CAR')
     },
     {
       label: 'Nascar Brasil',
       icon: 'pi pi-circle-off',
-      url: '/calendar',
+      command: () => this.selectCategory('NASCAR_BRASIL'),
       tooltip: 'Em breve'
     },
     {
       label: 'Fórmula Indy',
       icon: 'pi pi-circle-off',
-      url: '/calendar',
+      command: () => this.selectCategory('FORMULA_INDY'),
       disabled: true,
       badge: 'Em breve',
       badgeStyleClass: 'badge-menu'
@@ -43,7 +57,7 @@ export class CategoriesComponent {
     {
       label: 'Fórmula Truck',
       icon: 'pi pi-circle-off',
-      url: '/calendar',
+      command: () => this.selectCategory('FORMULA_TRUCK'),
       disabled: true,
       badge: 'Em breve',
       badgeStyleClass: 'badge-menu'
@@ -51,7 +65,7 @@ export class CategoriesComponent {
     {
       label: 'Copa Truck',
       icon: 'pi pi-circle-off',
-      url: '/calendar',
+      command: () => this.selectCategory('COPA_TRUCK'),
       disabled: true,
       badge: 'Em breve',
       badgeStyleClass: 'badge-menu'
@@ -59,7 +73,7 @@ export class CategoriesComponent {
     {
       label: 'Porsche Cup',
       icon: 'pi pi-circle-off',
-      url: '/calendar',
+      command: () => this.selectCategory('PORSCHE_CUP'),
       disabled: true,
       badge: 'Em breve',
       badgeStyleClass: 'badge-menu'
@@ -67,7 +81,7 @@ export class CategoriesComponent {
     {
       label: 'WEC',
       icon: 'pi pi-circle-off',
-      url: '/calendar',
+      command: () => this.selectCategory('WEC'),
       disabled: true,
       badge: 'Em breve',
       badgeStyleClass: 'badge-menu'
@@ -75,12 +89,25 @@ export class CategoriesComponent {
     {
       label: 'IMSA',
       icon: 'pi pi-circle-off',
-      url: '/calendar',
+      command: () => this.selectCategory('IMSA'),
       disabled: true,
       badge: 'Em breve',
       badgeStyleClass: 'badge-menu'
     },
   ]
+
+  selectCategory(category: string) {
+    this.selectedCategory = category;
+    console.log("Mudou:", this.selectedCategory)
+  }
+
+  search(event: any) {
+    const query = event.query.toLowerCase();
+    const allSuggestions = ['Fórmula 1', 'Stock Car', 'Nascar', 'Indy', 'WEC'];
+
+    this.items = allSuggestions.filter(s => s.toLowerCase().includes(query));
+  }
+
 
   
 

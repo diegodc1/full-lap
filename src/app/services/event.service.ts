@@ -28,6 +28,10 @@ export class EventService {
     return this.http.get<EventsCalendar[]>(`${this.apiUrl}/week/group/${dateInitial}/${dateFinal}`);
   }
 
+  getAllByCategoryNameAndSeasonYear(categoryName: string, seasonYear: number): Observable<RaceEvent[]> {
+    return this.http.get<RaceEvent[]>(`${this.apiUrl}/category/${categoryName}/${seasonYear}`);
+  }
+
   createEvent(event: RaceEventRequest): Observable<RaceEvent> {
     return this.http.post<RaceEvent>(this.apiUrl, event);
   }
