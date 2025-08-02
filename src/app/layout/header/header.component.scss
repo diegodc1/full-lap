@@ -30,3 +30,29 @@
         background-color: $base-color;
     }
 }
+
+
+// MEDIA QUERIES 
+@media (max-width: 767px) {
+  .container-header {
+    flex-direction: column !important;
+    gap: 1rem;
+    margin-bottom: 0.2rem !important;
+  }
+
+  .box-logo {
+    padding-top: 1rem;
+  }
+
+  .box-menu-items {
+    gap: 0.2rem !important;
+    width: 100%;
+    justify-content: space-between;
+
+    a {
+        padding: 0.5rem 0.2rem;
+    }
+  }
+
+
+}

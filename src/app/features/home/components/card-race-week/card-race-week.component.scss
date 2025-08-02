@@ -86,8 +86,8 @@
             width: 100%;
             height: 100%;
             position: absolute;
-background: #1E2837;
-background: linear-gradient(90deg, rgba(30, 40, 55, 1) 6%, rgba(32, 42, 56, 0.8) 45%, rgba(46, 54, 66, 0.4) 100%, rgba(48, 56, 67, 0.36) 100%);
+            background: #1E2837;
+            background: linear-gradient(90deg, rgba(30, 40, 55, 1) 6%, rgba(32, 42, 56, 0.8) 45%, rgba(46, 54, 66, 0.4) 100%, rgba(48, 56, 67, 0.36) 100%);
         }
 
         #card-image {
@@ -122,3 +122,91 @@ background: linear-gradient(90deg, rgba(30, 40, 55, 1) 6%, rgba(32, 42, 56, 0.8)
     }
 }
 
+
+
+// MEDIA QUERIES 
+@media (max-width: 767px) {
+    .container-card {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .card-box-left {
+        width: 100%;
+        padding: 0.8rem 1rem 1rem 1rem !important;
+    }
+
+    .card-box-right {
+        display: none;
+    }
+
+    .card-body {
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .card-box-main {
+        gap: 0rem !important;
+        width: 100%;
+
+        .card-main__race {
+            font-size: 1rem !important;
+            white-space: nowrap;           
+            overflow: hidden;              
+            text-overflow: ellipsis;       
+            display: block;                
+            max-width: 13rem;   
+        }
+
+        .card-main__circuit {
+            white-space: nowrap;           
+            overflow: hidden;              
+            text-overflow: ellipsis;       
+            display: block;                
+            max-width: 13rem;             
+        }
+
+    }
+
+    .card-box-date {
+        max-height: 4rem;
+        gap: 1rem;
+
+
+        .mini-card__box {
+            max-width: 5rem;
+            background: #00D1FC;
+            background: linear-gradient(90deg,rgba(0, 209, 252, 1) 19%, rgba(0, 183, 220, 1) 56%, rgba(0, 150, 181, 1) 94%);
+            border-radius: $default_border_radius;
+            padding: 0.2rem 0.8rem 0.1em 0.8rem !important;
+            gap: 0 !important;
+
+            .mini-card__day {
+                font-size: 1.3rem !important;
+                font-weight: 900;
+                line-height: 1.5rem;
+            }
+
+            .mini-card__month {
+                font-size: 0.8rem !important;
+                font-weight: 900;
+                line-height: 1.2rem;
+            }
+
+            .mini-card__week-day {
+                font-size: 0.8rem !important;
+                font-weight: 500 !important;
+                line-height: 1rem;
+            }
+        }
+    
+    }
+
+    .card-footer  {
+        padding: 0 0.7rem 0.7rem 0 !important;
+        position: sticky !important;
+        .line {
+            width: 12% !important;
+        }
+    }
+}
