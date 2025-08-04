@@ -12,3 +12,14 @@
         transform: scale(1.02);
     }
 }
+
+// MEDIA QUERIES
+@media (max-width: 767px) {
+  .card-watch .material-symbols-rounded {
+    font-size: 1.3rem !important;
+  }
+
+  .watch-title {
+    font-size: 0.8rem !important;
+  }
+}
