@@ -26,7 +26,7 @@ import { ButtonModule } from 'primeng/button';
 export class CategoriesComponent {
   selectedCategory: string = 'FORMULA1';
   searchText: string = '';
-  nameCategorySelected: string = '';
+  nameCategorySelected: string = 'Fórmula 1';
   visible: boolean = false;
 
   items: string[] = [];
