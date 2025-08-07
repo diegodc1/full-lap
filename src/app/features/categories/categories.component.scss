@@ -23,6 +23,10 @@
     color: white !important;
 }
 
+.title-page {
+    font-size: 1.7rem;
+}
+
 .category-container {
     display: flex;
     flex-direction: column;
@@ -30,7 +34,52 @@
     padding: 0 2rem;
 }
 
+.category-title {
+    color: $aux-color-secondary;
+    font-weight: $fw_bold;
+}
+
 .message-changes {
     font-size: 0.8rem;
     color: $text-semi-dark-gray;
+}
+
+.btn-categories-mobile {
+    display: none;
+}
+
+
+
+
+// MEDIA QUERIES 
+@media (max-width: 767px) {
+    .title-page {
+        text-align: center;
+        width: 100%;
+    }
+
+    .menu-container {
+        display: none;
+    }
+
+    .category-container {
+        margin-top: 2rem;
+        width: 100% !important;
+        padding: 0 1rem;
+    }
+
+   
+    
+    .btn-categories-mobile {
+        display: flex;
+        margin-bottom: 1rem;
+
+        ::ng-deep button.p-button {
+            background-color: $secondary-color !important;
+        }
+    }
+
+    ::ng-deep .drawer-mobile {
+        background-color: $secondary-color  !important;
+    }
 }

@@ -5,11 +5,21 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule, NgModel } from '@angular/forms';
 import { CategoryContentComponent } from "./category-content/category-content.component";
 import { ActivatedRoute } from '@angular/router';
+import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [MenuModule, AutoCompleteModule, FormsModule, CategoryContentComponent, CategoryContentComponent],
+  imports: [
+    MenuModule, 
+    AutoCompleteModule, 
+    FormsModule,
+    CategoryContentComponent, 
+    CategoryContentComponent, 
+    DrawerModule,
+    ButtonModule
+  ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
@@ -17,6 +27,7 @@ export class CategoriesComponent {
   selectedCategory: string = 'FORMULA1';
   searchText: string = '';
   nameCategorySelected: string = '';
+  visible: boolean = false;
 
   items: string[] = [];
 
@@ -111,6 +122,7 @@ export class CategoriesComponent {
 
     const selectedItem = this.menuItems.find(item => item['value'] === category);
     this.nameCategorySelected = selectedItem?.label || '';
+    this.visible = false; // menu mobile
   }
 
   search(event: any) {

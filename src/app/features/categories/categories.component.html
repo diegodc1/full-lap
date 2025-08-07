@@ -3,8 +3,10 @@
         <p-menu [model]="menuItems"  styleClass="vertical-menu" class="vertical-menu"/>
     </div>
     <div class="category-container w-75">
-        <div class="d-flex flex-column gap-2">
-            <h1>{{nameCategorySelected}}</h1>
+        <div class="d-flex flex-column gap-2 w-100">
+            <h1 class="title-page">Categorias</h1>
+            <p-button class="btn-categories-mobile w-100 align-items-center justify-content-center" (click)="visible = true" label="Selecionar categoria" icon="pi pi-chevron-circle-down"/>
+            <h1 class="category-title">{{nameCategorySelected}}</h1>
             <span>Acompanhe todo o calendário da {{nameCategorySelected}} - 2025</span>
             <span class="message-changes">*Datas, horários e locais sujeitos a alterações</span>
             <!-- <p-autocomplete [(ngModel)]="searchText" [suggestions]="items" (completeMethod)="search($event)" /> -->
@@ -13,4 +15,11 @@
             <app-category-content [categoryKey]="selectedCategory"></app-category-content>
         </div>
     </div>
+
+    <p-drawer header="Selecionar categoria" [(visible)]="visible" position="full" class="drawer-mobile" styleClass="drawer-mobile">
+        <p>
+            <p-menu [model]="menuItems"  styleClass="vertical-menu" class="vertical-menu"/>
+        </p>
+    </p-drawer>
+
 </div>

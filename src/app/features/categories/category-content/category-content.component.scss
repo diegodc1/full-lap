@@ -102,3 +102,67 @@
     color: $text-semi-dark-gray;
     margin-top: 1rem;
 }
+
+
+
+// MEDIA QUERIES 
+@media (max-width: 767px) {
+    .container-card {
+
+        .card-box-left {
+            padding-right: 0 !important;
+        }
+    }
+
+    .card-body {
+        gap: 1rem;
+        align-items: center !important;
+    }
+
+
+    .mini-card__box {
+        padding: 0.5rem 1rem 0.5rem 0.8rem !important;
+        gap: 0 !important;
+        max-width: 5.5rem;
+        text-align: center;
+
+        .mini-card__day {
+            font-size: 1.3rem !important;
+            font-weight: 900;
+            line-height: 1.5rem;
+        }
+
+        .mini-card__month {
+            font-size: 0.8rem !important;
+            font-weight: 900;
+            line-height: 1.2rem;
+        }
+
+        .mini-card__week-day {
+            font-size: 0.7rem !important;
+            font-weight: 500;
+            line-height: 1rem;
+            white-space: nowrap;           
+            overflow: hidden;              
+            text-overflow: ellipsis;       
+            display: block;                
+            max-width: 3rem;   
+        }
+    }
+
+    .card-main__circuit {
+        white-space: nowrap;           
+        overflow: hidden;              
+        text-overflow: ellipsis;       
+        display: block;                
+        max-width: 10rem; 
+    }
+
+    .card-main__time {
+        white-space: nowrap;           
+        overflow: hidden;              
+        text-overflow: ellipsis;       
+        display: block;                
+        max-width: 11rem; 
+    }
+}
