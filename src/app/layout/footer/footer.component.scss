@@ -1,0 +1,17 @@
+@use 'colors' as *;
+@use 'variables' as *;
+
+.container-footer {
+    height: 20vh;
+    width: 100vw;
+    max-width: 0;
+    background-color: $secondary-color;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.logo {
+    height: 4rem;
+    width: 12rem;
+}
