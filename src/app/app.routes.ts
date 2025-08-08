@@ -24,5 +24,11 @@ export const routes: Routes = [
     path: 'categories',
     loadComponent: () =>
       import('./features/categories/categories.component').then(m => m.CategoriesComponent)
+  },
+
+  {
+    path: 'all-races',
+    loadComponent: () =>
+      import('./features/all-races/all-races.component').then(m => m.AllRacesComponent)
   }
 ];

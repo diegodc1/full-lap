@@ -1,0 +1,52 @@
+<div class="d-flex w-100 flex-column align-items-center">
+  <div class="container-main w-100 align-items-center pb-5 d-flex flex-column gap-2">
+
+    <div class="container-week-races w-100 d-flex flex-column gap-4 mt-4">
+      <div class="header-week-races d-flex justify-content-between">
+        <div class="box-title d-flex flex-column">
+          <h1 class="m-0">Todas as Corridas da Semana</h1>
+          <span class="fw-lighter">As principais corridas que acontecem de {{weekDateInit}} a {{weekDateFinal}} de {{weekDateMonth}} de 2025</span>
+        </div>
+        <div class="box-search d-flex align-items-end">
+          <div class="box-input-search">
+            <span class="material-symbols-rounded fw-lighter">search</span>
+            <input id="input-search" placeholder="Buscar Categoria" type="text" (input)="searchRaces($event)"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOADING -->
+      <div *ngIf="isLoading" class="w-100 d-flex align-items-center justify-content-center">
+        <p-progress-spinner strokeWidth="8" styleClass="custom-spinner" color="#00B7DC" fill="transparent"
+          animationDuration=".5s" [style]="{ width: '90px', height: '50px', color: '#00B7DC'}" />
+      </div>
+
+      <div *ngIf="!isLoading && listEventsOfWeek?.length === 0" class="text-center mt-4">
+        Nenhuma corrida encontrada para esta semana 😢
+      </div>
+
+      <div *ngIf="!isLoading && filteredEvents?.length === 0 && searchTerm" class="text-center mt-4">
+        Nenhuma corrida encontrada para "{{searchTerm}}" 😢
+      </div>
+
+      <div *ngIf="!isLoading && filteredEvents.length > 0" class="all-races-list d-flex flex-column gap-4">
+        <app-card-race-week *ngFor="let event of filteredEvents"
+          [cardTitle]="event.category.name"
+          [cardTime]="formatTime(getRaceSessionTime(event))"
+          [cardRaceDay]="formatDateInfo(getRaceSessionTime(event), 'day')"
+          [cardRaceMonth]="formatDateInfo(getRaceSessionTime(event), 'month')"
+          [cardRaceWeekDay]="formatDateInfo(getRaceSessionTime(event), 'weekday')"
+          [cardImagePath]="event.category.categoryShort"
+          [cardRaceName]="event.name"
+          [cardCircuit]="event.circuitName + ' - ' + event.country"
+          [cardRaceId]="event.id"
+          [cardCountryFlagCode]="event.countryFlagCode"
+        ></app-card-race-week>
+      </div>
+
+      <div class="back-button-container d-flex justify-content-center mt-4">
+        <a [routerLink]="['/']" class="back-button">Voltar para a página inicial</a>
+      </div>
+    </div>
+  </div>
+</div>

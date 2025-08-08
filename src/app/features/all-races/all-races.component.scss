@@ -1,0 +1,87 @@
+@use 'colors' as *;
+@use 'variables' as *;
+
+.box-input-search {
+  display: flex;
+  align-items: center;
+  background-color: $secondary-color;
+  border-radius: $default_border_radius;  
+  padding: 0.5rem 1rem;
+  color: $text-primary-color;
+  font-weight: lighter !important;
+  gap: 0.5rem;
+  width: 100%;
+
+  #input-search {
+    background-color: $secondary-color;
+    outline: none;
+    font-weight: 300;
+    font-size: 0.9rem;
+  }
+}
+
+::ng-deep .p-progressspinner-circle {
+  stroke: $aux-color-primary !important;
+}
+
+.all-races-list {
+  max-height: none;
+  padding: 1rem;
+}
+
+.back-button-container {
+  margin-top: 2rem;
+  
+  .back-button {
+    background-color: $secondary-color;
+    color: $text-primary-color;
+    padding: 0.8rem 1.5rem;
+    border-radius: $default_border_radius;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    font-weight: 600;
+    
+    &:hover {
+      background-color: $aux-color-dark;
+    }
+  }
+}
+
+.divider-box {
+  padding: 0.7rem 0;
+  border-radius: $default_border_radius;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $secondary-color;
+  }
+
+  .line {
+    width: 15%;
+    height: 1px;
+    background-color: $text-secondary-color;
+    border-radius: 20px;
+  }
+
+  a {
+    color: $text-secondary-color;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    margin: 0;
+  }
+}
+
+// MEDIA QUERIES 
+@media (max-width: 767px) {
+  .header-week-races {
+    gap: 1rem;
+    padding: 1rem;
+    flex-direction: column !important;
+  }
+
+  .container-categories {
+    padding: 1rem;
+    margin-top: 1rem !important;
+  }
+}
