@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { Session, SessionRes } from '../../models/session.model';
 import { formatDateInfo, formatTime } from '../../utils/date.utils';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardCategoryComponent, CardRaceWeekComponent, CommonModule, ProgressSpinnerModule],
+  imports: [CardCategoryComponent, CardRaceWeekComponent, CommonModule, ProgressSpinnerModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -46,8 +47,8 @@ export class HomeComponent implements OnInit {
     const dateFinal = new Date(dateInitial);
     dateFinal.setDate(dateInitial.getDate() + 6);
 
-    const dateInitialStr = dateInitial.toISOString().split('T')[0];  
-    const dateFinalStr = dateFinal.toISOString().split('T')[0];      
+    const dateInitialStr = dateInitial.toISOString().split('T')[0];
+    const dateFinalStr = dateFinal.toISOString().split('T')[0];
 
     this.eventsService.getEventOfWeekByDate(dateInitialStr, dateFinalStr).subscribe({
       next: (value) => {

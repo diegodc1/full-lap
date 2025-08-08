@@ -4,12 +4,13 @@
 
 
 #container-footer {
+    width: 100%;
     background-color: $secondary-color;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem 0;
-    margin-top: 7rem;
+    margin-top: auto;
 }
 
 .box-left {
@@ -33,3 +34,4 @@
         cursor: pointer;
     }
 }
+

@@ -9,7 +9,7 @@
 
     background-color: $secondary-color;
     border-radius: $default_border_radius;
-    
+
     transition: linear all 0.2s;
     &:hover {
         cursor: pointer;
@@ -53,7 +53,7 @@
                     line-height: 1rem;
                 }
             }
-            
+
         }
 
         .card-box-main {
@@ -70,7 +70,7 @@
 
             .card-main__time {
                 font-size: 1rem;
-                font-weight: 300; 
+                font-weight: 300;
             }
         }
     }
@@ -80,7 +80,7 @@
         position: relative;
         height: 100%;
        max-height: 18rem;
-    
+
 
         .cover-image {
             width: 100%;
@@ -124,7 +124,7 @@
 
 
 
-// MEDIA QUERIES 
+// MEDIA QUERIES
 @media (max-width: 767px) {
     .container-card {
         display: flex;
@@ -151,19 +151,19 @@
 
         .card-main__race {
             font-size: 1rem !important;
-            white-space: nowrap;           
-            overflow: hidden;              
-            text-overflow: ellipsis;       
-            display: block;                
-            max-width: 13rem;   
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            max-width: 13rem;
         }
 
         .card-main__circuit {
-            white-space: nowrap;           
-            overflow: hidden;              
-            text-overflow: ellipsis;       
-            display: block;                
-            max-width: 13rem;             
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            max-width: 13rem;
         }
 
     }
@@ -199,7 +199,7 @@
                 line-height: 1rem;
             }
         }
-    
+
     }
 
     .card-footer  {
@@ -209,4 +209,23 @@
             width: 12% !important;
         }
     }
+}
+
+
+@media (max-width: 2000px) {
+  .container-card {
+    max-height: 12rem;
+  }
+
+  #card-image {
+    max-height: 12rem !important;
+  }
+
+  .cover-image {
+    max-height: 12rem;
+  }
+
+  .card-footer {
+    padding: 1rem 0 !important;
+  }
 }

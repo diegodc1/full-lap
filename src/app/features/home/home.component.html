@@ -63,10 +63,10 @@
         <app-card-category cardCategoryName="Fórmula Indy" cardCategoryImagePath="formula-indy/formula-indy-1.jpg" cardCategoryShortName="FORMULA_INDY"></app-card-category>
         <app-card-category cardCategoryName="Porsche Cup" cardCategoryImagePath="porsche-cup/porsche-cup-nao-usar.jpg" cardCategoryShortName="PORSCHE_CUP"></app-card-category>
         <app-card-category cardCategoryName="Fórmula 1" cardCategoryImagePath="formula1/ferrari.jpg" cardCategoryShortName="FORMULA1"></app-card-category>
-        <div class="card-more-category-container d-flex flex-column gap-1 align-items-center justify-content-center">
+        <a class="card-more-category-container d-flex flex-column gap-1 align-items-center justify-content-center text-decoration-none" [routerLink]="['/categories']">
             <span class="material-symbols-rounded card-icon">arrow_circle_right</span>
             <span class="card-more-category-title text-center">Ver todas as categorias</span>
-        </div>
+        </a>
       </div>
     </div>
 
