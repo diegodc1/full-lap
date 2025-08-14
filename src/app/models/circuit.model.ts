@@ -4,6 +4,7 @@ export interface Circuit {
   description: string;
   length: number;
   yearInauguration: number;
+  qtdCurves: number;
   country: string;
   pathImage: string;
 }
