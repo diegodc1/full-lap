@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/api'
+  apiUrl: 'https://visual-klarrisa-fullap-76a3b552.koyeb.app/api/'
 };
