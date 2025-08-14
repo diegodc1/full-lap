@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Season, SeasonCreateRequest } from '../models/season.model';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SeasonService {
-  private apiUrl = 'http://localhost:8080/api/seasons';
+  private apiUrl = `${environment.apiUrl}/seasons`;
 
 constructor(private http: HttpClient) { }
 

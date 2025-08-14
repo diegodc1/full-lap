@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Circuit } from '../models/circuit.model';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CircuitService {
-  private apiUrl = 'http://localhost:8080/api/circuits';
+  private apiUrl = `${environment.apiUrl}/circuits`;
 
 constructor(private http: HttpClient) { }
 

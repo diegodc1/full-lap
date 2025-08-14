@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Transmission } from '../models/transmission.model';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransmissionService {
-  private apiUrl = 'http://localhost:8080/api/transmissions';
+  private apiUrl = `${environment.apiUrl}/transmissions`;
 
 constructor(private http: HttpClient) { }
 
