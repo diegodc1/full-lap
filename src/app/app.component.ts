@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./layout/header/header.component";
+import { inject } from "@vercel/analytics"
 
 import { OnInit } from '@angular/core';
 import { PrimeNG } from 'primeng/config';
@@ -19,6 +20,7 @@ export class AppComponent {
   constructor(private primeng: PrimeNG) {}
 
   ngOnInit() {
-      this.primeng.ripple.set(true);
+    this.primeng.ripple.set(true);
+    inject();
   }
 }
