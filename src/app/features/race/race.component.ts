@@ -109,7 +109,10 @@ export class RaceComponent implements OnInit {
 
     sessions.forEach(session => {
       session.transmissions.forEach(transmission => {
-        if (!transmissionMap.has(transmission.name)) {
+        const isValidTransmission = !transmission.name.toLowerCase().includes('sem transmissão') &&
+                                   !transmission.name.toLowerCase().includes('sem transmissao') 
+        
+        if (isValidTransmission && !transmissionMap.has(transmission.name)) {
           transmissionMap.set(transmission.name, transmission);
         }
       });

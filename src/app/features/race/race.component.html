@@ -27,13 +27,10 @@
                     </div>
                 </div>
 
-                <div class="race-watch-wrapper d-flex flex-column gap-1">
+                <div class="race-watch-wrapper d-flex flex-column gap-1" *ngIf="mapTransmissionArray.length > 0">
                     <h4 class="race-watch-wrapper__title">Onde Assistir</h4>
-                    <div class="race-watch-wrapper__content d-flex gap-2" *ngIf="mapTransmissionArray.length > 0">
+                    <div class="race-watch-wrapper__content d-flex gap-2">
                         <app-card-watch *ngFor="let trans of mapTransmissionArray" [watchTitle]="trans.name" [type]="trans.transmission.platformType" [url]="trans.transmission.url" [watchColor]="trans.transmission.color"></app-card-watch>
-                    </div>
-                     <div class="text-start" *ngIf="mapTransmissionArray.length === 0">
-                        Nenhuma transmissão encontrada para esta corrida.
                     </div>
                 </div>
             </div>
@@ -114,4 +111,4 @@
         </div>
     </ng-template>
     
-</div> 
+</div>
