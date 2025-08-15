@@ -60,7 +60,8 @@ export class CalendarComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-      this.loadListSessionsCalendar();
+    window.scrollTo(0, 0);
+    this.loadListSessionsCalendar();
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -23,7 +23,7 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements OnInit {
   selectedCategory: string = 'FORMULA1';
   searchText: string = '';
   nameCategorySelected: string = 'Fórmula 1';
@@ -38,6 +38,10 @@ export class CategoriesComponent {
         this.selectCategory(categoria);
       }
     });
+  }
+
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
   }
 
   
