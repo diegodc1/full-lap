@@ -67,7 +67,10 @@
                 <div class="schedule__divider"></div>
             </div>
 
-            <div *ngIf="mapSessionArray.length != 0; then sessionsContent else sessionLoading"></div>
+            <div *ngIf="!sessionsLoaded; then sessionLoading else sessionContent"></div>
+            <ng-template #sessionContent>
+                <div *ngIf="mapSessionArray.length > 0; then sessionsContent else noSessionsMessage"></div>
+            </ng-template>
             <ng-template #sessionsContent>
                 <div class="schedule__content">
                     <div class="schedule-wrapper" *ngFor="let group of mapSessionArray">
@@ -83,17 +86,26 @@
                                 </div>
                                 <div class="schedule-session d-flex w-100 justify-content-end">
                                     <span class="schedule-session__time">
-                                        <span class="material-symbols-rounded">schedule</span>
+                                        <span class="material-symbols-rounded" *ngIf="formatTime(ses.datetime) != ''">schedule</span>
                                         {{ formatTime(ses.datetime) }}
                                     </span>
 
-                                    <div class="vertical-divider"></div>
+                                    <div class="vertical-divider" *ngIf="formatTime(ses.datetime) != ''"></div>
                                     <div class="schedule-session__transmission">
                                         <a *ngFor="let trans of ses.transmissions" [href]="trans.url" target="_blank" class="schedule-session__transmission-item">{{trans.name}}</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template #noSessionsMessage>
+                <div class="w-100 d-flex align-items-center justify-content-center text-center p-4">
+                    <div class="d-flex flex-column align-items-center gap-2">
+                        <span class="material-symbols-rounded" style="font-size: 48px; color: #6c757d;">event_busy</span>
+                        <h5 class="mb-1 text-white" style="color: #6c757d !important;">Informações de Programação Indisponíveis</h5>
+                        <p class="mb-0 text-white" style="color: #6c757d !important;">Não há informações de horários e programação disponíveis para esta corrida no momento.</p>
                     </div>
                 </div>
             </ng-template>

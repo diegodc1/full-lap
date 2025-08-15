@@ -25,6 +25,7 @@ export class RaceComponent implements OnInit {
   mapSessionArray: { date: string, sessions: SessionRes[] }[] = [];
   mapTransmission: Map<string, Transmission> = new Map();
   mapTransmissionArray: { name: string, transmission: Transmission }[] = [];
+  sessionsLoaded: boolean = false;
 
   eventDayInitial: string = '';
   eventDayFinal: string = '';
@@ -70,9 +71,11 @@ export class RaceComponent implements OnInit {
           this.listSessions = value;
           this.createMapDateSession(this.listSessions)
           this.createMapTransmissions(this.listSessions);
+          this.sessionsLoaded = true;
         },
         error: (err) => {
           console.error("Erro ao busca lista de sessões  a corrida", err)
+          this.sessionsLoaded = true;
         }
     })
   }
