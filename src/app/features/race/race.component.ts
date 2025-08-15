@@ -9,6 +9,8 @@ import { formatDateInfo, formatTime } from '../../utils/date.utils';
 import { SessionRes } from '../../models/session.model';
 import { SessionService } from '../../services/session.service';
 import { Transmission } from '../../models/transmission.model';
+import { SeoService } from '../../core/services/seo.service';
+import { StructuredDataService } from '../../core/services/structured-data.service';
 
 @Component({
   selector: 'app-race',
@@ -38,7 +40,9 @@ export class RaceComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private seoService: SeoService,
+    private structuredDataService: StructuredDataService
   ) {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') ?? '';
@@ -58,11 +62,30 @@ export class RaceComponent implements OnInit {
         this.eventDayFinal = formatDateInfo(value.dateFinal, 'day')
         this.eventMonth = formatDateInfo(value.dateFinal, 'monthLong').toLowerCase()
         this.eventYear = formatDateInfo(value.dateFinal, 'year')
+        
+        if (value.circuit?.name && value.circuit?.country) {
+          this.seoService.updateRacePageMeta({
+            name: value.name || 'Corrida F1',
+            circuit: value.circuit.name,
+            date: formatDateInfo(value.dateInitial, 'full'),
+            country: value.circuit.country
+          });
+          
+          this.structuredDataService.addRaceEvent({
+            name: value.name || 'Corrida F1',
+            circuit: value.circuit.name,
+            country: value.circuit.country,
+            city: value.circuit.country,
+            dateStart: value.dateInitial || '',
+            dateEnd: value.dateFinal || '',
+            url: `https://fulllap.com/race/${this.id}`
+          });
+        }
       }, 
       error: (err) => {
-        console.error("Não foi possível buscar os dados da corrida")
-      } 
-    })
+         console.error("Não foi possível buscar os dados da corrida")
+       } 
+     });
   }
 
   loadSessions() {
