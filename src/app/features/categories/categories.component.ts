@@ -4,9 +4,11 @@ import { MenuModule } from 'primeng/menu';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule, NgModel } from '@angular/forms';
 import { CategoryContentComponent } from "./category-content/category-content.component";
+import { CategoryStandingsComponent } from "./category-standings/category-standings.component";
 import { ActivatedRoute } from '@angular/router';
 import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
+import { TabViewModule } from 'primeng/tabview';
 
 @Component({
   selector: 'app-categories',
@@ -16,9 +18,10 @@ import { ButtonModule } from 'primeng/button';
     AutoCompleteModule, 
     FormsModule,
     CategoryContentComponent, 
-    CategoryContentComponent, 
+    CategoryStandingsComponent, 
     DrawerModule,
-    ButtonModule
+    ButtonModule,
+    TabViewModule
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
@@ -28,6 +31,7 @@ export class CategoriesComponent implements OnInit {
   searchText: string = '';
   nameCategorySelected: string = 'Fórmula 1';
   visible: boolean = false;
+  activeTabIndex: number = 0;
 
   items: string[] = [];
 

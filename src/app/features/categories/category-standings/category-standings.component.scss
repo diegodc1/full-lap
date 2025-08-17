@@ -1,0 +1,264 @@
+@use 'colors' as *;
+@use 'variables' as *;
+
+.error-message {
+  padding: 2rem;
+  color: $text-semi-dark-gray;
+  
+  .error-icon {
+    font-size: 3rem;
+    color: #dc3545;
+    margin-bottom: 1rem;
+  }
+}
+
+.no-data-message {
+  padding: 3rem 2rem;
+  color: $text-semi-dark-gray;
+  
+  .material-symbols-rounded {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
+::ng-deep .standings-table {
+  .p-datatable-table {
+    background-color: $secondary-color !important;
+    
+    th {
+      background-color: $aux-color-dark !important;
+      color: $text-primary-color !important;
+      border: 1px solid $aux-color-secondary !important;
+      padding: 1rem 0.75rem;
+      font-weight: $fw_bold;
+      text-align: center;
+    }
+    
+    td {
+      background-color: $secondary-color !important;
+      color: $text-primary-color !important;
+      border: 1px solid $aux-color-secondary !important;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    
+    tr:hover td {
+      background-color: $aux-color-dark !important;
+    }
+  }
+}
+
+.position-cell {
+  .position-number {
+    font-weight: $fw_extra_bold;
+    font-size: 1.1rem;
+  }
+}
+
+.position-first {
+  .position-number {
+    color: #FFD700 !important; // Gold
+  }
+}
+
+.position-second {
+  .position-number {
+    color: #C0C0C0 !important; // Silver
+  }
+}
+
+.position-third {
+  .position-number {
+    color: #CD7F32 !important; // Bronze
+  }
+}
+
+.driver-cell {
+  text-align: left !important;
+  
+  .driver-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    
+    .driver-number {
+      background-color: $aux-color-secondary;
+      color: $text-primary-color;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-weight: $fw_bold;
+      font-size: 0.9rem;
+      min-width: 2.5rem;
+      text-align: center;
+    }
+    
+    .driver-details {
+      display: flex;
+      flex-direction: column;
+      
+      .driver-name {
+        font-weight: $fw_bold;
+        font-size: 1rem;
+      }
+      
+      .driver-nationality {
+        font-size: 0.85rem;
+        color: $text-semi-dark-gray;
+      }
+    }
+  }
+}
+
+.team-cell {
+  text-align: left !important;
+  
+  .team-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    
+    .team-color {
+      width: 4px;
+      height: 2.5rem;
+      border-radius: 2px;
+    }
+    
+    .team-details {
+      display: flex;
+      flex-direction: column;
+      
+      .team-name {
+        font-weight: $fw_bold;
+        font-size: 1rem;
+      }
+      
+      .team-country {
+        font-size: 0.85rem;
+        color: $text-semi-dark-gray;
+      }
+    }
+  }
+}
+
+.points-cell {
+  .points-value {
+    font-weight: $fw_extra_bold;
+    font-size: 1.1rem;
+    color: $aux-color-secondary;
+  }
+}
+
+.stats-cell {
+  font-weight: $fw_semi_bold;
+}
+
+::ng-deep .p-tabview {
+  .p-tabview-nav {
+    background-color: $secondary-color !important;
+    border-bottom: 2px solid $aux-color-secondary !important;
+    
+    .p-tabview-nav-link {
+      background-color: transparent !important;
+      color: $text-semi-dark-gray !important;
+      border: none !important;
+      padding: 1rem 1.5rem;
+      font-weight: $fw_semi_bold;
+      
+      &:hover {
+        background-color: $aux-color-dark !important;
+        color: $text-primary-color !important;
+      }
+    }
+    
+    .p-highlight .p-tabview-nav-link {
+      background-color: $aux-color-secondary !important;
+      color: $text-primary-color !important;
+    }
+  }
+  
+  .p-tabview-panels {
+    background-color: $secondary-color !important;
+    padding: 1.5rem;
+  }
+}
+
+// MEDIA QUERIES
+@media (max-width: 767px) {
+  ::ng-deep .standings-table {
+    .p-datatable-table {
+      th, td {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.85rem;
+      }
+    }
+  }
+  
+  .driver-cell {
+    .driver-info {
+      gap: 0.5rem;
+      
+      .driver-number {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+        min-width: 2rem;
+      }
+      
+      .driver-details {
+        .driver-name {
+          font-size: 0.9rem;
+        }
+        
+        .driver-nationality {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+  
+  .team-cell {
+    .team-info {
+      gap: 0.5rem;
+      
+      .team-color {
+        width: 3px;
+        height: 2rem;
+      }
+      
+      .team-details {
+        .team-name {
+          font-size: 0.9rem;
+        }
+        
+        .team-country {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+  
+  .points-cell {
+    .points-value {
+      font-size: 1rem;
+    }
+  }
+  
+  ::ng-deep .p-tabview {
+    .p-tabview-nav {
+      .p-tabview-nav-link {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+    
+    .p-tabview-panels {
+      padding: 1rem;
+    }
+  }
+}

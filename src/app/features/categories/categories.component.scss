@@ -34,6 +34,11 @@
     padding: 0 2rem;
 }
 
+.category-content {
+    background-color: $secondary-color !important;
+    border-radius: $default_border_radius;
+}
+
 .category-title {
     color: $aux-color-secondary;
     font-weight: $fw_bold;

@@ -1,0 +1,105 @@
+<div *ngIf="isLoading" class="w-100 d-flex align-items-center justify-content-center">
+    <p-progress-spinner strokeWidth="8" styleClass="custom-spinner" color="#00B7DC" fill="transparent"
+        animationDuration=".5s" [style]="{ width: '90px', height: '50px', color: '#00B7DC'}" />
+</div>
+
+<div *ngIf="hasError" class="w-100 d-flex align-items-center justify-content-center">
+    <div class="error-message text-center">
+        <span class="material-symbols-rounded error-icon">error</span>
+        <p>{{errorMessage}}</p>
+    </div>
+</div>
+
+<div *ngIf="!isLoading && !hasError">
+    <p-tabView>
+        <p-tabPanel header="Pilotos">
+            <div *ngIf="driverStandings.length > 0; else noDriverData">
+                <p-table [value]="driverStandings" [tableStyle]="{'min-width': '50rem'}" styleClass="standings-table">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Pos.</th>
+                            <th>Piloto</th>
+                            <th>Equipe</th>
+                            <th>Pontos</th>
+                            <th>Vitórias</th>
+                            <th>Pódios</th>
+                            <th>Voltas Rápidas</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-standing>
+                        <tr [ngClass]="getPositionClass(standing.position)">
+                            <td class="position-cell">
+                                <span class="position-number">{{standing.position}}</span>
+                            </td>
+                            <td class="driver-cell">
+                                <div class="driver-info">
+                                    <span class="driver-number">#{{standing.driver.number}}</span>
+                                    <div class="driver-details">
+                                        <span class="driver-name">{{standing.driver.name}}</span>
+                                        <span class="driver-nationality">{{standing.driver.nationality}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="team-cell">{{standing.driver.team}}</td>
+                            <td class="points-cell">
+                                <span class="points-value">{{standing.points}}</span>
+                            </td>
+                            <td class="stats-cell">{{standing.wins}}</td>
+                            <td class="stats-cell">{{standing.podiums}}</td>
+                            <td class="stats-cell">{{standing.fastestLaps}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <ng-template #noDriverData>
+                <div class="no-data-message text-center">
+                    <span class="material-symbols-rounded">leaderboard</span>
+                    <p>Não há dados de classificação de pilotos disponíveis para esta categoria.</p>
+                </div>
+            </ng-template>
+        </p-tabPanel>
+        
+        <p-tabPanel header="Equipes">
+            <div *ngIf="teamStandings.length > 0; else noTeamData">
+                <p-table [value]="teamStandings" [tableStyle]="{'min-width': '50rem'}" styleClass="standings-table">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Pos.</th>
+                            <th>Equipe</th>
+                            <th>Pontos</th>
+                            <th>Vitórias</th>
+                            <th>Pódios</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-standing>
+                        <tr [ngClass]="getPositionClass(standing.position)">
+                            <td class="position-cell">
+                                <span class="position-number">{{standing.position}}</span>
+                            </td>
+                            <td class="team-cell">
+                                <div class="team-info">
+                                    <div class="team-color" [style.background-color]="standing.team.color"></div>
+                                    <div class="team-details">
+                                        <span class="team-name">{{standing.team.name}}</span>
+                                        <span class="team-country">{{standing.team.country}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="points-cell">
+                                <span class="points-value">{{standing.points}}</span>
+                            </td>
+                            <td class="stats-cell">{{standing.wins}}</td>
+                            <td class="stats-cell">{{standing.podiums}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <ng-template #noTeamData>
+                <div class="no-data-message text-center">
+                    <span class="material-symbols-rounded">groups</span>
+                    <p>Não há dados de classificação de equipes disponíveis para esta categoria.</p>
+                </div>
+            </ng-template>
+        </p-tabPanel>
+    </p-tabView>
+</div>
