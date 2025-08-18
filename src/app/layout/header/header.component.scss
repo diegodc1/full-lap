@@ -4,7 +4,6 @@
 #container-header {
     background-color: $secondary-dark;
     padding: 0.7rem 2rem;
-    margin-bottom: 4rem;
 
     span {
         font-size: 1.5rem;
@@ -25,11 +24,12 @@
         text-decoration: none;
     }
 
-
     a:hover {
         background-color: $base-color;
     }
 }
+
+
 
 
 // MEDIA QUERIES 
@@ -48,11 +48,11 @@
     gap: 0.2rem !important;
     width: 100%;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     a {
         padding: 0.5rem 0.2rem;
+        font-size: 0.9rem;
     }
   }
-
-
 }

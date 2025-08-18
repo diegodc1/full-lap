@@ -1,0 +1,42 @@
+<div class="sub-header-container">
+  <div class="sub-header-content">
+    <div class="categories-nav" #categoriesContainer>
+      
+      <button 
+        *ngFor="let category of visibleCategories" 
+        class="category-item"
+        [class.active]="isCategoryActive(category.value)"
+        [class.disabled]="category.disabled"
+        (click)="onCategoryClick(category.value)">
+        {{ category.label }}
+        <span *ngIf="category.badge" class="badge">{{ category.badge }}</span>
+      </button>
+      
+      <!-- Dropdown para categorias em overflow -->
+      <div *ngIf="overflowCategories.length > 0" class="dropdown-container">
+        <button 
+          class="category-item dropdown-toggle"
+          (click)="toggleDropdown()"
+          [class.active]="showDropdown">
+          Mais categorias
+          <i class="pi pi-chevron-down" [class.rotated]="showDropdown"></i>
+        </button>
+        
+        <div *ngIf="showDropdown" class="dropdown-menu" (click)="$event.stopPropagation()">
+          <button 
+            *ngFor="let category of overflowCategories"
+            class="dropdown-item"
+            [class.active]="isCategoryActive(category.value)"
+            [class.disabled]="category.disabled"
+            (click)="onCategoryClick(category.value); closeDropdown()">
+            {{ category.label }}
+            <span *ngIf="category.badge" class="badge">{{ category.badge }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay para fechar dropdown -->
+<div *ngIf="showDropdown" class="dropdown-overlay" (click)="closeDropdown()"></div>

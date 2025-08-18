@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./layout/header/header.component";
+import { SubHeaderComponent } from "./layout/sub-header/sub-header.component";
 import { inject } from "@vercel/analytics"
 
 import { OnInit } from '@angular/core';
@@ -10,7 +11,7 @@ import { FooterComponent } from "./layout/footer/footer.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, RouterOutlet, FooterComponent],
+  imports: [HeaderComponent, SubHeaderComponent, RouterOutlet, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

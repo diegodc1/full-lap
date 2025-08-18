@@ -1,28 +1,6 @@
 @use 'colors' as *;
 @use 'variables' as *;
 
-
-::ng-deep .p-menu {
-    background-color: $secondary-color !important; 
-
-    .p-menu-item-content {
-        padding: 0.6rem 0.2rem;
-
-        &:hover {
-            background-color: $aux-color-dark !important;
-        }
-    }
-
-    .p-menu-item.p-focus .p-menu-item-content {
-        background-color: $aux-color-dark !important;
-    }
-}
-
-::ng-deep .badge-menu {
-    background-color: $aux-color-dark !important;
-    color: white !important;
-}
-
 .title-page {
     font-size: 1.7rem;
 }
@@ -44,20 +22,17 @@
     color: $text-semi-dark-gray;
 }
 
-.btn-categories-mobile {
-    display: none;
-}
 
-// Layout lado a lado para corridas e classificação
+
 .content-layout {
     align-items: flex-start;
     
     .races-section {
-        min-width: 0; // Permite que o flex-grow funcione corretamente
+        min-width: 0; 
     }
     
     .standings-section {
-        flex: 0 0 350px; // Largura fixa para a classificação
+        flex: 0 0 400px; 
         min-width: 350px;
     }
 }
@@ -70,10 +45,6 @@
     .title-page {
         text-align: center;
         width: 100%;
-    }
-
-    .menu-container {
-        display: none;
     }
 
     .category-container {
@@ -94,18 +65,5 @@
         }
     }
 
-   
-    
-    .btn-categories-mobile {
-        display: flex;
-        margin-bottom: 1rem;
 
-        ::ng-deep button.p-button {
-            background-color: $secondary-color !important;
-        }
-    }
-
-    ::ng-deep .drawer-mobile {
-        background-color: $secondary-color  !important;
-    }
 }

@@ -1,35 +1,19 @@
 <div class="d-flex w-100 align-items-start">
-    <div class="menu-container w-25">
-        <p-menu [model]="menuItems"  styleClass="vertical-menu" class="vertical-menu"/>
-    </div>
-    <div class="category-container w-75">
+    <div class="category-container w-100">
         <div class="d-flex flex-column gap-2 w-100">
-            <h1 class="title-page">Categorias</h1>
-            <p-button class="btn-categories-mobile w-100 align-items-center justify-content-center" (click)="visible = true" label="Selecionar categoria" icon="pi pi-chevron-circle-down"/>
             <h1 class="category-title">{{nameCategorySelected}}</h1>
             <span>Acompanhe todo o calendário da {{nameCategorySelected}} - 2025</span>
             <span class="message-changes">*Datas, horários e locais sujeitos a alterações</span>
-            <!-- <p-autocomplete [(ngModel)]="searchText" [suggestions]="items" (completeMethod)="search($event)" /> -->
         </div>
         
-        <!-- Layout com corridas e classificação lado a lado -->
         <div class="content-layout d-flex gap-4 w-100 mt-4">
-            <!-- Seção das corridas -->
             <div class="races-section flex-grow-1">
                 <app-category-content [categoryKey]="selectedCategory"></app-category-content>
             </div>
             
-            <!-- Seção da classificação de pilotos -->
             <div class="standings-section">
                 <app-driver-standings [categoryKey]="selectedCategory"></app-driver-standings>
             </div>
         </div>
     </div>
-
-    <p-drawer header="Selecionar categoria" [(visible)]="visible" position="full" class="drawer-mobile" styleClass="drawer-mobile">
-        <p>
-            <p-menu [model]="menuItems"  styleClass="vertical-menu" class="vertical-menu"/>
-        </p>
-    </p-drawer>
-
 </div>
