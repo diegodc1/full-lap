@@ -43,9 +43,7 @@
               "src/styles.scss",
               "src/styles/colors.scss"
             ],
-            "scripts": [
-              "src/assets/js/cmp.js"
-            ],
+            "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src/styles"
