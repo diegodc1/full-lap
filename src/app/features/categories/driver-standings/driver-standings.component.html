@@ -1,0 +1,54 @@
+<div class="standings-container">
+  <div class="standings-header">
+    <h3 class="standings-title">Classificação de Pilotos</h3>
+    <span class="standings-subtitle">Temporada 2025</span>
+  </div>
+
+  <div class="standings-table">
+    <div class="table-header">
+      <div class="header-position">Pos</div>
+      <div class="header-driver">Piloto</div>
+      <div class="header-points">Pts</div>
+    </div>
+
+    <div class="table-body">
+      <div 
+        *ngFor="let driver of driverStandings; let i = index" 
+        class="table-row"
+        [ngClass]="{
+          'position-1': driver.position === 1,
+          'position-2': driver.position === 2,
+          'position-3': driver.position === 3,
+          'top-10': driver.position <= 10
+        }">
+        
+        <div class="row-position">
+          <span class="position-number">{{driver.position}}</span>
+          <div *ngIf="driver.position <= 3" class="position-medal">
+            <span class="material-symbols-rounded" 
+                  [ngClass]="{
+                    'gold': driver.position === 1,
+                    'silver': driver.position === 2,
+                    'bronze': driver.position === 3
+                  }">emoji_events</span>
+          </div>
+        </div>
+        
+        <div class="row-driver">
+          <div class="driver-info">
+            <span class="driver-name">{{driver.driverName}}</span>
+            <span *ngIf="driver.teamName" class="team-name">{{driver.teamName}}</span>
+          </div>
+        </div>
+        
+        <div class="row-points">
+          <span class="points-value">{{driver.points}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="standings-footer">
+    <span class="footer-note">*Classificação atualizada após a última corrida</span>
+  </div>
+</div>

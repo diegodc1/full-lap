@@ -11,8 +11,18 @@
             <span class="message-changes">*Datas, horários e locais sujeitos a alterações</span>
             <!-- <p-autocomplete [(ngModel)]="searchText" [suggestions]="items" (completeMethod)="search($event)" /> -->
         </div>
-        <div class="d-flex flex-column gap-3 w-100 mt-4">
-            <app-category-content [categoryKey]="selectedCategory"></app-category-content>
+        
+        <!-- Layout com corridas e classificação lado a lado -->
+        <div class="content-layout d-flex gap-4 w-100 mt-4">
+            <!-- Seção das corridas -->
+            <div class="races-section flex-grow-1">
+                <app-category-content [categoryKey]="selectedCategory"></app-category-content>
+            </div>
+            
+            <!-- Seção da classificação de pilotos -->
+            <div class="standings-section">
+                <app-driver-standings [categoryKey]="selectedCategory"></app-driver-standings>
+            </div>
         </div>
     </div>
 

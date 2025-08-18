@@ -4,6 +4,7 @@ import { MenuModule } from 'primeng/menu';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule, NgModel } from '@angular/forms';
 import { CategoryContentComponent } from "./category-content/category-content.component";
+import { DriverStandingsComponent } from "./driver-standings/driver-standings.component";
 import { ActivatedRoute } from '@angular/router';
 import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
@@ -16,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
     AutoCompleteModule, 
     FormsModule,
     CategoryContentComponent, 
-    CategoryContentComponent, 
+    DriverStandingsComponent,
     DrawerModule,
     ButtonModule
   ],

@@ -1,0 +1,224 @@
+@use 'colors' as *;
+@use 'variables' as *;
+
+.standings-container {
+  background-color: $secondary-color;
+  border-radius: $default_border_radius;
+  padding: 1.5rem;
+  height: fit-content;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .standings-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid $aux-color-primary;
+    padding-bottom: 1rem;
+
+    .standings-title {
+      font-size: 1.4rem;
+      font-weight: $fw_bold;
+      color: $text-primary-color;
+      margin: 0;
+    }
+
+    .standings-subtitle {
+      font-size: 0.9rem;
+      color: $text-semi-dark-gray;
+      font-weight: $fw_regular;
+    }
+  }
+
+  .standings-table {
+    .table-header {
+      display: grid;
+      grid-template-columns: 60px 1fr 80px;
+      gap: 1rem;
+      padding: 0.8rem 1rem;
+      background-color: rgba(0, 183, 220, 0.1);
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      font-weight: $fw_semi_bold;
+      font-size: 0.85rem;
+      color: $text-semi-dark-gray;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      .header-position,
+      .header-driver,
+      .header-points {
+        display: flex;
+        align-items: center;
+      }
+
+      .header-driver {
+        justify-content: flex-start;
+      }
+
+      .header-points {
+        justify-content: center;
+      }
+    }
+
+    .table-body {
+      .table-row {
+        display: grid;
+        grid-template-columns: 60px 1fr 80px;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+        margin-bottom: 0.3rem;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+
+        &:hover {
+          background-color: rgba(0, 183, 220, 0.05);
+          transform: translateX(2px);
+        }
+
+        &.position-1 {
+          border-left-color: #FFD700;
+          background-color: rgba(255, 215, 0, 0.05);
+        }
+
+        &.position-2 {
+          border-left-color: #C0C0C0;
+          background-color: rgba(192, 192, 192, 0.05);
+        }
+
+        &.position-3 {
+          border-left-color: #CD7F32;
+          background-color: rgba(205, 127, 50, 0.05);
+        }
+
+        &.top-10 {
+          border-left-color: $aux-color-primary;
+        }
+
+        .row-position {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .position-number {
+            font-weight: $fw_bold;
+            font-size: 1rem;
+            color: $text-primary-color;
+            min-width: 20px;
+          }
+
+          .position-medal {
+            .material-symbols-rounded {
+              font-size: 1.2rem;
+              
+              &.gold {
+                color: #FFD700;
+              }
+              
+              &.silver {
+                color: #C0C0C0;
+              }
+              
+              &.bronze {
+                color: #CD7F32;
+              }
+            }
+          }
+        }
+
+        .row-driver {
+          display: flex;
+          align-items: center;
+
+          .driver-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+
+            .driver-name {
+              font-weight: $fw_semi_bold;
+              font-size: 0.95rem;
+              color: $text-primary-color;
+              line-height: 1.2;
+            }
+
+            .team-name {
+              font-size: 0.8rem;
+              color: $text-semi-dark-gray;
+              font-weight: $fw_regular;
+            }
+          }
+        }
+
+        .row-points {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .points-value {
+            font-weight: $fw_bold;
+            font-size: 1rem;
+            color: $aux-color-primary;
+            background-color: rgba(0, 183, 220, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            min-width: 45px;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+  .standings-footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 183, 220, 0.2);
+    text-align: center;
+
+    .footer-note {
+      font-size: 0.75rem;
+      color: $text-semi-dark-gray;
+      font-style: italic;
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .standings-container {
+    padding: 1rem;
+    max-height: 60vh;
+
+    .standings-table {
+      .table-header,
+      .table-body .table-row {
+        grid-template-columns: 50px 1fr 70px;
+        gap: 0.5rem;
+        padding: 0.6rem 0.8rem;
+      }
+
+      .table-header {
+        font-size: 0.8rem;
+      }
+
+      .table-body .table-row {
+        .row-driver .driver-info {
+          .driver-name {
+            font-size: 0.9rem;
+          }
+
+          .team-name {
+            font-size: 0.75rem;
+          }
+        }
+
+        .row-points .points-value {
+          font-size: 0.9rem;
+          padding: 0.2rem 0.6rem;
+        }
+      }
+    }
+  }
+}
