@@ -5,7 +5,7 @@ import { Session } from "./session.model";
 import { Transmission } from "./transmission.model";
 
 export interface RaceEvent {
-  id?: string;
+  id: string;
   name: string;
   description: string;
   dateInitial: string;

@@ -6,7 +6,24 @@
 
 
 <div *ngIf="!isLoading && raceEvents.length > 0">
-    <a  *ngFor="let race of raceEvents" class="container-card w-100 justify-content-between position-relative mb-3" [ngClass]="{ 'disabled': isFutureRace(race.dateFinal) }" [routerLink]="['/race', race.id]">
+    <!-- Botão para filtrar corridas passadas -->
+    <div class="d-flex justify-content-end mb-3">
+        <p-button 
+            [label]="showPastRaces ? 'Ocultar corridas passadas' : 'Mostrar todas as corridas'"
+            [icon]="showPastRaces ? 'pi pi-eye-slash' : 'pi pi-eye'"
+            (click)="togglePastRaces()"
+            severity="secondary"
+            size="small"
+            styleClass="filter-button">
+        </p-button>
+    </div>
+
+    <a  *ngFor="let race of filteredRaceEvents" class="container-card w-100 justify-content-between position-relative mb-3" [ngClass]="{ 'disabled': isFutureRace(race.dateFinal), 'next-race': isNextRace(race.id) }" [routerLink]="['/race', race.id]">
+        <!-- Tag da próxima corrida -->
+        <div *ngIf="isNextRace(race.id)" class="next-race-tag">
+            <span class="next-race-label">PRÓXIMA CORRIDA</span>
+        </div>
+        
         <div class="card-box-left d-flex flex-column w-100 h-100 gap-1">
             <div class="card-body d-flex gap-md-5">
                 <div class="card-box-date d-flex align-items-top justify-content-center">
