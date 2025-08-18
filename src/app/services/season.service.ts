@@ -20,6 +20,10 @@ constructor(private http: HttpClient) { }
     return this.http.get<Season>(`${this.apiUrl}/${id}`);
   }
 
+  getCurrentSeasonByCategoryId(categoryId: string): Observable<Season> {
+    return this.http.get<Season>(`${this.apiUrl}/current/category/${categoryId}`);
+  }
+
   createSeason(request: SeasonCreateRequest): Observable<Season> {
     return this.http.post<Season>(this.apiUrl, request);
   }

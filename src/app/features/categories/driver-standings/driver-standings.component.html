@@ -4,7 +4,25 @@
     <span class="standings-subtitle">Temporada 2025</span>
   </div>
 
-  <div class="standings-table">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <span class="loading-text">Carregando classificação...</span>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage && !isLoading" class="error-container">
+    <div class="error-icon">⚠️</div>
+    <span class="error-text">{{ errorMessage }}</span>
+  </div>
+
+  <!-- No Data State -->
+  <div *ngIf="!isLoading && driverStandings.length === 0 && !errorMessage" class="no-data-container">
+    <div class="no-data-icon">📊</div>
+    <span class="no-data-text">Nenhum dado de classificação disponível</span>
+  </div>
+
+  <div *ngIf="!isLoading && driverStandings.length > 0" class="standings-table">
     <div class="table-header">
       <div class="header-position">Pos</div>
       <div class="header-driver">Piloto</div>
@@ -37,7 +55,7 @@
         <div class="row-driver">
           <div class="driver-info">
             <span class="driver-name">{{driver.driverName}}</span>
-            <span *ngIf="driver.teamName" class="team-name">{{driver.teamName}}</span>
+            <span *ngIf="driver.teamName && driver.teamName !== 'N/A'" class="team-name">{{driver.teamName}}</span>
           </div>
         </div>
         
@@ -48,7 +66,7 @@
     </div>
   </div>
 
-  <div class="standings-footer">
+  <div *ngIf="!isLoading && driverStandings.length > 0" class="standings-footer">
     <span class="footer-note">*Classificação atualizada após a última corrida</span>
   </div>
 </div>

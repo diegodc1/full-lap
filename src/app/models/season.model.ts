@@ -1,7 +1,7 @@
 import { Category } from "./category.model";
 
 export interface Season {
-  id?: string;
+  id: string;
   name: string;
   category: Category;
   year: number;

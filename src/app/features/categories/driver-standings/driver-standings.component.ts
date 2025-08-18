@@ -1,5 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { StandingDrivers } from '../../../models/standing-drivers.model';
+import { StandingDriversService } from '../../../services/standing-drivers.service';
+import { CategoryService } from '../../../services/category.service';
+import { SeasonService } from '../../../services/season.service';
 
 export interface DriverStanding {
   position: number;
@@ -15,43 +20,100 @@ export interface DriverStanding {
   templateUrl: './driver-standings.component.html',
   styleUrl: './driver-standings.component.scss'
 })
-export class DriverStandingsComponent {
+export class DriverStandingsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() categoryKey: string = '';
 
-  // Dados estáticos para demonstração
-  driverStandings: DriverStanding[] = [
-    { position: 1, driverName: 'Max Verstappen', teamName: 'Red Bull Racing', points: 575 },
-    { position: 2, driverName: 'Lando Norris', teamName: 'McLaren', points: 374 },
-    { position: 3, driverName: 'Charles Leclerc', teamName: 'Ferrari', points: 356 },
-    { position: 4, driverName: 'Oscar Piastri', teamName: 'McLaren', points: 292 },
-    { position: 5, driverName: 'Carlos Sainz', teamName: 'Ferrari', points: 290 },
-    { position: 6, driverName: 'George Russell', teamName: 'Mercedes', points: 245 },
-    { position: 7, driverName: 'Lewis Hamilton', teamName: 'Mercedes', points: 223 },
-    { position: 8, driverName: 'Sergio Pérez', teamName: 'Red Bull Racing', points: 152 },
-    { position: 9, driverName: 'Fernando Alonso', teamName: 'Aston Martin', points: 68 },
-    { position: 10, driverName: 'Nico Hülkenberg', teamName: 'Haas', points: 37 },
-    { position: 11, driverName: 'Yuki Tsunoda', teamName: 'RB', points: 30 },
-    { position: 12, driverName: 'Pierre Gasly', teamName: 'Alpine', points: 26 },
-    { position: 13, driverName: 'Lance Stroll', teamName: 'Aston Martin', points: 24 },
-    { position: 14, driverName: 'Esteban Ocon', teamName: 'Alpine', points: 23 },
-    { position: 15, driverName: 'Kevin Magnussen', teamName: 'Haas', points: 16 },
-    { position: 16, driverName: 'Alexander Albon', teamName: 'Williams', points: 12 },
-    { position: 17, driverName: 'Daniel Ricciardo', teamName: 'RB', points: 12 },
-    { position: 18, driverName: 'Oliver Bearman', points: 7 },
-    { position: 19, driverName: 'Franco Colapinto', teamName: 'Williams', points: 5 },
-    { position: 20, driverName: 'Liam Lawson', teamName: 'RB', points: 4 }
-  ];
+  driverStandings: DriverStanding[] = [];
+  isLoading: boolean = false;
+  errorMessage: string = '';
+  private subscriptions: Subscription = new Subscription();
 
-  constructor() {}
+  constructor(
+    private standingDriversService: StandingDriversService,
+    private categoryService: CategoryService,
+    private seasonService: SeasonService
+  ) {}
 
-  ngOnChanges() {
-    // Aqui futuramente será implementada a lógica para buscar dados baseados na categoria
+  ngOnInit() {
     this.loadStandingsForCategory();
   }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['categoryKey'] && !changes['categoryKey'].firstChange) {
+      this.loadStandingsForCategory();
+    }
+  }
+
   private loadStandingsForCategory() {
-    // Por enquanto mantém os dados estáticos
-    // Futuramente aqui será feita a integração com o backend
-    console.log(`Carregando classificação para categoria: ${this.categoryKey}`);
+    if (!this.categoryKey) {
+      this.driverStandings = [];
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.subscriptions.add(
+      this.categoryService.getAllCategories().subscribe({
+        next: (categories) => {
+          const category = categories.find(cat => {
+            const nameMatch = cat.name === this.categoryKey;
+            const shortMatch = cat.categoryShort === this.categoryKey;
+            const formattedMatch = cat.name.toUpperCase().replace(/\s+/g, '') === this.categoryKey;
+            return nameMatch || shortMatch || formattedMatch;
+          });
+          
+          if (!category) {
+            this.handleError('Categoria não encontrada');
+            return;
+          }
+          
+          this.subscriptions.add(
+            this.seasonService.getCurrentSeasonByCategoryId(category.id).subscribe({
+              next: (season) => {
+      
+                this.subscriptions.add(
+                  this.standingDriversService.getByCategoryAndSeason(category.id, season.id).subscribe({
+                    next: (standings) => {
+                      this.driverStandings = this.mapStandingsToDriverStanding(standings);
+                      this.isLoading = false;
+                    },
+                    error: (error) => {
+                      this.handleError(error.message || 'Erro ao carregar classificação');
+                    }
+                  })
+                );
+              },
+              error: (error) => {
+                this.handleError('Erro ao carregar temporadas');
+              }
+            })
+          );
+        },
+        error: (error) => {
+          this.handleError('Erro ao carregar categorias');
+        }
+      })
+    );
+  }
+
+  private mapStandingsToDriverStanding(standings: StandingDrivers[]): DriverStanding[] {
+    return standings.map(standing => ({
+      position: standing.position,
+      driverName: standing.driverName,
+      teamName: standing.teamName,
+      points: standing.points
+    }));
+  }
+
+  private handleError(message: string) {
+    this.errorMessage = message;
+    this.isLoading = false;
+    this.driverStandings = [];
+    console.error('Erro no componente de classificação:', message);
   }
 }
