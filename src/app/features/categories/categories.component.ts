@@ -27,10 +27,9 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     this.route.queryParamMap.subscribe(params => {
       const categoria = params.get('categoria');
       if (categoria) {
-        // Encontrar o label correspondente ao valor da categoria
         const categoryItem = this.categoryService.menuItems.find(item => item['value'] === categoria);
         if (categoryItem) {
-          this.categoryService.selectCategory(categoria, categoryItem.label);
+          this.categoryService.selectCategory(categoria, categoryItem.label || '');
         }
       }
     });
