@@ -92,12 +92,7 @@
     color: $text-semi-dark-gray;
 }
 
-.container-card.disabled {
-    opacity: 0.6;                  
-    filter: grayscale(1) brightness(0.9);  
-}
 
-// Estilo para o card da próxima corrida
 .container-card.next-race {
     border: 2px solid #00D1FC;
     box-shadow: 0 0px 3px rgba(0, 209, 252, 0.7);
@@ -107,7 +102,6 @@
     }
 }
 
-// Tag da próxima corrida
 .next-race-tag {
     position: absolute;
     top: -8px;
@@ -124,6 +118,25 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
         box-shadow: 0 2px 8px rgba(0, 209, 252, 0.4);
+    }
+}
+
+// Tag de corrida concluída
+.completed-race-tag {
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    z-index: 10;
+    
+    .completed-race-label {
+        background: linear-gradient(90deg, #4CAF50 0%, #388E3C 100%);
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 }
 
