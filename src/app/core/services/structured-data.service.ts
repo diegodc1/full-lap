@@ -40,7 +40,7 @@ export class StructuredDataService {
       "@context": "https://schema.org",
       "@type": "SportsEvent",
       "name": raceData.name,
-      "description": `Grande Prêmio de Fórmula 1 - ${raceData.name}`,
+      "description": `Evento de automobilismo - ${raceData.name}`,
       "startDate": raceData.dateStart,
       "endDate": raceData.dateEnd,
       "eventStatus": "https://schema.org/EventScheduled",
@@ -56,12 +56,12 @@ export class StructuredDataService {
       },
       "organizer": {
         "@type": "Organization",
-        "name": "Formula 1",
-        "url": "https://www.formula1.com"
+        "name": "FullLap",
+        "url": "https://fulllap.com.br"
       },
-      "sport": "Formula 1",
+      "sport": "Automobilismo",
       "url": raceData.url,
-      "image": "https://fulllap.com/assets/images/f1-logo.jpg",
+      "image": "https://fulllap.com.br/assets/logos/logo-2.png",
       "offers": {
         "@type": "Offer",
         "availability": "https://schema.org/InStock",

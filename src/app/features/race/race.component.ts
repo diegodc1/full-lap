@@ -12,6 +12,7 @@ import { Transmission } from '../../models/transmission.model';
 import { SeoService } from '../../core/services/seo.service';
 import { StructuredDataService } from '../../core/services/structured-data.service';
 
+
 @Component({
   selector: 'app-race',
   standalone: true,
@@ -28,6 +29,7 @@ export class RaceComponent implements OnInit {
   mapTransmission: Map<string, Transmission> = new Map();
   mapTransmissionArray: { name: string, transmission: Transmission }[] = [];
   sessionsLoaded: boolean = false;
+
 
   eventDayInitial: string = '';
   eventDayFinal: string = '';
@@ -63,6 +65,8 @@ export class RaceComponent implements OnInit {
         this.eventDayFinal = formatDateInfo(value.dateFinal, 'day')
         this.eventMonth = formatDateInfo(value.dateFinal, 'monthLong').toLowerCase()
         this.eventYear = formatDateInfo(value.dateFinal, 'year')
+        
+
         
         if (value.circuit?.name && value.circuit?.country) {
           this.seoService.updateRacePageMeta({

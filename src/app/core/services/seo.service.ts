@@ -72,8 +72,8 @@ export class SeoService {
     country: string;
   }): void {
     const title = `${raceData.name} - ${raceData.circuit}`;
-    const description = `Acompanhe o ${raceData.name} no circuito ${raceData.circuit} em ${raceData.country}. Veja transmissões ao vivo, horários das sessões e resultados.`;
-    const keywords = `${raceData.name}, ${raceData.circuit}, ${raceData.country}, Fórmula 1, F1, corrida, ${raceData.date}`;
+    const description = `${raceData.name} no ${raceData.circuit}, ${raceData.country} - ${raceData.date}. Acompanhe transmissões ao vivo, horários de treinos, classificação e corrida. Resultados em tempo real, estatísticas e análises completas do automobilismo.`;
+    const keywords = `${raceData.name}, ${raceData.circuit}, ${raceData.country}, automobilismo, corrida, motorsport, Stock Car, NASCAR Brasil, Porsche Cup, Fórmula 1, ${raceData.date}`;
     
     this.updateMetaTags({
       title,
@@ -90,8 +90,8 @@ export class SeoService {
     nationality: string;
   }): void {
     const title = `${driverData.name} - ${driverData.team}`;
-    const description = `Conheça ${driverData.name}, piloto da ${driverData.team} na Fórmula 1. Veja estatísticas, resultados e informações completas.`;
-    const keywords = `${driverData.name}, ${driverData.team}, ${driverData.nationality}, piloto, Fórmula 1, F1, estatísticas`;
+    const description = `${driverData.name} - Piloto ${driverData.nationality} da ${driverData.team}. Estatísticas detalhadas, histórico de resultados, vitórias, pódios, pole positions e campeonatos no automobilismo. Acompanhe a carreira completa do piloto.`;
+    const keywords = `${driverData.name}, ${driverData.team}, ${driverData.nationality}, piloto, automobilismo, motorsport, Stock Car, NASCAR Brasil, Porsche Cup, Fórmula 1, estatísticas`;
     
     this.updateMetaTags({
       title,
@@ -107,9 +107,9 @@ export class SeoService {
     drivers: string[];
     country: string;
   }): void {
-    const title = `${teamData.name} - Equipe F1`;
-    const description = `Conheça a equipe ${teamData.name} da Fórmula 1. Pilotos: ${teamData.drivers.join(' e ')}. Veja resultados, estatísticas e informações completas.`;
-    const keywords = `${teamData.name}, ${teamData.drivers.join(', ')}, ${teamData.country}, equipe, Fórmula 1, F1, construtores`;
+    const title = `${teamData.name} - Equipe`;
+    const description = `${teamData.name} - Equipe do automobilismo com pilotos ${teamData.drivers.join(' e ')}. História da escuderia, estatísticas de construtores, vitórias, campeonatos e desenvolvimento técnico. Análise completa da performance da equipe.`;
+    const keywords = `${teamData.name}, ${teamData.drivers.join(', ')}, ${teamData.country}, equipe, automobilismo, motorsport, Stock Car, NASCAR Brasil, Porsche Cup, Fórmula 1, construtores`;
     
     this.updateMetaTags({
       title,
@@ -127,8 +127,8 @@ export class SeoService {
     turns: number;
   }): void {
     const title = `${circuitData.name} - ${circuitData.country}`;
-    const description = `Conheça o circuito ${circuitData.name} em ${circuitData.country}. Extensão: ${circuitData.length}, ${circuitData.turns} curvas. Veja layout, características e história.`;
-    const keywords = `${circuitData.name}, ${circuitData.country}, circuito, pista, Fórmula 1, F1, ${circuitData.turns} curvas`;
+    const description = `Circuito ${circuitData.name}, ${circuitData.country} - ${circuitData.length} de extensão com ${circuitData.turns} curvas. Layout detalhado, características técnicas, recordes de volta, história das corridas e análise das principais zonas de ultrapassagem.`;
+    const keywords = `${circuitData.name}, ${circuitData.country}, circuito, pista, automobilismo, motorsport, Stock Car, NASCAR Brasil, Porsche Cup, Fórmula 1, ${circuitData.turns} curvas`;
     
     this.updateMetaTags({
       title,
@@ -141,9 +141,9 @@ export class SeoService {
 
   resetToDefault(): void {
     this.updateMetaTags({
-      title: 'Acompanhe a Fórmula 1 em Tempo Real',
-      description: 'FullLap é sua plataforma completa para acompanhar a Fórmula 1. Veja corridas ao vivo, resultados, calendário, estatísticas e muito mais sobre o mundo da F1.',
-      keywords: 'Fórmula 1, F1, corridas, ao vivo, resultados, calendário, pilotos, equipes, circuitos, transmissão, FullLap',
+      title: 'Acompanhe o Automobilismo em Tempo Real',
+      description: 'FullLap - Sua plataforma completa para Fórmula 1, Stock Car, NASCAR e automobilismo mundial. Calendário atualizado, transmissões ao vivo, resultados em tempo real, estatísticas detalhadas de pilotos e equipes, análises técnicas e cobertura completa das principais categorias do motorsport.',
+      keywords: 'Fórmula 1, F1, Stock Car, NASCAR Brasil, Porsche Cup, automobilismo, corridas, ao vivo, resultados, calendário, pilotos, equipes, circuitos, transmissão, FullLap',
       type: 'website',
       url: 'https://fulllap.com'
     });
