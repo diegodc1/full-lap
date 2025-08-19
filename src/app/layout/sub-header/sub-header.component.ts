@@ -100,8 +100,17 @@ export class SubHeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const container = this.categoriesContainer.nativeElement;
     const containerWidth = container.offsetWidth;
-    const maxWidth = containerWidth * 0.8; // 80% da largura
+    const isMobile = window.innerWidth <= 768;
     
+    // Em mobile, mostrar todas as categorias com scroll horizontal
+    if (isMobile) {
+      this.visibleCategories = this.categoryOptions.filter(cat => !cat.disabled);
+      this.overflowCategories = [];
+      return;
+    }
+    
+    // Lógica original para desktop
+    const maxWidth = containerWidth * 0.8; // 80% da largura
     let currentWidth = 0;
     const buttonPadding = 32; // padding estimado para cada botão
     const buttonMargin = 8; // margem entre botões
