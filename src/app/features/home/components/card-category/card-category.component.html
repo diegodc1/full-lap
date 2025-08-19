@@ -2,7 +2,9 @@
     <a [routerLink]="['/categories']" [queryParams]="{ categoria: cardCategoryShortName }">
         <span class="card-category-title">{{cardCategoryName}}</span>
         <img  class="card-category-image" [src]="'assets/categories/' + cardCategoryImagePath" alt="Imagem da categoria {{cardCategoryName}}">
-
+        
         <div class="card-category-cover"></div>
+        
+        <span class="card-image-author" *ngIf="cardImageAuthor">{{cardImageAuthor}}</span>
     </a>
 </div>
