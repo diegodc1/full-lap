@@ -81,7 +81,7 @@ export class CalendarComponent implements OnInit{
   }
 
   createCalendarEvents(listSessions: SessionCalendar[]) {
-  
+    console.log("list session: " + listSessions)
     const eventosFormatados = listSessions.map(session => ({
       title: session.eventName + ' - ' + session.name,
       date: this.parseDate(session.datetime), 

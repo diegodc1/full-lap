@@ -12,7 +12,11 @@ export class CategoryImagePipe implements PipeTransform {
         case 'STOCK_CAR':
             return 'stock-car/stock-car-1.jpg';
         case 'FORMULA_INDY':
-            return 'formula-indy/formula-indy-1.jpg';
+         return 'formula-indy/formula-indy-1.jpg';
+        case 'NASCAR_BRASIL':
+          return 'nascar/nascar.jpg';
+        case 'PORSCHE_CUP':
+          return 'porsche-cup/porsche-cup.jpg';
         default:
             return'default.jpg';
     }
