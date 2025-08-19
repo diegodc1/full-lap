@@ -41,7 +41,10 @@ export class CardRaceWeekComponent {
         this.imagePath = 'formula-indy/formula-indy-1.jpg';
         break;
       case 'NASCAR_BRASIL':
-        this.imagePath = 'stock-car/stock-car-1.jpg';
+        this.imagePath = 'nascar/nascar.jpg';
+        break;
+      case 'PORSCHE_CUP':
+        this.imagePath = 'porsche-cup/porsche-cup.jpg';
         break;
       default:
         this.imagePath = 'default.jpg';

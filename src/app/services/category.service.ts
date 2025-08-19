@@ -76,9 +76,7 @@ export class CategoryService {
       value: 'PORSCHE_CUP',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('PORSCHE_CUP', 'Porsche Cup'),
-      disabled: true,
-      badge: 'Em breve',
-      badgeStyleClass: 'badge-menu'
+      disabled: false,
     },
     {
       label: 'WEC',

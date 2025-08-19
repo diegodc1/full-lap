@@ -77,6 +77,6 @@ export class HomeComponent implements OnInit {
 
   getRaceSessionTime(event: any): string {
     const raceSession = event.sessions?.find((session: SessionRes) => session.sessionType === 'RACE');
-    return raceSession ? raceSession.datetime : '00:00';
+    return raceSession ? raceSession.datetime : event.dateFinal;
   }
 }
