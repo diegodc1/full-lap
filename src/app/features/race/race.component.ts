@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CardWatchComponent } from "./components/card-watch/card-watch.component";
 import { RaceEvent } from '../../models/event.model';
@@ -20,7 +20,7 @@ import { StructuredDataService } from '../../core/services/structured-data.servi
   templateUrl: './race.component.html',
   styleUrl: './race.component.scss'
 })
-export class RaceComponent implements OnInit {
+export class RaceComponent implements OnInit, OnDestroy {
   id = '';
   race: RaceEvent | undefined;
   listSessions: SessionRes[] | undefined;
@@ -35,6 +35,12 @@ export class RaceComponent implements OnInit {
   eventDayFinal: string = '';
   eventMonth: string = '';
   eventYear: string = '';
+
+  // Countdown timer properties
+  countdownTarget: Date | null = null;
+  countdownDisplay: string = '';
+  countdownInterval: any;
+  showCountdown: boolean = false;
 
   formatDateInfo = formatDateInfo;
   formatTime = formatTime;
@@ -65,8 +71,6 @@ export class RaceComponent implements OnInit {
         this.eventDayFinal = formatDateInfo(value.dateFinal, 'day')
         this.eventMonth = formatDateInfo(value.dateFinal, 'monthLong').toLowerCase()
         this.eventYear = formatDateInfo(value.dateFinal, 'year')
-        
-
         
         if (value.circuit?.name && value.circuit?.country) {
           this.seoService.updateRacePageMeta({
@@ -99,6 +103,7 @@ export class RaceComponent implements OnInit {
           this.listSessions = value;
           this.createMapDateSession(this.listSessions)
           this.createMapTransmissions(this.listSessions);
+          this.setupCountdown();
           this.sessionsLoaded = true;
         },
         error: (err) => {
@@ -156,5 +161,71 @@ export class RaceComponent implements OnInit {
     }));
   }
 
+  ngOnDestroy(): void {
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+    }
+  }
 
+  private setupCountdown(): void {
+    this.countdownTarget = this.getCountdownTargetDate();
+    
+    if (this.countdownTarget && this.countdownTarget > new Date()) {
+      this.showCountdown = true;
+      this.updateCountdown();
+      this.countdownInterval = setInterval(() => {
+        this.updateCountdown();
+      }, 1000);
+    } else {
+      this.showCountdown = false;
+    }
+  }
+
+  private getCountdownTargetDate(): Date | null {
+    if (this.listSessions && this.listSessions.length > 0) {
+      const sortedSessions = this.listSessions.sort((a, b) => 
+        new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
+      );
+      return new Date(sortedSessions[0].datetime);
+    }
+  
+
+    if (this.race?.dateInitial) {
+      return new Date(this.race.dateInitial);
+    }
+    
+    return null;
+  }
+
+  private updateCountdown(): void {
+    if (!this.countdownTarget) {
+      this.showCountdown = false;
+      return;
+    }
+
+    const now = new Date();
+    const timeDiff = this.countdownTarget.getTime() - now.getTime();
+
+    if (timeDiff <= 0) {
+      this.countdownDisplay = 'Evento iniciado!';
+      this.showCountdown = false;
+      if (this.countdownInterval) {
+        clearInterval(this.countdownInterval);
+      }
+      return;
+    }
+
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+    if (days > 0) {
+      this.countdownDisplay = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    } else if (hours > 0) {
+      this.countdownDisplay = `${hours}h ${minutes}m ${seconds}s`;
+    } else {
+      this.countdownDisplay = `${minutes}m ${seconds}s`;
+    }
+  }
 }

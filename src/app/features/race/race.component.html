@@ -28,6 +28,15 @@
                     </div>
                 </div>
 
+                <!-- Countdown Timer -->
+                <div class="countdown-wrapper d-flex align-items-center gap-2" *ngIf="showCountdown">
+                    <span class="countdown-wrapper__icon material-symbols-rounded">schedule</span>
+                    <div class="countdown-wrapper__content d-flex flex-column">
+                        <span class="countdown-wrapper__title">Tempo restante</span>
+                        <span class="countdown-wrapper__timer">{{countdownDisplay}}</span>
+                    </div>
+                </div>
+
                 <div class="race-watch-wrapper d-flex flex-column gap-1" *ngIf="mapTransmissionArray.length > 0">
                     <h4 class="race-watch-wrapper__title">Onde Assistir</h4>
                     <div class="race-watch-wrapper__content d-flex gap-2">
