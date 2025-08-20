@@ -46,6 +46,9 @@ export class CardRaceWeekComponent {
       case 'PORSCHE_CUP':
         this.imagePath = 'porsche-cup/porsche-cup.jpg';
         break;
+      case 'COPA_TRUCK':
+        this.imagePath = 'copa-truck/copa-truck.jpg';
+        break;
       default:
         this.imagePath = 'default.jpg';
         break;
