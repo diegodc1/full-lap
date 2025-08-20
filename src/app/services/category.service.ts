@@ -67,9 +67,6 @@ export class CategoryService {
       value: 'COPA_TRUCK',
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('COPA_TRUCK', 'Copa Truck'),
-      disabled: true,
-      badge: 'Em breve',
-      badgeStyleClass: 'badge-menu'
     },
     {
       label: 'Porsche Cup',
