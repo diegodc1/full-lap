@@ -28,6 +28,24 @@
                     </div>
                 </div>
 
+                <!-- Weather Forecast -->
+                <div class="weather-wrapper d-flex align-items-center gap-2" *ngIf="showWeather">
+                    <span class="weather-wrapper__icon material-symbols-rounded" *ngIf="!weatherLoading">{{weatherData?.icon || 'cloud'}}</span>
+                    <p-progressSpinner *ngIf="weatherLoading" [style]="{width: '24px', height: '24px'}"></p-progressSpinner>
+                    <div class="weather-wrapper__content d-flex flex-column" *ngIf="!weatherLoading && weatherData">
+                        <span class="weather-wrapper__title">Previsão para o dia da corrida</span>
+                        <div class="weather-wrapper__details d-flex gap-3">
+                            <span class="weather-wrapper__temp">{{weatherData.temperature}}°C</span>
+                            <span class="weather-wrapper__desc">{{weatherData.description}}</span>
+                            <span class="weather-wrapper__wind">Vento: {{weatherData.windSpeed}} km/h</span>
+                        </div>
+                    </div>
+                    <div class="weather-wrapper__content d-flex flex-column" *ngIf="!weatherLoading && !weatherData">
+                        <span class="weather-wrapper__title">Previsão do tempo</span>
+                        <span class="weather-wrapper__error">Não foi possível obter a previsão</span>
+                    </div>
+                </div>
+
                 <!-- Countdown Timer -->
                 <div class="countdown-wrapper d-flex align-items-center gap-2" *ngIf="showCountdown">
                     <span class="countdown-wrapper__icon material-symbols-rounded">schedule</span>

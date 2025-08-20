@@ -2,7 +2,7 @@
 @use 'variables' as *;
 
 .race-wrapper {
-    gap: 2.3rem;
+    gap: 1rem;
     padding: 0 2rem 0 0;
 
     &__category {
@@ -109,6 +109,7 @@
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
+    margin-top: 2rem;
 
     &__header {
         display: flex;
@@ -296,6 +297,58 @@
 
 }
 
+.weather-wrapper {
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(#4A90E2, 0.1), rgba(#4A90E2, 0.05));
+  border-radius: 8px;
+  border-left: 4px solid #4A90E2;
+  margin: 1rem 0 0 0;
+
+  &__icon {
+    font-size: 2rem;
+    color: #4A90E2;
+  }
+
+  &__content {
+    line-height: 20px;
+    flex: 1;
+  }
+
+  &__title {
+    font-weight: $fw_extra_bold;
+    color: #ffffff;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+
+  &__details {
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__temp {
+    font-weight: $fw_bold;
+    color: #4A90E2;
+    font-size: 1.1rem;
+  }
+
+  &__desc {
+    color: #ffffff;
+    font-size: 0.9rem;
+  }
+
+  &__wind {
+    color:  #ffffff;
+    font-size: 0.85rem;
+  }
+
+  &__error {
+    color:  #ffffff;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+}
+
 .countdown-wrapper {
   padding: 1rem;
   background: linear-gradient(135deg, rgba($aux-color-primary, 0.1), rgba($aux-color-primary, 0.05));
@@ -314,7 +367,7 @@
 
   &__title {
     font-weight: $fw_extra_bold;
-    color: $text-primary-color;
+    color:  #ffffff;
     font-size: 0.9rem;
   }
 

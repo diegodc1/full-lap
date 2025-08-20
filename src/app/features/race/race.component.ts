@@ -11,6 +11,7 @@ import { SessionService } from '../../services/session.service';
 import { Transmission } from '../../models/transmission.model';
 import { SeoService } from '../../core/services/seo.service';
 import { StructuredDataService } from '../../core/services/structured-data.service';
+import { WeatherService, WeatherData } from '../../services/weather.service';
 
 
 @Component({
@@ -42,6 +43,11 @@ export class RaceComponent implements OnInit, OnDestroy {
   countdownInterval: any;
   showCountdown: boolean = false;
 
+  // Weather properties
+  weatherData: WeatherData | null = null;
+  weatherLoading: boolean = false;
+  showWeather: boolean = false;
+
   formatDateInfo = formatDateInfo;
   formatTime = formatTime;
 
@@ -50,7 +56,8 @@ export class RaceComponent implements OnInit, OnDestroy {
     private eventService: EventService,
     private sessionService: SessionService,
     private seoService: SeoService,
-    private structuredDataService: StructuredDataService
+    private structuredDataService: StructuredDataService,
+    private weatherService: WeatherService
   ) {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') ?? '';
@@ -71,6 +78,8 @@ export class RaceComponent implements OnInit, OnDestroy {
         this.eventDayFinal = formatDateInfo(value.dateFinal, 'day')
         this.eventMonth = formatDateInfo(value.dateFinal, 'monthLong').toLowerCase()
         this.eventYear = formatDateInfo(value.dateFinal, 'year')
+        
+        this.loadWeatherData();
         
         if (value.circuit?.name && value.circuit?.country) {
           this.seoService.updateRacePageMeta({
@@ -226,6 +235,56 @@ export class RaceComponent implements OnInit, OnDestroy {
       this.countdownDisplay = `${hours}h ${minutes}m ${seconds}s`;
     } else {
       this.countdownDisplay = `${minutes}m ${seconds}s`;
+     }
+   }
+
+   private loadWeatherData(): void {
+    console.log('loadWeatherData called');
+    console.log('Race data:', this.race);
+    
+    if (!this.race?.city || !this.race?.country || !this.race?.dateFinal) {
+      console.log('Missing required data for weather:', {
+        city: this.race?.city,
+        country: this.race?.country,
+        dateFinal: this.race?.dateFinal
+      });
+      return;
     }
+
+    // Verificar se a corrida ainda não aconteceu
+    const raceDate = new Date(this.race.dateFinal);
+    const currentDate = new Date();
+    
+    // Comparar apenas as datas (sem horário)
+    const raceDateOnly = new Date(raceDate.getFullYear(), raceDate.getMonth(), raceDate.getDate());
+    const currentDateOnly = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+    
+    if (raceDateOnly < currentDateOnly) {
+      console.log('Race has already happened, skipping weather data');
+      this.showWeather = false;
+      return;
+    }
+
+    this.weatherLoading = true;
+    this.showWeather = true;
+
+    // Usar a data final do evento (último dia da corrida)
+    const dateString = raceDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+
+    console.log('Weather request params:', { city: this.race.city, country: this.race.country, date: dateString });
+
+    this.weatherService.getWeatherForDate(this.race.city, this.race.country, dateString)
+      .subscribe({
+        next: (weather) => {
+          console.log('Weather data received:', weather);
+          this.weatherData = weather;
+          this.weatherLoading = false;
+        },
+        error: (error) => {
+          console.error('Erro ao carregar dados meteorológicos:', error);
+          this.weatherLoading = false;
+          this.showWeather = false;
+        }
+      });
   }
-}
+ }
