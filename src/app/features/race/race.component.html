@@ -1,7 +1,7 @@
 <div *ngIf="race != undefined; then raceBlock else msgBlock"></div>
 
-<div class="d-flex w-100 flex-column gap-5">
-    <ng-template #raceBlock> 
+<ng-template #raceBlock>
+    <div class="d-flex w-100 flex-column gap-5"> 
 
         <div class="race-container">
 
@@ -55,10 +55,27 @@
                     </div>
                 </div>
 
-                <div class="race-watch-wrapper d-flex flex-column gap-1" *ngIf="mapTransmissionArray.length > 0">
+                <div class="race-watch-wrapper d-flex flex-column gap-1" *ngIf="mapTransmissionArray.length > 0 && !isRacePast">
                     <h4 class="race-watch-wrapper__title">Onde Assistir</h4>
                     <div class="race-watch-wrapper__content d-flex gap-2">
                         <app-card-watch *ngFor="let trans of mapTransmissionArray" [watchTitle]="trans.name" [type]="trans.transmission.platformType" [url]="trans.transmission.url" [watchColor]="trans.transmission.color"></app-card-watch>
+                    </div>
+                </div>
+
+                <div class="race-highlights-wrapper d-flex flex-column gap-1" *ngIf="isRacePast && race && race.youtubeVideoUrls && race.youtubeVideoUrls.length > 0">
+                    <h4 class="race-highlights-wrapper__title d-flex align-items-center gap-2">
+                        <span class="countdown-wrapper__icon material-symbols-rounded">motion_play</span>
+                        Veja como foi:</h4>
+                    <div class="race-highlights-wrapper__content d-flex flex-column gap-3">
+                        <div class="highlight-video" *ngFor="let videoUrl of race?.youtubeVideoUrls">
+                             <iframe 
+                                 [src]="getSafeUrl(videoUrl)" 
+                                 width="100%" 
+                                 height="315" 
+                                 frameborder="0" 
+                                 allowfullscreen>
+                             </iframe>
+                         </div>
                     </div>
                 </div>
             </div>
@@ -143,12 +160,10 @@
                 </div>
             </ng-template>
         </div>
-
-    </ng-template>
+    </div>
+</ng-template>
     <ng-template #msgBlock>
         <div class="w-100 d-flex align-items-center justify-content-center">
             <p-progress-spinner strokeWidth="8" styleClass="custom-spinner" color="#00B7DC" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px', color: '#00B7DC'}" />
         </div>
     </ng-template>
-    
-</div>

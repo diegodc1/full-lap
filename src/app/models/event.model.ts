@@ -16,6 +16,7 @@ export interface RaceEvent {
   season?: Season;
   category?: Category;
   circuit?: Circuit;
+  youtubeVideoUrls?: string[];
 }
 
 export interface RaceEventRequest {

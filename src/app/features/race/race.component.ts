@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CardWatchComponent } from "./components/card-watch/card-watch.component";
 import { RaceEvent } from '../../models/event.model';
 import { EventService } from '../../services/event.service';
@@ -48,6 +49,9 @@ export class RaceComponent implements OnInit, OnDestroy {
   weatherLoading: boolean = false;
   showWeather: boolean = false;
 
+  // Race status
+  isRacePast: boolean = false;
+
   formatDateInfo = formatDateInfo;
   formatTime = formatTime;
 
@@ -57,7 +61,8 @@ export class RaceComponent implements OnInit, OnDestroy {
     private sessionService: SessionService,
     private seoService: SeoService,
     private structuredDataService: StructuredDataService,
-    private weatherService: WeatherService
+    private weatherService: WeatherService,
+    private sanitizer: DomSanitizer
   ) {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') ?? '';
@@ -252,18 +257,20 @@ export class RaceComponent implements OnInit, OnDestroy {
     }
 
     // Verificar se a corrida ainda não aconteceu
-    const raceDate = new Date(this.race.dateFinal);
-    const currentDate = new Date();
-    
-    // Comparar apenas as datas (sem horário)
-    const raceDateOnly = new Date(raceDate.getFullYear(), raceDate.getMonth(), raceDate.getDate());
-    const currentDateOnly = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
-    
-    if (raceDateOnly < currentDateOnly) {
-      console.log('Race has already happened, skipping weather data');
-      this.showWeather = false;
-      return;
-    }
+     const raceDate = new Date(this.race.dateFinal);
+     const currentDate = new Date();
+     
+     // Comparar apenas as datas (sem horário)
+     const raceDateOnly = new Date(raceDate.getFullYear(), raceDate.getMonth(), raceDate.getDate());
+     const currentDateOnly = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+     
+     this.isRacePast = raceDateOnly < currentDateOnly;
+     
+     if (this.isRacePast) {
+       console.log('Race has already happened, skipping weather data');
+       this.showWeather = false;
+       return;
+     }
 
     this.weatherLoading = true;
     this.showWeather = true;
@@ -286,5 +293,17 @@ export class RaceComponent implements OnInit, OnDestroy {
           this.showWeather = false;
         }
       });
-  }
+   }
+
+   getYouTubeVideoId(url: string): string {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      return (match && match[2].length === 11) ? match[2] : '';
+    }
+
+    getSafeUrl(videoUrl: string): SafeResourceUrl {
+      const videoId = this.getYouTubeVideoId(videoUrl);
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+    }
  }
