@@ -22,6 +22,7 @@ export interface DriverStanding {
 })
 export class DriverStandingsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() categoryKey: string = '';
+  @Input() seasonYear: number = 2026;
 
   driverStandings: DriverStanding[] = [];
   isLoading: boolean = false;

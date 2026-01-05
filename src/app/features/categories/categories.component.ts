@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 export class CategoriesComponent implements OnInit, OnDestroy {
   selectedCategory: string = 'FORMULA1';
   nameCategorySelected: string = 'Fórmula 1';
+  selectedSeasonYear: number = 2026;
   private subscription: Subscription = new Subscription();
 
   constructor(
@@ -47,11 +48,12 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  onSeasonYearChange(year: number): void {
+    this.selectedSeasonYear = year;
   }
 
 
-  
-
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

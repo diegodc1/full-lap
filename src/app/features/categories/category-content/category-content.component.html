@@ -1,30 +1,37 @@
 
+<div class="d-flex justify-content-end mb-3 gap-2">
+    <p-button 
+        [label]="showPastRaces ? 'Ocultar corridas passadas' : 'Mostrar todas as corridas'"
+        [icon]="showPastRaces ? 'pi pi-eye-slash' : 'pi pi-eye'"
+        severity="secondary"
+        size="small"
+        styleClass="filter-button"
+        (click)="togglePastRaces()">
+    </p-button>
+    <p-selectButton
+        [options]="stateOptions"
+        [(ngModel)]="selectedSeasonYear"
+        optionLabel="label"
+        optionValue="value"
+        size="small"
+        styleClass="filter-button"
+        (onChange)="onSeasonYearChange()">
+    </p-selectButton>
+</div>
+
+
 <div *ngIf="isLoading" class="w-100 d-flex align-items-center justify-content-center">
     <p-progress-spinner strokeWidth="8" styleClass="custom-spinner" color="#00B7DC" fill="transparent"
         animationDuration=".5s" [style]="{ width: '90px', height: '50px', color: '#00B7DC'}" />
 </div>
 
-
 <div *ngIf="!isLoading && raceEvents.length > 0">
-    <!-- Botão para filtrar corridas passadas -->
-    <div class="d-flex justify-content-end mb-3">
-        <p-button 
-            [label]="showPastRaces ? 'Ocultar corridas passadas' : 'Mostrar todas as corridas'"
-            [icon]="showPastRaces ? 'pi pi-eye-slash' : 'pi pi-eye'"
-            (click)="togglePastRaces()"
-            severity="secondary"
-            size="small"
-            styleClass="filter-button">
-        </p-button>
-    </div>
 
     <a  *ngFor="let race of filteredRaceEvents" class="container-card w-100 justify-content-between position-relative mb-3" [ngClass]="{ 'next-race': isNextRace(race.id) }" [routerLink]="['/race', race.id]">
-        <!-- Tag da próxima corrida -->
         <div *ngIf="isNextRace(race.id)" class="next-race-tag">
             <span class="next-race-label">PRÓXIMA CORRIDA</span>
         </div>
         
-        <!-- Tag de corrida concluída -->
         <div *ngIf="isFutureRace(race.dateFinal)" class="completed-race-tag">
             <span class="completed-race-label">CONCLUÍDA</span>
         </div>

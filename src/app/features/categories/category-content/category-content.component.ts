@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { EventService } from '../../../services/event.service';
 import { RaceEvent } from '../../../models/event.model';
 import { CommonModule } from '@angular/common';
@@ -7,15 +7,20 @@ import { RouterModule } from '@angular/router';
 import { SelectModule } from 'primeng/select';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-category-content',
-  imports: [CommonModule, RouterModule, SelectModule, ProgressSpinnerModule, ButtonModule],
+  imports: [CommonModule, RouterModule, SelectModule, ProgressSpinnerModule, ButtonModule, SelectButtonModule, FormsModule],
   templateUrl: './category-content.component.html',
   styleUrl: './category-content.component.scss'
 })
 export class CategoryContentComponent {
   @Input() categoryKey: string = '';
+  @Output() seasonYearChange = new EventEmitter<number>();
+
 
   raceEvents: RaceEvent[] = [];
   filteredRaceEvents: RaceEvent[] = [];
@@ -25,7 +30,12 @@ export class CategoryContentComponent {
   nextRaceId: string | null = null;
   formatDateInfo = formatDateInfo;
   formatTime = formatTime;
+  selectedSeasonYear: number = 2026;
 
+  stateOptions = [
+    { label: '2025', value: 2025},
+    { label: '2026', value: 2026}
+  ];
 
   constructor(
     private eventsService: EventService
@@ -33,12 +43,14 @@ export class CategoryContentComponent {
 
   ngOnChanges() {
     if (this.categoryKey) {
-      this.loadCategoryData(this.categoryKey);
+      this.loadCategoryData(this.categoryKey, this.selectedSeasonYear);
     }
   }
 
-  loadCategoryData(key: string) {
-    this.eventsService.getAllByCategoryNameAndSeasonYear(this.categoryKey, 2025).subscribe({
+  loadCategoryData(key: string, numberYear: number): void {
+    this.isLoading = true;
+    this.showPastRaces = true;
+    this.eventsService.getAllByCategoryNameAndSeasonYear(key, numberYear).subscribe({
       next: (value) => {
         this.raceEvents = value;
         this.identifyNextRace();
@@ -51,6 +63,12 @@ export class CategoryContentComponent {
       }
     })
   }
+
+  onSeasonYearChange(): void {
+    this.seasonYearChange.emit(this.selectedSeasonYear);
+    this.loadCategoryData(this.categoryKey, this.selectedSeasonYear);
+  }
+
 
   formatTextCountry(text: string): string {
     return text.toLowerCase();

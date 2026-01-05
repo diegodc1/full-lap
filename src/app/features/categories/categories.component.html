@@ -2,13 +2,13 @@
     <div class="category-container w-100">
         <div class="d-flex flex-column gap-2 w-100">
             <h1 class="category-title">{{nameCategorySelected}}</h1>
-            <span>Acompanhe todo o calendário da {{nameCategorySelected}} - 2025</span>
+            <span>Acompanhe todo o calendário da {{nameCategorySelected}} - {{selectedSeasonYear}}</span>
             <span class="message-changes">*Datas, horários e locais sujeitos a alterações</span>
         </div>
         
         <div class="content-layout d-flex gap-4 w-100 mt-4">
             <div class="races-section flex-grow-1">
-                <app-category-content [categoryKey]="selectedCategory"></app-category-content>
+                <app-category-content [categoryKey]="selectedCategory" (seasonYearChange)="onSeasonYearChange($event)"></app-category-content>
             </div>
             
             <div class="standings-section">
