@@ -378,7 +378,7 @@
   }
 }
 
-.weather-wrapper {
+.info-card-wrapper {
   padding: 1rem;
   background: linear-gradient(135deg, rgba(#4A90E2, 0.1), rgba(#4A90E2, 0.05));
   border-radius: 8px;
@@ -428,7 +428,107 @@
     font-size: 0.9rem;
     font-style: italic;
   }
+
+  &__arrow-alert {
+     font-size: 2rem;
+      color: #566479;
+  }
 }
+
+.race-alert {
+  transition: all 0.3s ease;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+    transition: all 0.3s ease;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background-color: #152033;
+    border-radius: 8px;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__time-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+    gap: 1rem;
+  }
+
+
+  
+  &__input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .time-options__option {
+      background-color: $secondary-color;
+      padding: 0.4rem 1rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      color: $text-primary-color;
+      text-transform: uppercase;
+      user-select: none;
+
+      &.selected {
+      background-color: #2d6cb4;
+        font-weight: $fw_bold;
+      }
+
+      &:hover {
+        filter: brightness(1.2);
+        cursor: pointer;
+      }
+    
+    }
+  }
+
+  &__input {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: 1px solid $secondary-dark;
+    background-color: $secondary-color;
+    color: $text-primary-color;
+
+    &::placeholder {
+      color: $text-semi-dark-gray;
+    }
+  }
+
+}
+
+
+.btn-cancel {
+  background-color: $text-semi-dark-gray  ;
+  color: $text-primary-color;
+  padding: 6px 12px;
+  &:hover {
+    filter: brightness(0.94);
+  }
+}
+
+.btn-save-alert {
+  background-color: #2d6cb4;
+  color: $text-primary-color;
+  padding: 6px 12px;
+  &:hover {
+    filter: brightness(0.94);
+  }
+}
+
 
 .countdown-wrapper {
   padding: 1rem;

@@ -10,7 +10,7 @@ import {environment} from '../../environments/environment';
 export class SeasonService {
   private apiUrl = `${environment.apiUrl}/seasons`;
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllSeasons(): Observable<Season[]> {
     return this.http.get<Season[]>(this.apiUrl);

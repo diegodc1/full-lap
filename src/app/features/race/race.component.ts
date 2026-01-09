@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CardWatchComponent } from "./components/card-watch/card-watch.component";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RaceEvent } from '../../models/event.model';
 import { EventService } from '../../services/event.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -13,14 +14,30 @@ import { Transmission } from '../../models/transmission.model';
 import { SeoService } from '../../core/services/seo.service';
 import { StructuredDataService } from '../../core/services/structured-data.service';
 import { WeatherService, WeatherData } from '../../services/weather.service';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RaceAlertService } from '../../services/race-alert.service';
+
+
 
 
 @Component({
   selector: 'app-race',
   standalone: true,
-  imports: [CommonModule, CardWatchComponent, ProgressSpinnerModule],
+  imports: [CommonModule, CardWatchComponent, ProgressSpinnerModule, ReactiveFormsModule],
   templateUrl: './race.component.html',
-  styleUrl: './race.component.scss'
+  styleUrl: './race.component.scss',
+  animations: [
+    trigger('toggleRaceAlert', [
+      transition(':enter', [
+        style({opacity: 0, transform: 'translateY(-12px)', maxHeight: 0}),
+        animate('300ms ease-out', style({opacity: 1, transform: 'translateY(0)', maxHeight: '500px'}))
+      ]),
+      transition(':leave', [
+        animate('50ms ease-in', style({opacity: 0, transform: 'translateY(-12px)', maxHeight: 0}))
+      ])
+    ])
+  ]
 })
 export class RaceComponent implements OnInit, OnDestroy {
   id = '';
@@ -31,12 +48,15 @@ export class RaceComponent implements OnInit, OnDestroy {
   mapTransmission: Map<string, Transmission> = new Map();
   mapTransmissionArray: { name: string, transmission: Transmission }[] = [];
   sessionsLoaded: boolean = false;
-
+  alertForm!: FormGroup; 
 
   eventDayInitial: string = '';
   eventDayFinal: string = '';
   eventMonth: string = '';
   eventYear: string = '';
+
+  // Race alert properties
+  showAlertBox: boolean = false;
 
   // Countdown timer properties
   countdownTarget: Date | null = null;
@@ -52,6 +72,8 @@ export class RaceComponent implements OnInit, OnDestroy {
   // Race status
   isRacePast: boolean = false;
 
+  userEmail: string = '';
+
   formatDateInfo = formatDateInfo;
   formatTime = formatTime;
 
@@ -59,10 +81,12 @@ export class RaceComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private eventService: EventService,
     private sessionService: SessionService,
+    private raceAlertService: RaceAlertService,
     private seoService: SeoService,
     private structuredDataService: StructuredDataService,
     private weatherService: WeatherService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private fb: FormBuilder, 
   ) {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') ?? '';
@@ -73,6 +97,15 @@ export class RaceComponent implements OnInit, OnDestroy {
     window.scrollTo(0, 0);
     this.loadRaceData();
     this.loadSessions();
+    this.initializerRaceAlertForm();
+  }
+
+  initializerRaceAlertForm(): void {
+    this.alertForm = this.fb.group({
+      email: ['', Validators.required],
+      time: ['', Validators.required],
+      allRaces: ['', Validators.required],
+    })
   }
 
   loadRaceData() {
@@ -243,7 +276,7 @@ export class RaceComponent implements OnInit, OnDestroy {
      }
    }
 
-   private loadWeatherData(): void {
+  private loadWeatherData(): void {
     console.log('loadWeatherData called');
     console.log('Race data:', this.race);
     
@@ -295,6 +328,56 @@ export class RaceComponent implements OnInit, OnDestroy {
       });
    }
 
+  public clickRaceAlert() {
+    this.showAlertBox = !this.showAlertBox;
+  }
+
+  public selectTime(value: string): void {
+    this.alertForm.patchValue({
+      time: value
+    });
+  }
+
+  public selectAllRaces(value: string): void {
+    this.alertForm.patchValue({
+      allRaces: value
+    });
+  }
+
+
+  onSubmit(): void {
+    if (this.alertForm.invalid) {
+      this.alertForm.markAllAsTouched();
+      return;
+    }
+    const alertData = this.alertForm.value;
+
+    this.raceAlertService.createAlert({
+      eventId: this.id,
+      email: alertData.email, 
+      time: alertData.time,
+      allRaces: alertData.allRaces,
+    }).subscribe({
+      next: (response) => {
+        console.log('Alert created successfully:', response);
+        this.closeAlert();
+      },
+      error: (error) => {
+        console.error('Error creating alert:', error);
+        this.showAlertError(error.message);
+      }
+    })
+  }
+
+  closeAlert(): void {
+    this.showAlertBox = false;
+    this.alertForm.reset();
+  }
+
+  showAlertError(message: string): void {
+    alert(`Erro ao criar alerta: ${message}`);
+  }
+   
    getYouTubeVideoId(url: string): string {
       const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
       const match = url.match(regExp);

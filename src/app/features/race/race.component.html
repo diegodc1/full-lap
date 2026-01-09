@@ -28,21 +28,119 @@
                     </div>
                 </div>
 
-                <!-- Weather Forecast -->
-                <div class="weather-wrapper d-flex align-items-center gap-2" *ngIf="showWeather">
-                    <span class="weather-wrapper__icon material-symbols-rounded" *ngIf="!weatherLoading">{{weatherData?.icon || 'cloud'}}</span>
-                    <p-progressSpinner *ngIf="weatherLoading" [style]="{width: '24px', height: '24px'}"></p-progressSpinner>
-                    <div class="weather-wrapper__content d-flex flex-column" *ngIf="!weatherLoading && weatherData">
-                        <span class="weather-wrapper__title">Previsão para o dia da corrida</span>
-                        <div class="weather-wrapper__details d-flex gap-3">
-                            <span class="weather-wrapper__temp">{{weatherData.temperature}}°C</span>
-                            <span class="weather-wrapper__desc">{{weatherData.description}}</span>
-                            <span class="weather-wrapper__wind">Vento: {{weatherData.windSpeed}} km/h</span>
+
+                <!-- Race Alert -->
+                <div>
+                    <div class="info-card-wrapper race-alert d-flex align-items-center gap-2" (click)="clickRaceAlert()">
+                        <span class="info-card-wrapper__icon material-symbols-rounded">notification_add</span>
+                        <p-progressSpinner *ngIf="weatherLoading" [style]="{width: '24px', height: '24px'}"></p-progressSpinner>
+                        <div class="info-card-wrapper__content d-flex flex-column" *ngIf="!weatherLoading && weatherData">
+                            <span class="info-card-wrapper__title">Configurar Alerta</span>
+                            <div class="info-card-wrapper__details d-flex gap-3">
+                                <span class="font-10">Receba lembretes antes da corrida começar</span>
+                            </div>
+                        </div>
+                        <div class="info-card-wrapper__content d-flex flex-column" *ngIf="!weatherLoading && !weatherData">
+                            <span class="info-card-wrapper__title">Previsão do tempo</span>
+                            <span class="info-card-wrapper__error">Ainda não é possível obter a previsão para esta corrida</span>
+                        </div>
+                        <div>
+                            <span class="info-card-wrapper__arrow-alert material-symbols-rounded">arrow_forward_ios</span>
                         </div>
                     </div>
-                    <div class="weather-wrapper__content d-flex flex-column" *ngIf="!weatherLoading && !weatherData">
-                        <span class="weather-wrapper__title">Previsão do tempo</span>
-                        <span class="weather-wrapper__error">Ainda não é possível obter a previsão para esta corrida</span>
+
+
+                     <div class="race-alert__container" *ngIf="showAlertBox" @toggleRaceAlert>
+                        <div class="race-alert__header d-flex gap-2 align-items-center">
+                            <span class="info-card-wrapper__icon material-symbols-rounded">settings</span>
+                            <span>Configurar Notificação</span>
+                        </div>
+
+                        <form [formGroup]="alertForm" (ngSubmit)="onSubmit()" class="race-alert__body">
+                            <div class="race-alert__input-box mb-3">
+                                <span class="d-flex gap-1 align-items-center"><span class="material-symbols-rounded">mail</span>Seu e-mail</span>
+                                <input type="email" class="race-alert__input" name="email" formControlName="email" placeholder="Digite seu e-mail" />
+                            </div>
+
+                            <div class="race-alert__input-box">
+                                <label class="form-label d-flex gap-1 align-items-center"><span class="material-symbols-rounded">alarm</span> Quando deseja ser avisado?</label>
+                                <div class="race-alert__time-options">
+                                    <div class="time-options__option"
+                                        [class.selected]="alertForm.value.time === '180'"
+                                        (click)="selectTime('180')">
+                                        3 horas antes
+                                    </div>
+
+                                    <div class="time-options__option"
+                                        [class.selected]="alertForm.value.time === '120'"
+                                        (click)="selectTime('120')">
+                                        2 horas antes
+                                    </div>
+
+                                    <div class="time-options__option"
+                                        [class.selected]="alertForm.value.time === '60'"
+                                        (click)="selectTime('60')">
+                                        1 horas antes
+                                    </div>
+
+                                    <div class="time-options__option"
+                                        [class.selected]="alertForm.value.time === '30'"
+                                        (click)="selectTime('30')">
+                                        30 minutos antes
+                                    </div>
+
+                                    <div class="time-options__option"
+                                        [class.selected]="alertForm.value.time === '15'"
+                                        (click)="selectTime('15')">
+                                        15 minutos antes
+                                    </div>
+                                    <div class="time-options__option"
+                                        [class.selected]="alertForm.value.time === '5'"
+                                        (click)="selectTime('5')">
+                                        5 minutos antes
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="race-alert__input-box mt-3">
+                                <label class="form-label d-flex gap-1 align-items-center"><span class="material-symbols-rounded">alarm_smart_wake</span>Qual tipo de alerta você deseja?</label>
+                                <div class="race-alert__time-options">
+                                    <div class="time-options__option"
+                                        [class.selected]="alertForm.value.allRaces === 'false'"
+                                        (click)="selectAllRaces('false')">
+                                        Individual (Somente para esta corrida)
+                                    </div>
+                                    <div class="time-options__option"
+                                        [class.selected]="alertForm.value.allRaces === 'true'"
+                                        (click)="selectAllRaces('true')">
+                                        Categoria (Para todas as corridas desta categoria)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="race-alert__actions-box d-flex gap-2 justify-content-end mt-3">
+                                <button  type="button" class="btn btn-sm btn-cancel" (click)="closeAlert()">Cancelar</button>
+                                <button type="submit" class="btn btn-sm btn-save-alert">Salvar Alerta</button>
+                            </div>
+                        </form>
+                    </div>
+                 </div>
+                
+                <!-- Weather Forecast -->
+                <div class="info-card-wrapper d-flex align-items-center gap-2" *ngIf="showWeather">
+                    <span class="info-card-wrapper__icon material-symbols-rounded" *ngIf="!weatherLoading">{{weatherData?.icon || 'cloud'}}</span>
+                    <p-progressSpinner *ngIf="weatherLoading" [style]="{width: '24px', height: '24px'}"></p-progressSpinner>
+                    <div class="info-card-wrapper__content d-flex flex-column" *ngIf="!weatherLoading && weatherData">
+                        <span class="info-card-wrapper__title">Previsão para o dia da corrida</span>
+                        <div class="info-card-wrapper__details d-flex gap-3">
+                            <span class="info-card-wrapper__temp">{{weatherData.temperature}}°C</span>
+                            <span class="info-card-wrapper__desc">{{weatherData.description}}</span>
+                            <span class="info-card-wrapper__wind">Vento: {{weatherData.windSpeed}} km/h</span>
+                        </div>
+                    </div>
+                    <div class="info-card-wrapper__content d-flex flex-column" *ngIf="!weatherLoading && !weatherData">
+                        <span class="info-card-wrapper__title">Previsão do tempo</span>
+                        <span class="info-card-wrapper__error">Ainda não é possível obter a previsão para esta corrida</span>
                     </div>
                 </div>
 
