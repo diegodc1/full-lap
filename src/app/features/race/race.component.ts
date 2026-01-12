@@ -17,6 +17,9 @@ import { WeatherService, WeatherData } from '../../services/weather.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RaceAlertService } from '../../services/race-alert.service';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -24,9 +27,10 @@ import { RaceAlertService } from '../../services/race-alert.service';
 @Component({
   selector: 'app-race',
   standalone: true,
-  imports: [CommonModule, CardWatchComponent, ProgressSpinnerModule, ReactiveFormsModule],
+  imports: [CommonModule, CardWatchComponent, ProgressSpinnerModule, ReactiveFormsModule, ToastModule, ButtonModule],
   templateUrl: './race.component.html',
   styleUrl: './race.component.scss',
+  providers: [MessageService],
   animations: [
     trigger('toggleRaceAlert', [
       transition(':enter', [
@@ -87,6 +91,7 @@ export class RaceComponent implements OnInit, OnDestroy {
     private weatherService: WeatherService,
     private sanitizer: DomSanitizer,
     private fb: FormBuilder, 
+    private messageService: MessageService
   ) {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id') ?? '';
@@ -359,11 +364,19 @@ export class RaceComponent implements OnInit, OnDestroy {
       allRaces: alertData.allRaces,
     }).subscribe({
       next: (response) => {
-        console.log('Alert created successfully:', response);
+        this.showSuccess("Alerta criado com sucesso!", "Você receberá um e-mail antes da corrida.");
         this.closeAlert();
       },
       error: (error) => {
-        console.error('Error creating alert:', error);
+        if (error.status === 409) {
+          console.log(error)
+          this.showWarnError(
+            'Não foi possível criar o alerta',
+            error.error || 'Alerta já existente'
+          );
+          return;
+        }
+        this.showError("Erro ao criar alerta", "Por favor, tente novamente mais tarde.");
         this.showAlertError(error.message);
       }
     })
@@ -378,15 +391,28 @@ export class RaceComponent implements OnInit, OnDestroy {
     alert(`Erro ao criar alerta: ${message}`);
   }
    
-   getYouTubeVideoId(url: string): string {
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-      const match = url.match(regExp);
-      return (match && match[2].length === 11) ? match[2] : '';
-    }
+  getYouTubeVideoId(url: string): string {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : '';
+  }
 
-    getSafeUrl(videoUrl: string): SafeResourceUrl {
-      const videoId = this.getYouTubeVideoId(videoUrl);
-      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-      return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-    }
- }
+  getSafeUrl(videoUrl: string): SafeResourceUrl {
+    const videoId = this.getYouTubeVideoId(videoUrl);
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  }
+
+  
+  showSuccess(summary: string, message: string) {
+    this.messageService.add({ severity: 'success', summary: summary, detail: message});
+  }
+
+  showWarnError(summary: string, message: string) {
+    this.messageService.add({ severity: 'warn', summary: summary, detail: message});
+  }
+
+  showError(summary: string, message: string) {
+    this.messageService.add({ severity: 'error',  summary: summary, detail: message});
+  }
+}

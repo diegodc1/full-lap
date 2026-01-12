@@ -1,5 +1,7 @@
 <div *ngIf="race != undefined; then raceBlock else msgBlock"></div>
 
+<p-toast></p-toast>
+
 <ng-template #raceBlock>
     <div class="d-flex w-100 flex-column gap-5"> 
 
@@ -34,16 +36,13 @@
                     <div class="info-card-wrapper race-alert d-flex align-items-center gap-2" (click)="clickRaceAlert()">
                         <span class="info-card-wrapper__icon material-symbols-rounded">notification_add</span>
                         <p-progressSpinner *ngIf="weatherLoading" [style]="{width: '24px', height: '24px'}"></p-progressSpinner>
-                        <div class="info-card-wrapper__content d-flex flex-column" *ngIf="!weatherLoading && weatherData">
+                        <div class="info-card-wrapper__content d-flex flex-column">
                             <span class="info-card-wrapper__title">Configurar Alerta</span>
                             <div class="info-card-wrapper__details d-flex gap-3">
                                 <span class="font-10">Receba lembretes antes da corrida começar</span>
                             </div>
                         </div>
-                        <div class="info-card-wrapper__content d-flex flex-column" *ngIf="!weatherLoading && !weatherData">
-                            <span class="info-card-wrapper__title">Previsão do tempo</span>
-                            <span class="info-card-wrapper__error">Ainda não é possível obter a previsão para esta corrida</span>
-                        </div>
+            
                         <div>
                             <span class="info-card-wrapper__arrow-alert material-symbols-rounded">arrow_forward_ios</span>
                         </div>
