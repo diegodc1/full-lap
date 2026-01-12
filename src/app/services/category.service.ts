@@ -32,6 +32,12 @@ export class CategoryService {
       command: () => this.selectCategory('FORMULA1', 'Fórmula 1')
     },
     {
+      label: 'Fórmula Indy',
+      value: 'FORMULA_INDY',
+      icon: 'pi pi-circle-off',
+      command: () => this.selectCategory('FORMULA_INDY', 'Fórmula Indy'),
+    },
+    {
       label: 'Stock Car',
       value: 'STOCK_CAR',
       icon: 'pi pi-circle-off',
@@ -43,15 +49,6 @@ export class CategoryService {
       icon: 'pi pi-circle-off',
       command: () => this.selectCategory('NASCAR_BRASIL', 'Nascar Brasil'),
       tooltip: 'Em breve'
-    },
-    {
-      label: 'Fórmula Indy',
-      value: 'FORMULA_INDY',
-      icon: 'pi pi-circle-off',
-      command: () => this.selectCategory('FORMULA_INDY', 'Fórmula Indy'),
-      disabled: true,
-      badge: 'Em breve',
-      badgeStyleClass: 'badge-menu'
     },
     {
       label: 'Fórmula Truck',
