@@ -9,6 +9,8 @@ export class CategoryImagePipe implements PipeTransform {
      switch (category) {
         case 'FORMULA1':
             return 'formula1/ferrari.jpg';
+        case 'FORMULA_E':
+            return 'formula-e/formula-e.jpg';
         case 'STOCK_CAR':
             return 'stock-car/stock-car-1.jpg';
         case 'FORMULA_INDY':
