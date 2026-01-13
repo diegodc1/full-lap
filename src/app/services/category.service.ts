@@ -38,6 +38,12 @@ export class CategoryService {
       command: () => this.selectCategory('FORMULA_INDY', 'Fórmula Indy'),
     },
     {
+      label: 'Fórmula E',
+      value: 'FORMULA_E',
+      icon: 'pi pi-circle-off',
+      command: () => this.selectCategory('FORMULA_E', 'Fórmula E'),
+    },
+    {
       label: 'Stock Car',
       value: 'STOCK_CAR',
       icon: 'pi pi-circle-off',
