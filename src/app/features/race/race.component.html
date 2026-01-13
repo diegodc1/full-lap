@@ -30,6 +30,14 @@
                     </div>
                 </div>
 
+                 <div class="race-date-wrapper__box align-items-start mt-2" *ngIf="race?.curiosity">
+                    <span class="race-date-wrapper__icon material-symbols-rounded">wb_incandescent</span>      
+                    <div class="race-date-wrapper__details d-flex flex-column">
+                        <span class="race-date-wrapper__title">Curiosidade sobre a corrida</span>
+                        <span>{{race?.curiosity}}</span>
+                    </div>
+                 </div>
+
 
                 <!-- Race Alert -->
                 <div>
