@@ -45,6 +45,7 @@ import { MessageService } from 'primeng/api';
 })
 export class RaceComponent implements OnInit, OnDestroy {
   id = '';
+  slug = '';
   race: RaceEvent | undefined;
   listSessions: SessionRes[] | undefined;
   mapSession: Map<string, SessionRes[]> = new Map();
@@ -94,14 +95,14 @@ export class RaceComponent implements OnInit, OnDestroy {
     private messageService: MessageService
   ) {
     this.route.paramMap.subscribe(params => {
-      this.id = params.get('id') ?? '';
+      this.slug = params.get('slug') ?? '';
+      console.log('Route params:', { slug: this.slug})
     });
   }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.loadRaceData();
-    this.loadSessions();
     this.initializerRaceAlertForm();
   }
 
@@ -114,8 +115,9 @@ export class RaceComponent implements OnInit, OnDestroy {
   }
 
   loadRaceData() {
-    this.eventService.getEventById(this.id).subscribe({
+    this.eventService.getEventBySlug(this.slug).subscribe({
       next: (value) => {
+        this.id = value.id;
         this.race = value;
         this.eventDayInitial = formatDateInfo(value.dateInitial, 'day')
         this.eventDayFinal = formatDateInfo(value.dateFinal, 'day')
@@ -129,7 +131,9 @@ export class RaceComponent implements OnInit, OnDestroy {
             name: value.name || 'Corrida F1',
             circuit: value.circuit.name,
             date: formatDateInfo(value.dateInitial, 'full'),
-            country: value.circuit.country
+            country: value.circuit.country,
+            category: value.category?.name || 'Automobilismo',
+            year: this.eventYear ? parseInt(this.eventYear) : (new Date()).getFullYear()
           });
           
           this.structuredDataService.addRaceEvent({
@@ -139,9 +143,10 @@ export class RaceComponent implements OnInit, OnDestroy {
             city: value.circuit.country,
             dateStart: value.dateInitial || '',
             dateEnd: value.dateFinal || '',
-            url: `https://fulllap.com/race/${this.id}`
+            url: `https://fulllap.com/race/${this.slug}`
           });
         }
+         this.loadSessions();
       }, 
       error: (err) => {
          console.error("Não foi possível buscar os dados da corrida")

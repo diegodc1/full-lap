@@ -9,10 +9,16 @@ export const routes: Routes = [
   },
 
   {
-    path: 'race/:id',
+    path: 'race/:slug',
     loadComponent: () =>
       import('./features/race/race.component').then(m => m.RaceComponent)
   },
+
+  // {
+  //   path: 'race/:id/:slug',
+  //   loadComponent: () =>
+  //     import('./features/race/race.component').then(m => m.RaceComponent)
+  // },
 
   {
     path: 'calendar',

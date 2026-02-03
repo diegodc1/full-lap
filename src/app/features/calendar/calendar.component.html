@@ -36,7 +36,7 @@
 
                 <ng-template pTemplate="content" let-periodo>
                     <div class="timeline__events-group">
-                        <a *ngFor="let evento of periodo.events" class="timeline-card" [routerLink]="['/race', evento.id]">
+                        <a *ngFor="let evento of periodo.events" class="timeline-card" [routerLink]="['/race', evento.slug]">
                             <div>
                                 <img 
                                 class="timeline-card__image" 

@@ -27,7 +27,7 @@
 
 <div *ngIf="!isLoading && raceEvents.length > 0">
 
-    <a  *ngFor="let race of filteredRaceEvents" class="container-card w-100 justify-content-between position-relative mb-3" [ngClass]="{ 'next-race': isNextRace(race.id) }" [routerLink]="['/race', race.id]">
+    <a  *ngFor="let race of filteredRaceEvents" class="container-card w-100 justify-content-between position-relative mb-3" [ngClass]="{ 'next-race': isNextRace(race.id) }" [routerLink]="['/race', race.slug]">
         <div *ngIf="isNextRace(race.id)" class="next-race-tag">
             <span class="next-race-label">PRÓXIMA CORRIDA</span>
         </div>

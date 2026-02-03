@@ -18,6 +18,7 @@ export interface RaceEvent {
   circuit?: Circuit;
   youtubeVideoUrls?: string[];
   curiosity?: string;
+  slug?: string;
 }
 
 export interface RaceEventRequest {
@@ -46,6 +47,8 @@ export interface RaceWeekEventRes {
   category: Category;
   circuitName: string;
   circuitDescription: string;
+  slug: string;
+  curiosity: string;
   session: Session[]
 }
 

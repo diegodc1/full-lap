@@ -21,6 +21,10 @@ export class EventService {
     return this.http.get<RaceEvent>(`${this.apiUrl}/${id}`);
   }
 
+  getEventBySlug(slug: string): Observable<RaceEvent> {
+    return this.http.get<RaceEvent>(`${this.apiUrl}/slug/${slug}`);
+  }
+
   getEventOfWeekByDate(dateInitial: string, dateFinal: string): Observable<RaceWeekEventRes[]> {
     return this.http.get<RaceWeekEventRes[]>(`${this.apiUrl}/week/${dateInitial}/${dateFinal}?details=false`);
   }

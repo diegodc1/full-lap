@@ -70,15 +70,17 @@ export class SeoService {
     circuit: string;
     date: string;
     country: string;
+    category: string;
+    year: number;
   }): void {
-    const title = `${raceData.name} - ${raceData.circuit}`;
-    const description = `${raceData.name} no ${raceData.circuit}, ${raceData.country} - ${raceData.date}. Acompanhe transmissões ao vivo, horários de treinos, classificação e corrida. Resultados em tempo real, estatísticas e análises completas do automobilismo.`;
-    const keywords = `${raceData.name}, ${raceData.circuit}, ${raceData.country}, automobilismo, corrida, motorsport, Stock Car, NASCAR Brasil, Porsche Cup, Fórmula 1, ${raceData.date}`;
+    const title = `${raceData.category} ${raceData.year} - ${raceData.name} - Onde assistir ao vivo - ${raceData.date} - ${raceData.circuit} `;
+    const description = `${raceData.name} no ${raceData.circuit}, ${raceData.country} - ${raceData.date}. Veja aonde assistir ao vivo, horários de treinos, classificação e corrida.`;
+    // const keywords = `${raceData.name}, ${raceData.circuit}, ${raceData.country}, automobilismo, corrida, motorsport, Stock Car, NASCAR Brasil, Porsche Cup, Fórmula 1, ${raceData.date}`;
     
     this.updateMetaTags({
       title,
       description,
-      keywords,
+      // keywords,
       type: 'article',
       url: `https://fulllap.com${this.router.url}`
     });
@@ -109,12 +111,12 @@ export class SeoService {
   }): void {
     const title = `${teamData.name} - Equipe`;
     const description = `${teamData.name} - Equipe do automobilismo com pilotos ${teamData.drivers.join(' e ')}. História da escuderia, estatísticas de construtores, vitórias, campeonatos e desenvolvimento técnico. Análise completa da performance da equipe.`;
-    const keywords = `${teamData.name}, ${teamData.drivers.join(', ')}, ${teamData.country}, equipe, automobilismo, motorsport, Stock Car, NASCAR Brasil, Porsche Cup, Fórmula 1, construtores`;
+    // const keywords = `${teamData.name}, ${teamData.drivers.join(', ')}, ${teamData.country}, equipe, automobilismo, motorsport, Stock Car, NASCAR Brasil, Porsche Cup, Fórmula 1, construtores`;
     
     this.updateMetaTags({
       title,
       description,
-      keywords,
+      // keywords,
       type: 'organization',
       url: `https://fulllap.com${this.router.url}`
     });
