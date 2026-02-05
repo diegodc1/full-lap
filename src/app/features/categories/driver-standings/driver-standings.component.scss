@@ -2,16 +2,15 @@
 @use 'variables' as *;
 
 .standings-container {
-  background-color: $secondary-color;
   border-radius: $default_border_radius;
   padding: 1.5rem;
   height: fit-content;
   max-height: 70vh;
   overflow-y: auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding-right: 0.5rem;
 
   .standings-header {
-    margin-bottom: 1.5rem;
     text-align: center;
     border-bottom: 2px solid $aux-color-primary;
     padding-bottom: 1rem;
@@ -64,32 +63,18 @@
     .table-body {
       .table-row {
         display: grid;
-        grid-template-columns: 60px 1fr 80px;
+        grid-template-columns: 30px 1fr 80px;
         gap: 1rem;
         padding: 0.8rem 1rem;
         margin-bottom: 0.3rem;
         border-radius: 6px;
         transition: all 0.2s ease;
         border-left: 3px solid transparent;
+        background-color: $secondary-color;
 
         &:hover {
           background-color: rgba(0, 183, 220, 0.05);
           transform: translateX(2px);
-        }
-
-        &.position-1 {
-          border-left-color: #FFD700;
-          background-color: rgba(255, 215, 0, 0.05);
-        }
-
-        &.position-2 {
-          border-left-color: #C0C0C0;
-          background-color: rgba(192, 192, 192, 0.05);
-        }
-
-        &.position-3 {
-          border-left-color: #CD7F32;
-          background-color: rgba(205, 127, 50, 0.05);
         }
 
         &.top-10 {
@@ -147,6 +132,10 @@
               font-size: 0.8rem;
               color: $text-semi-dark-gray;
               font-weight: $fw_regular;
+              white-space: nowrap;      // não quebra linha
+              overflow: hidden;         // esconde o excesso
+              text-overflow: ellipsis; 
+              max-width: 180px; 
             }
           }
         }
@@ -157,10 +146,10 @@
           justify-content: center;
 
           .points-value {
-            font-weight: $fw_bold;
-            font-size: 0.8rem;
+            font-weight: $fw_regular;
+            font-size: 0.9rem;
             color: $text-primary-color;
-            background-color: rgba(0, 183, 220, 0.1);
+            // background-color: rgba(0, 183, 220, 0.1);
             padding: 0.3rem 0.8rem;
             border-radius: 12px;
             min-width: 45px;
@@ -169,6 +158,29 @@
         }
       }
     }
+
+    .position-number {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #444; 
+
+      .dot {
+        margin-left: 2px;
+      }
+
+      &.gold {
+        color: #d4af37 !important; // ouro
+      }
+
+      &.silver {
+        color: #c0c0c0  !important; // prata
+      }
+
+      &.bronze {
+        color: #cd7f32  !important; // bronze
+      }
+    }
+
   }
 
   .standings-footer {

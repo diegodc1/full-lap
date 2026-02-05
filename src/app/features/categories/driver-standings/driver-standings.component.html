@@ -40,17 +40,19 @@
           'top-10': driver.position <= 10
         }">
         
-        <div class="row-position">
-          <span class="position-number">{{driver.position}}</span>
-          <div *ngIf="driver.position <= 3" class="position-medal">
-            <span class="material-symbols-rounded" 
-                  [ngClass]="{
-                    'gold': driver.position === 1,
-                    'silver': driver.position === 2,
-                    'bronze': driver.position === 3
-                  }">emoji_events</span>
-          </div>
-        </div>
+      <div class="row-position">
+        <span 
+          class="position-number"
+          [ngClass]="{
+            'gold': driver.position === 1,
+            'silver': driver.position === 2,
+            'bronze': driver.position === 3
+          }"
+         >
+          {{ driver.position }}<span class="dot">.</span>
+        </span>
+      </div>
+
         
         <div class="row-driver">
           <div class="driver-info">

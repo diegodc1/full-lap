@@ -69,7 +69,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   loadNews(): void {
-    this.newsService.getNewsByCategory(this.selectedCategory, 8)
+    this.newsService.getNewsByCategory(this.selectedCategory, 10)
       .subscribe({
         next: (news) => this.newsList = news,
         error: () => this.newsList = []
