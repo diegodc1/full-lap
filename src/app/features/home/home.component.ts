@@ -8,11 +8,14 @@ import { Session, SessionRes } from '../../models/session.model';
 import { formatDateInfo, formatTime } from '../../utils/date.utils';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import {RouterLink} from '@angular/router';
+import { NewsCardComponent } from '../components/news-card/news-card.component';
+import { NewsService } from '../../services/news.service';
+import { News } from '../../models/news.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardCategoryComponent, CardRaceWeekComponent, CommonModule, ProgressSpinnerModule, RouterLink],
+  imports: [CardCategoryComponent, CardRaceWeekComponent, NewsCardComponent, CommonModule, ProgressSpinnerModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -24,16 +27,20 @@ export class HomeComponent implements OnInit {
   weekDateYear: string = '';
   formatDateInfo = formatDateInfo;
   formatTime = formatTime;
+  principalNews: News[] = [];
+  secondaryNews: News[] = [];
 
   isLoading: boolean = true;
 
   constructor(
-    private eventsService: EventService
+    private eventsService: EventService,
+    private newsService: NewsService
   ){};
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.loadListEventsOfWeek();
+    this.loadNews();
   }
 
   loadListEventsOfWeek(): void {
@@ -73,6 +80,22 @@ export class HomeComponent implements OnInit {
     } else {
       this.weekDateMonth = `${monthInitial} / ${monthFinal}`;
     }
+  }
+
+  loadNews(): void {
+    this.newsService.getAllNews(15)
+      .subscribe({
+        next: (news) => {
+          
+          if (news.length > 9) {
+            this.principalNews = news.slice(0, 9);
+            this.secondaryNews = news.slice(9, 15);
+          } else {
+            this.principalNews = news;
+          }
+        },
+        error: () => this.principalNews = []
+    });
   }
 
   getRaceSessionTime(event: any): string {

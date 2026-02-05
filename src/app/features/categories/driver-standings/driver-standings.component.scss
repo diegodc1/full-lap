@@ -132,8 +132,8 @@
               font-size: 0.8rem;
               color: $text-semi-dark-gray;
               font-weight: $fw_regular;
-              white-space: nowrap;      // não quebra linha
-              overflow: hidden;         // esconde o excesso
+              white-space: nowrap;     
+              overflow: hidden;        
               text-overflow: ellipsis; 
               max-width: 180px; 
             }

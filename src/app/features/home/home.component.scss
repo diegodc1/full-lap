@@ -117,6 +117,24 @@
 }
 
 
+.container-news {
+   height: auto;
+}
+
+.body-news {
+    height: 100%;
+
+    .box-news-focus {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+    }
+
+    .box-news-secondary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+    }
+}
+
 
 // MEDIA QUERIES 
 @media (max-width: 767px) {

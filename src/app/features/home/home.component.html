@@ -70,5 +70,42 @@
       </div>
     </div>
 
+    <div class="container-news w-100 d-flex flex-column gap-4 mt-5">
+      <div class="header-categories d-flex justify-content-between">
+        <div class="box-title d-flex flex-column">
+          <h1 class="m-0">Notícias</h1>
+          <span class="fw-lighter">As principais notícias do mundo do automobilismo</span>
+        </div>
+      </div>
+      <div class="body-news">
+        <div class="d-flex gap-3 h-100">
+          <div class="box-news-focus gap-3 w-75 h-25">
+            <app-news-card
+                *ngFor="let pNews of principalNews"
+                [title]="pNews.title"
+                [description]="pNews.summary"
+                [imageUrl]="pNews.imageUrl"
+                [readMoreLink]="pNews.link"
+                [category]="pNews.category"
+                [source]="pNews.source"
+                [newsUrl]="pNews.link">
+            </app-news-card>
+          </div>
+          <div class="box-news-secondary w-25">
+            <app-news-card
+              *ngFor="let pNews of secondaryNews"
+              [title]="pNews.title"
+              [description]="pNews.summary"
+              [imageUrl]="pNews.imageUrl"
+              [readMoreLink]="pNews.link"
+              [category]="pNews.category"
+              [source]="pNews.source"
+              [newsUrl]="pNews.link">
+            </app-news-card>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

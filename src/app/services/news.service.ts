@@ -13,6 +13,10 @@ export class NewsService {
 
   constructor(private http: HttpClient) { }
 
+  getAllNews(limit: number = 12): Observable<News[]> {
+    return this.http.get<News[]>(`${this.apiUrl}?limit=${limit}`);
+  }
+
   getNewsByCategory(category: string, limit: number = 10): Observable<News[]> {
     return this.http.get<News[]>(`${this.apiUrl}/${category}?limit=${limit}`);
   }

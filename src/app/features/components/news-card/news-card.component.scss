@@ -18,7 +18,9 @@
         border-radius: $default_border_radius;
         max-width: 100%;
         height: auto;
-        }
+        max-height: 12rem;
+        object-fit:cover;
+   }
 
     .news-category {
         font-size: 0.9rem;
