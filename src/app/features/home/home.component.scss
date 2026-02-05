@@ -148,4 +148,21 @@
     padding: 1rem;
     margin-top: 1rem !important;
   }
+
+  .body-news {
+    display: flex;
+    flex-direction: column !important;
+
+    .box-news-focus {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+        width: 100% !important;
+    }
+
+    .box-news-secondary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+        width: 100% !important;
+    }
+  }
 }

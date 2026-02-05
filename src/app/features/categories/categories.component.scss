@@ -76,10 +76,10 @@
         .news-box {
             margin-top: 1rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
             border: 2px solid red;
         }
     }
 
-
 }
+

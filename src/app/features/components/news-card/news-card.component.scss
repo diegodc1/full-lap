@@ -39,3 +39,23 @@
     }
 }
 
+
+
+// MEDIA QUERIES 
+@media (max-width: 767px) {
+    .news-image {
+        max-height: 7rem !important;
+        object-fit:cover;
+    }
+
+    .news-category {
+        font-size: 0.7rem !important;;    }
+
+    .news-title {
+        font-size: 0.9rem !important;;
+    }
+
+    .news-source {
+        font-size: 0.6rem !important;;
+    }
+}
