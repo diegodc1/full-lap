@@ -1,0 +1,10 @@
+<div>
+    <a class="news-card d-flex flex-column p-2" [href]="newsUrl" target="_blank"> 
+        <img [src]="imageUrl" alt="News Image" class="news-image" />
+        <div class="news-content d-flex flex-column mt-3">
+            <span class="news-category">{{ category }}</span>
+            <h2 class="news-title">{{ title }}</h2>
+            <span class="news-source">{{ source }}</span>
+        </div>
+    </a>
+</div>

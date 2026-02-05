@@ -11,8 +11,21 @@
                 <app-category-content [categoryKey]="selectedCategory" (seasonYearChange)="onSeasonYearChange($event)"></app-category-content>
             </div>
             
-            <div class="standings-section">
+            <div class="infos-section">
                 <app-driver-standings [categoryKey]="selectedCategory" [seasonYear]="selectedSeasonYear"></app-driver-standings>
+                <div class="news-box">
+                    <div class="news-box">
+                        <app-news-card
+                            *ngFor="let news of newsList"
+                            [title]="news.title"
+                            [description]="news.summary"
+                            [imageUrl]="news.imageUrl"
+                            [readMoreLink]="news.link"
+                            [category]="nameCategorySelected"
+                            [source]="news.source"
+                            [newsUrl]="news.link">
+                        </app-news-card>
+                </div>
             </div>
         </div>
     </div>

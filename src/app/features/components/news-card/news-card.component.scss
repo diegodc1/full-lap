@@ -1,0 +1,39 @@
+@use 'variables' as *;
+@use 'colors' as *;
+
+.news-card {
+    width: 100%;
+    transition: all 0.3s ease;
+    border-radius: $default_border_radius;
+    text-decoration: none;
+
+    &:hover {
+        border: 1px solid $text-semi-dark-gray !important;
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .news-image {
+        border-radius: $default_border_radius;
+        max-width: 100%;
+        height: auto;
+        }
+
+    .news-category {
+        font-size: 0.9rem;
+        font-weight: $fw_bold;
+        color: $aux-color-secondary;
+    }
+
+    .news-title {
+        font-size: 1.1rem;
+        font-weight: $fw_bold;
+    }
+
+    .news-source {
+        font-size: 0.7rem;
+        color: $text-semi-dark-gray;
+    }
+}
+

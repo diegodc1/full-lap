@@ -31,10 +31,18 @@
         min-width: 0; 
     }
     
-    .standings-section {
+    .infos-section {
         flex: 0 0 400px; 
         min-width: 350px;
     }
+
+     .news-box {
+        margin-top: 1rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+        gap: 10px;
+    }
+
 }
 
 
@@ -58,10 +66,18 @@
         flex-direction: column !important;
         gap: 1.5rem !important;
         
-        .standings-section {
+        .infos-section {
             flex: none !important;
             min-width: auto !important;
             width: 100%;
+        
+        }
+
+        .news-box {
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            border: 2px solid red;
         }
     }
 

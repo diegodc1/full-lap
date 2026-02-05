@@ -4,13 +4,20 @@ import { DriverStandingsComponent } from "./driver-standings/driver-standings.co
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService, CategoryData } from '../../services/category.service';
 import { Subscription } from 'rxjs';
+import { NewsCardComponent } from '../components/news-card/news-card.component';
+import { NewsService } from '../../services/news.service';
+import { News } from '../../models/news.model';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-categories',
   standalone: true,
   imports: [
     CategoryContentComponent, 
-    DriverStandingsComponent
+    DriverStandingsComponent,
+    NewsCardComponent,
+    CommonModule
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
@@ -20,10 +27,13 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   nameCategorySelected: string = 'Fórmula 1';
   selectedSeasonYear: number = 2026;
   private subscription: Subscription = new Subscription();
+  newsList: News[] = [];
+
 
   constructor(
     private route: ActivatedRoute,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private newsService: NewsService
   ) {
     this.route.queryParamMap.subscribe(params => {
       const categoria = params.get('categoria');
@@ -44,6 +54,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
       this.categoryService.selectedCategory$.subscribe((category: CategoryData) => {
         this.selectedCategory = category.value;
         this.nameCategorySelected = category.label;
+        this.loadNews();
       })
     );
   }
@@ -56,4 +67,13 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  loadNews(): void {
+    this.newsService.getNewsByCategory(this.selectedCategory, 8)
+      .subscribe({
+        next: (news) => this.newsList = news,
+        error: () => this.newsList = []
+    });
+  }
+
 }
