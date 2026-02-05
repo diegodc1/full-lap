@@ -123,6 +123,8 @@
 
 .body-news {
     height: 100%;
+    display: flex;
+    flex-direction: row !important;
 
     .box-news-focus {
         display: grid;
