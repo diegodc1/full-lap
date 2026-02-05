@@ -1,31 +1,31 @@
-<div class="calendar-content d-flex flex-column gap-5">
-    <div class="calendar">
-        <h1 class="calendar__title">Calendário de Corridas</h1>
+<div class="calendar-content d-flex flex-column gap-3">
+    <div class="box-title d-flex justify-content-center flex-column align-items-center text-center">
+        <h1>Calendário do Automobilismo</h1>
+        <span class="w-75">Explore o calendário completo de corridas e acompanhe, mês a mês, tudo o que acontece no mundo do automobilismo.</span>
+    </div>
+    <div class="calendar__month-nav">
+        <button class="month-nav__btn" (click)="changeMonth(-1)">
+            <span class="material-symbols-rounded">chevron_left</span>
+        </button>
 
-        <div class="legend d-flex gap-4 justify-center align-items-center">
-            <div
-                class="d-flex align-items-center gap-1"
-                *ngFor="let categoria of categoriasLegenda"
-            >
-                <span class="legend__dot" [style.background-color]="categoria.cor"></span>
-                <span>{{ categoria.nome }}</span>
-            </div>
-        </div>
+        <span class="month-nav__label">
+            {{ currentMonthLabel }}
+        </span>
 
-
-        <ng-container *ngIf="calendarReady">
-            <div class="calendar__table-container">
-                <full-calendar [options]="calendarOptions" ></full-calendar>
-            </div>
-        </ng-container>
-
+        <button class="month-nav__btn" (click)="changeMonth(1)">
+            <span class="material-symbols-rounded">chevron_right</span>
+        </button>
     </div>
 
-    <div class="timeline">
-        <h1 class="timeline__title">Corridas em {{currentMonthSelected | capitalize}}</h1>
+    <div *ngIf="isLoading" class="w-100 d-flex align-items-center justify-content-center">
+            <p-progress-spinner strokeWidth="8" styleClass="custom-spinner" color="#00B7DC" fill="transparent"
+            animationDuration=".5s" [style]="{ width: '90px', height: '50px', color: '#00B7DC'}" />
+    </div>
 
+    <div class="timeline" *ngIf="!isLoading">
         <div *ngIf="listEventsPerWeek?.length != 0; then blockTimeline else msgEmpty"></div>
-        <ng-template #blockTimeline>
+        
+        <ng-template #blockTimeline >
             <p-timeline [value]="listEventsPerWeek" align="left">
                 
                 <ng-template pTemplate="marker" let-periodo>
@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="timeline-card__title">{{ evento.name }}</div>
                                 <div class="timeline-card__date">
-                                    {{ evento.dateInitial | date: 'dd/MMM' }}  à  {{ evento.dateFinal | date: 'dd/MMM' }}
+                                    <span class="card-main__time">{{formatDateInfo(evento.dateInitial, 'dayMonthLong')}} à {{formatDateInfo(evento.dateFinal, 'dayMonthLong')}}</span>
                                 </div>
                             </div>
 
@@ -63,8 +63,8 @@
             </p-timeline>
         </ng-template>
         <ng-template #msgEmpty>
-            <div class="mb-5">
-                <span>Sem dados de corridas para este mês</span>
+            <div class="mb-5 text-center text-gray-500">
+                <span>Sem corridas para este mês</span>
             </div>
         </ng-template>
         

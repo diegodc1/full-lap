@@ -16,6 +16,7 @@ import { EventService } from '../../services/event.service';
 import { EventsCalendar } from '../../models/event.model';
 import { CapitalizePipe } from '../../shared/pipes/capitalize.pipe';
 import { CategoryImagePipe } from '../../shared/pipes/category-image.pipe';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 interface Evento {
   id: number;
@@ -38,7 +39,7 @@ interface Circuit {
 
 @Component({
   selector: 'app-calendar',
-  imports: [FullCalendarModule, TimelineModule, CardModule, CommonModule, RouterModule, CapitalizePipe, CategoryImagePipe],
+  imports: [FullCalendarModule, TimelineModule, CardModule, CommonModule, RouterModule, CapitalizePipe, ProgressSpinnerModule, CategoryImagePipe],
   standalone: true,
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss'
@@ -51,8 +52,13 @@ export class CalendarComponent implements OnInit{
   calendarOptions!: CalendarOptions; 
   categoriasLegenda: { nome: string; cor: string }[] = [];
   currentMonthSelected: string = '';
+  isLoading: boolean = true;
   formatDateInfo = formatDateInfo;
   formatTime = formatTime;
+
+  currentMonthDate!: Date;
+  currentMonthLabel: string = '';
+
 
   constructor(
     private sessionsService: SessionService,
@@ -61,110 +67,55 @@ export class CalendarComponent implements OnInit{
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.loadListSessionsCalendar();
+    this.currentMonthDate = new Date(); 
+    this.updateMonthLabel();
+    this.loadEventsByMonth(this.currentMonthDate);
   }
 
+  changeMonth(step: number) {
+    this.currentMonthDate = new Date(
+      this.currentMonthDate.getFullYear(),
+      this.currentMonthDate.getMonth() + step,
+      1
+    );
 
-  loadListSessionsCalendar() {
-    const maxMonths = 6;
-
-    this.sessionsService.getAllSessionsCalendarByMaxMonth(maxMonths).subscribe({
-      next: (value) => {
-        this.listSessionsCalendar = value;
-        this.createCalendarEvents(this.listSessionsCalendar);
-        this.createCalendarLegend(this.listSessionsCalendar)
-      }, 
-      error: (err) => {
-        console.error("Erro ao buscar eventos do calendário", err)
-      }
-    })
+    this.updateMonthLabel();
+    this.loadEventsByMonth(this.currentMonthDate);
   }
 
-  createCalendarEvents(listSessions: SessionCalendar[]) {
-    console.log("list session: " + listSessions)
-    const eventosFormatados = listSessions.map(session => ({
-      title: session.eventName + ' - ' + session.name,
-      date: this.parseDate(session.datetime), 
-      color: session.categoryColor,
-      extendedProps: {
-        sessionType: session.sessionType,
-        description: session.description,
-        eventName: session.eventName,
-        sessionTime: formatTime(session.datetime),
-        categoryName: session.categoryName,
-        categoryColor: session.categoryColor
-      }
-    }));
-
-    this.calendarOptions = {
-      initialView: 'dayGridMonth',
-      locale: ptBrLocale, 
-      plugins: [dayGridPlugin],
-      
-      headerToolbar: {  
-        left: 'prev',
-        center: 'title',
-        right: 'next'
-      },
-      events: eventosFormatados,
-      eventContent: function(arg) {
-        return {
-          html: `<div class="event-dot" style="background-color: ${arg.event.backgroundColor};"></div>`
-        };
-      },
-      eventDidMount: function(info) {
-        tippy(info.el, {
-          content: `
-            <strong>${info.event.extendedProps['categoryName']}</strong><br>
-            <span>${info.event.title}</span><br><br>
-            <span>Horário: <strong>${info.event.extendedProps['sessionTime']}</strong></span>
-            `,
-          theme: 'light',
-          placement: 'top',
-          allowHTML: true
-        });
-      },
-      datesSet: this.onMonthChange.bind(this),
-    };
-
-    this.calendarReady = true;
-  }
-
-  createCalendarLegend(listSessions:  SessionCalendar[]) {
-    const mapaCategorias = new Map<string, string>();
-      listSessions.forEach(session => {
-        if (!mapaCategorias.has(session.categoryName)) {
-          mapaCategorias.set(session.categoryName, session.categoryColor);
-        }
+  updateMonthLabel() {
+    this.currentMonthLabel = this.currentMonthDate.toLocaleDateString('pt-BR', {
+      month: 'long',
+      year: 'numeric'
     });
-
-    this.categoriasLegenda = Array.from(mapaCategorias.entries()).map(([nome, cor]) => ({
-      nome,
-      cor
-    }));
   }
 
-  onMonthChange(info: DatesSetArg) {
-    const viewStart = info.view.currentStart; 
 
-    const firstDayOfMonth = new Date(viewStart.getFullYear(), viewStart.getMonth(), 1);
-    const lastDayOfMonth = new Date(viewStart.getFullYear(), viewStart.getMonth() + 1, 0);
+  loadEventsByMonth(date: Date) {
+    this.isLoading = true;
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
     const dateInic = firstDayOfMonth.toISOString().split('T')[0];
     const dateFinal = lastDayOfMonth.toISOString().split('T')[0];
 
-    this.currentMonthSelected = firstDayOfMonth.toLocaleDateString('pt-BR', { month: 'long' });
+    this.currentMonthSelected = firstDayOfMonth.toLocaleDateString('pt-BR', {
+      month: 'long'
+    });
 
     this.eventsService.getAllEventsPerWeekByDate(dateInic, dateFinal).subscribe({
       next: (events) => {
         this.listEventsPerWeek = events;
-        console.log("✅ Eventos recebidos:", this.listEventsPerWeek);
+        this.isLoading = false;
+        console.log('✅ Eventos recebidos:', events);
       },
       error: (err) => {
         console.error('❌ Erro ao buscar eventos:', err);
+        this.listEventsPerWeek = [];
       }
     });
   }
+
   
   parseDate(datetime: string): string {
     return datetime.split('T')[0];
